@@ -1,9 +1,17 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-export default function App() {
+export default function HomeScreen() {
+  const navigation = useNavigation();
+
+  const handleButtonPress = () => {
+    navigation.navigate("Profile");
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>Homepage</Text>
+      <Button title="Go to Profile" onPress={handleButtonPress} />
     </View>
   );
 }
@@ -12,7 +20,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    // alignItems: "center",
-    // justifyContent: "center",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistCache } from "apollo3-cache-persist";
 
 import HomeScreen from "./src/views/HomeScreen";
+import ProfileScreen from "./src/views/ProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -41,6 +42,11 @@ export default function App() {
             name="Home"
             component={HomeScreen}
             options={{ title: "Home" }}
+          />
+          <Stack.Screen
+            name="Profile"
+            component={ProfileScreen}
+            options={{ title: "Profile" }}
           />
         </Stack.Navigator>
         <StatusBar style="light" />
