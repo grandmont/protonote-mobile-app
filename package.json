@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "generate": "graphql-codegen"
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
@@ -30,7 +31,12 @@
     "typescript": "^4.6.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@graphql-codegen/cli": "^2.16.4",
+    "@graphql-codegen/typed-document-node": "^2.3.12",
+    "@graphql-codegen/typescript": "^2.8.7",
+    "@graphql-codegen/typescript-operations": "^2.5.12",
+    "ts-node": "^10.9.1"
   },
   "private": true
 }
