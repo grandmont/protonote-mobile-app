@@ -3,22 +3,16 @@ import { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistCache } from "apollo3-cache-persist";
+
+import { cache, client } from "./src/services/client";
 
 import HomeScreen from "./src/views/HomeScreen";
 import ProfileScreen from "./src/views/ProfileScreen";
 
 const Stack = createStackNavigator();
-
-const cache = new InMemoryCache();
-
-const client = new ApolloClient({
-  uri: "https://api.graphql.guide/graphql",
-  cache,
-  defaultOptions: { watchQuery: { fetchPolicy: "cache-and-network" } },
-});
 
 export default function App() {
   const [loadingCache, setLoadingCache] = useState(true);
