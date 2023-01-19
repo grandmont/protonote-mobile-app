@@ -9,6 +9,7 @@ import { persistCache } from "apollo3-cache-persist";
 
 import { cache, client } from "./src/services/client";
 
+import InitialScreen from "./src/views/InitialScreen";
 import HomeScreen from "./src/views/HomeScreen";
 import ProfileScreen from "./src/views/ProfileScreen";
 
@@ -31,7 +32,8 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Initial">
+          <Stack.Screen name="Initial" component={InitialScreen} />
           <Stack.Screen
             name="Home"
             component={HomeScreen}

@@ -1,21 +1,10 @@
-import { useEffect } from "react";
 import { StyleSheet, Text, View, Button, FlatList } from "react-native";
-import AppLoading from "expo-app-loading";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
-
-const USERS_QUERY = gql`
-  query UsersQuery {
-    users {
-      id
-      username
-      email
-    }
-  }
-`;
+import { UsersQueryDocument } from "../graphql/generated";
 
 export default function HomeScreen() {
-  const { data, loading, error } = useQuery(USERS_QUERY);
+  const { data, loading, error } = useQuery(UsersQueryDocument);
 
   const navigation = useNavigation();
 
@@ -23,12 +12,14 @@ export default function HomeScreen() {
     navigation.navigate("Profile");
   };
 
-  useEffect(() => {
-    console.log(data, loading, error);
-  }, [data, loading, error]);
-
   if (loading) {
-    return <AppLoading />;
+    // Handle loading
+    return null;
+  }
+
+  if (error) {
+    // Handle error
+    return null;
   }
 
   const { users } = data;

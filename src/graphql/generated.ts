@@ -1,3 +1,4 @@
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -1006,3 +1007,11 @@ export type UserWhereUniqueInput = {
   id?: InputMaybe<Scalars['Int']>;
   username?: InputMaybe<Scalars['String']>;
 };
+
+export type UsersQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UsersQueryQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: number, username?: string | null, email: string }> };
+
+
+export const UsersQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UsersQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]} as unknown as DocumentNode<UsersQueryQuery, UsersQueryQueryVariables>;
