@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Constants from "expo-constants";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as AuthSession from "expo-auth-session";
+
+import { AuthContext, AuthType } from "../contexts/Auth";
 
 const IS_EXPO_GO = Constants.appOwnership === "expo";
 
@@ -13,10 +15,6 @@ const ANDROID_CLIENT_ID =
 const EXPO_CLIENT_ID =
   "227660563070-bppokg502t6sphrb9go3omjpahdjp3du.apps.googleusercontent.com";
 
-type AuthType = {
-  accessToken: string;
-};
-
 type UserInfoType = {
   name: string;
   email: string;
@@ -25,7 +23,11 @@ type UserInfoType = {
 
 export default function useAuth() {
   const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
-  const [auth, setAuth] = useState<AuthType | null>(null);
+  const { state, dispatch } = useContext(AuthContext);
+
+  const auth = state.auth;
+  const setAuth = (payload: AuthType) =>
+    dispatch({ type: "CHANGE_AUTH", payload });
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: ANDROID_CLIENT_ID,
@@ -48,6 +50,10 @@ export default function useAuth() {
     });
   };
 
+  useEffect(() => {
+    console.log("useAuth state", state)
+  }, [state])
+
   // Save response to storage
   useEffect(() => {
     if (response?.type === "success") {
@@ -56,6 +62,7 @@ export default function useAuth() {
           "auth",
           JSON.stringify(response.authentication)
         );
+        console.log("change auth")
         setAuth(response.authentication);
       };
 
@@ -67,10 +74,7 @@ export default function useAuth() {
   useEffect(() => {
     const getPersistedAuth = async () => {
       const jsonValue = await AsyncStorage.getItem("auth");
-
-      console.log("77:", jsonValue);
-      console.log("78:", auth);
-
+      // Auth exists
       if (jsonValue != null) {
         const authFromJson = JSON.parse(jsonValue);
         setAuth(authFromJson);
@@ -89,6 +93,7 @@ export default function useAuth() {
   }, [auth]);
 
   const clear = async () => {
+    console.log("clean everything")
     await AsyncStorage.removeItem("auth");
     setAuth(null);
     setUserInfo(null);
@@ -111,12 +116,8 @@ export default function useAuth() {
     clear();
   };
 
-  const isLoggedIn = !!auth;
-
-  console.log(isLoggedIn)
-
   return {
-    isLoggedIn,
+    isLoggedIn: !!auth,
     userInfo,
     request,
     login,
