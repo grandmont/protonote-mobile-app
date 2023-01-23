@@ -1,6 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, Button, Platform } from "react-native";
+import { useEffect, useState } from "react";
 import Constants from "expo-constants";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -15,9 +13,19 @@ const ANDROID_CLIENT_ID =
 const EXPO_CLIENT_ID =
   "227660563070-bppokg502t6sphrb9go3omjpahdjp3du.apps.googleusercontent.com";
 
-export default function InitialScreen() {
-  const [userInfo, setUserInfo] = useState();
-  const [auth, setAuth] = useState();
+type AuthType = {
+  accessToken: string;
+};
+
+type UserInfoType = {
+  name: string;
+  email: string;
+  picture: string;
+};
+
+export default function useAuth() {
+  const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
+  const [auth, setAuth] = useState<AuthType | null>(null);
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: ANDROID_CLIENT_ID,
@@ -25,10 +33,8 @@ export default function InitialScreen() {
     expoClientId: EXPO_CLIENT_ID,
   });
 
-  const getUserData = useCallback(async () => {
-    if (!auth) return;
-
-    let userInfoResponse = await fetch(
+  const getUserData = async () => {
+    const userInfoResponse = await fetch(
       "https://www.googleapis.com/userinfo/v2/me",
       {
         headers: {
@@ -38,33 +44,32 @@ export default function InitialScreen() {
     );
 
     userInfoResponse.json().then((data) => {
-      console.log(data);
       setUserInfo(data);
     });
-  }, [auth]);
+  };
 
+  // Save response to storage
   useEffect(() => {
-    console.log(response);
     if (response?.type === "success") {
-      setAuth(response.authentication);
-
       const persistAuth = async () => {
         await AsyncStorage.setItem(
           "auth",
           JSON.stringify(response.authentication)
         );
+        setAuth(response.authentication);
       };
 
       persistAuth();
-      getUserData();
     }
   }, [response]);
 
+  // Mount
   useEffect(() => {
     const getPersistedAuth = async () => {
       const jsonValue = await AsyncStorage.getItem("auth");
 
-      console.log("auth:", jsonValue);
+      console.log("77:", jsonValue);
+      console.log("78:", auth);
 
       if (jsonValue != null) {
         const authFromJson = JSON.parse(jsonValue);
@@ -78,18 +83,15 @@ export default function InitialScreen() {
   // Load user data if auth exists
   useEffect(() => {
     if (!auth) return;
-    getUserData();
-  }, [auth, getUserData]);
 
-  const getClientId = () => {
-    if (Platform.OS === "ios") {
-      return IOS_CLIENT_ID;
-    } else if (Platform.OS === "android") {
-      return ANDROID_CLIENT_ID;
-    } else {
-      console.log("Invalid platform - not handled");
-      return null;
-    }
+    // Get user data if auth exists
+    getUserData();
+  }, [auth]);
+
+  const clear = async () => {
+    await AsyncStorage.removeItem("auth");
+    setAuth(null);
+    setUserInfo(null);
   };
 
   const login = async () => {
@@ -106,41 +108,18 @@ export default function InitialScreen() {
       }
     );
 
-    setAuth(undefined);
-    setUserInfo(undefined);
-    await AsyncStorage.removeItem("auth");
+    clear();
   };
 
-  return (
-    <View style={styles.container}>
-      {userInfo && (
-        <View style={styles.userInfo}>
-          <Image source={{ uri: userInfo.picture }} style={styles.profilePic} />
-          <Text>Welcome {userInfo.name}</Text>
-          <Text>{userInfo.email}</Text>
-        </View>
-      )}
+  const isLoggedIn = !!auth;
 
-      {!auth && <Button disabled={!request} title="Login" onPress={login} />}
-      {auth && <Button title="Logout" onPress={logout} />}
-      <StatusBar style="auto" />
-    </View>
-  );
+  console.log(isLoggedIn)
+
+  return {
+    isLoggedIn,
+    userInfo,
+    request,
+    login,
+    logout,
+  };
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  profilePic: {
-    width: 50,
-    height: 50,
-  },
-  userInfo: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

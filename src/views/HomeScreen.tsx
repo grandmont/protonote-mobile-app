@@ -1,14 +1,17 @@
-import { StyleSheet, Text, View, Button, FlatList } from "react-native";
+import { StyleSheet, Text, View, Image, Button, FlatList } from "react-native";
 import { useQuery } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
+
 import { UsersQueryDocument } from "../graphql/generated";
+import useAuth from "../hooks/useAuth";
 
 export default function HomeScreen() {
+  const { userInfo, logout } = useAuth();
   const { data, loading, error } = useQuery(UsersQueryDocument);
 
   const navigation = useNavigation();
 
-  const handleButtonPress = () => {
+  const handleGoToProfile = () => {
     navigation.navigate("Profile");
   };
 
@@ -27,7 +30,16 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Text>Homepage</Text>
-      <Button title="Go to Profile" onPress={handleButtonPress} />
+      <Button title="Go to Profile" onPress={handleGoToProfile} />
+      {userInfo && (
+        <View style={styles.userInfo}>
+          <Image source={{ uri: userInfo.picture }} style={styles.profilePic} />
+          <Text>Welcome {userInfo.name}</Text>
+          <Text>{userInfo.email}</Text>
+        </View>
+      )}
+
+      <Button title="Logout" onPress={logout} />
 
       {users && (
         <FlatList
@@ -50,6 +62,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  profilePic: {
+    width: 50,
+    height: 50,
+  },
+  userInfo: {
     alignItems: "center",
     justifyContent: "center",
   },
