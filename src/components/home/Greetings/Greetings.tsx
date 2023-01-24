@@ -2,9 +2,9 @@ import { View, Text } from "react-native-ui-lib";
 
 export default function Greetings() {
   return (
-    <View flex>
+    <View>
       <Text h2>Hey, Gabriel!</Text>
-      <Text sub>Good evening</Text>
+      <Text sub>Good morning</Text>
     </View>
   );
 }

@@ -3,6 +3,11 @@ import { Typography } from "react-native-ui-lib";
 Typography.loadTypographies({
   h2: {
     fontSize: 20,
+    fontWeight: "700",
+    lineHeight: 28,
+  },
+  title: {
+    fontSize: 16,
     fontWeight: "600",
     lineHeight: 28,
   },
