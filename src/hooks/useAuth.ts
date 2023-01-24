@@ -46,13 +46,10 @@ export default function useAuth() {
     );
 
     userInfoResponse.json().then((data) => {
+      // console.log(data)
       setUserInfo(data);
     });
   };
-
-  useEffect(() => {
-    console.log("useAuth state", state)
-  }, [state])
 
   // Save response to storage
   useEffect(() => {
@@ -62,7 +59,6 @@ export default function useAuth() {
           "auth",
           JSON.stringify(response.authentication)
         );
-        console.log("change auth")
         setAuth(response.authentication);
       };
 
@@ -93,7 +89,6 @@ export default function useAuth() {
   }, [auth]);
 
   const clear = async () => {
-    console.log("clean everything")
     await AsyncStorage.removeItem("auth");
     setAuth(null);
     setUserInfo(null);
