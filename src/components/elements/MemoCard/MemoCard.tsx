@@ -1,9 +1,9 @@
 import { Card, Text } from "react-native-ui-lib";
 
-export default function MemoCard() {
+export default function MemoCard({ title }) {
   return (
-    <Card paddingH-24 paddingV-20>
-      <Text h2>0</Text>
+    <Card paddingH-20 paddingV-18>
+      <Text p>{title}</Text>
     </Card>
   );
 }

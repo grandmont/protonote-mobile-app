@@ -5,17 +5,16 @@ import { View, Text, Button, Image } from "react-native-ui-lib";
 export default function MemoSection() {
   return (
     <View flex center>
-      <Image
-        source={require("../../../../assets/icon.png")}
-        style={{
-          width: 200,
-          height: 200,
-        }}
-        marginB-12
-      />
       <Text h2>How was your day?</Text>
-      <Text p marginV-12>
-        You didn't make today's memo
+      <Image
+        source={require("../../../../assets/bed.png")}
+        style={{
+          width: 300,
+          height: 250,
+        }}
+      />
+      <Text p marginB-24 center>
+        Add today's memo and keep{"\n"}tracking your life!
       </Text>
       <Button label="Let's do it" />
     </View>

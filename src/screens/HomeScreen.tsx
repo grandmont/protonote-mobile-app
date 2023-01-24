@@ -12,7 +12,8 @@ export default function HomeScreen() {
   return (
     <ScreenLayout>
       <Greetings />
-      <View marginT-48 />
+      {/* [TODO]: Create Divider component later */}
+      <View marginT-36 />
       <RecentActivity />
       <MemoSection />
     </ScreenLayout>

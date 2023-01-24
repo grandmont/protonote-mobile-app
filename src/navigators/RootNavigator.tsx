@@ -5,12 +5,12 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 import useAuth from "../hooks/useAuth";
 
-// Views
-import AuthScreen from "../views/AuthScreen";
-import HomeScreen from "../views/HomeScreen";
-import CalendarScreen from "../views/CalendarScreen";
-import SearchScreen from "../views/SearchScreen";
-import ProfileScreen from "../views/ProfileScreen";
+// Screens
+import AuthScreen from "../screens/AuthScreen";
+import HomeScreen from "../screens/HomeScreen";
+import CalendarScreen from "../screens/CalendarScreen";
+import SearchScreen from "../screens/SearchScreen";
+import AnalyticsScreen from "../screens/AnalyticsScreen";
 
 const Root = createStackNavigator();
 const Stack = createStackNavigator();
@@ -74,17 +74,17 @@ const AppNavigator = () => (
       component={CalendarScreen}
     />
     <Tab.Screen
-      name="Profile"
+      name="Analytics"
       options={{
         tabBarIcon: ({ focused }) => (
           <Ionicons
-            name={`md-person${focused ? "" : "-outline"}`}
+            name={`md-stats-chart${focused ? "" : "-outline"}`}
             size={TAB_ICON_SIZE}
             color={focused ? "blue" : "black"}
           />
         ),
       }}
-      component={ProfileScreen}
+      component={AnalyticsScreen}
     />
   </Tab.Navigator>
 );

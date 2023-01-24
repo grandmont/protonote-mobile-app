@@ -2,10 +2,10 @@ import { Text } from "react-native";
 
 import ScreenLayout from "../components/layout/ScreenLayout";
 
-export default function ProfileScreen() {
+export default function AnalyticsScreen() {
   return (
     <ScreenLayout>
-      <Text>Profile</Text>
+      <Text>Analytics</Text>
     </ScreenLayout>
   );
 }
