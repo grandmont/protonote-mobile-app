@@ -12,7 +12,7 @@ export default function Greetings() {
   };
 
   return (
-    <View row spread centerV>
+    <View row spread>
       <View>
         <Text h2>Hey, {userInfo?.name}</Text>
         <Text sub>Good morning</Text>
@@ -21,7 +21,7 @@ export default function Greetings() {
       <View>
         <Avatar
           onPress={handleAvatarPress}
-          size={48}
+          size={36}
           source={{
             uri: userInfo?.picture,
           }}

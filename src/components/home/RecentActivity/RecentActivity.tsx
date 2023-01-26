@@ -1,10 +1,10 @@
-import MemoCard from "../../elements/MemoCard/MemoCard";
+import Card from "../../elements/Card/Card";
 import ScreenSection from "../../layout/ScreenSection";
 
 export default function RecentActivity() {
   return (
     <ScreenSection title="Recent activity">
-      <MemoCard title="There are no recent activities" />
+      <Card title="There's no recent activity" />
     </ScreenSection>
   );
 }
