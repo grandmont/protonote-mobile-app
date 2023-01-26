@@ -4,9 +4,10 @@ import { ApolloProvider } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistCache } from "apollo3-cache-persist";
 
+import "./src/styles";
 import { cache, client } from "./src/services/client";
 import AuthProvider from "./src/contexts/Auth";
-import RootNavigator from "./src/views/RootNavigator";
+import RootNavigator from "./src/navigators/RootNavigator";
 
 export default function App() {
   const [loadingCache, setLoadingCache] = useState(true);
