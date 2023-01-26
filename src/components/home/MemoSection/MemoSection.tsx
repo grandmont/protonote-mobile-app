@@ -5,7 +5,7 @@ export default function MemoSection() {
   const navigation = useNavigation();
 
   const handleCreateMemo = () => {
-    navigation.navigate("Memo");
+    navigation.navigate("CreateMemo");
   };
 
   return (

@@ -2,12 +2,16 @@ import { Text, View } from "react-native-ui-lib";
 
 interface ScreenSectionProps {
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-export default function ScreenSection({ title, children }: ScreenSectionProps) {
+export default function ScreenSection({
+  title,
+  children = null,
+  ...props
+}: ScreenSectionProps) {
   return (
-    <View>
+    <View {...props}>
       <Text title marginB-6>
         {title}
       </Text>

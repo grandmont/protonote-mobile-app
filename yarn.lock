@@ -10244,10 +10244,10 @@ react-native-text-size@4.0.0-rc.1:
   resolved "https://registry.yarnpkg.com/react-native-text-size/-/react-native-text-size-4.0.0-rc.1.tgz#1e048d345dd6a5a8e1269e0585c1a5948c478da5"
   integrity sha512-CysqjU2jK6Yc+a+kEI222pUyTY2ywcU2HqbFqf1KHymW6OPTdvBBHqbEJKL0QiLhQaFYDbqicM+h990s9TP00g==
 
-react-native-ui-lib@^6.28.4:
-  version "6.28.4"
-  resolved "https://registry.yarnpkg.com/react-native-ui-lib/-/react-native-ui-lib-6.28.4.tgz#709826fc19ae3a8cd89bd15fd64dbabb539a6235"
-  integrity sha512-Qy3oa1CZIj2CreLOIIcvOzIk1mrYaWNSjvz4O9eLe85PhmzXihdXNO9FOdzD6zg4AayG/5Ir9S6UhFgytWMfbA==
+react-native-ui-lib@^6.29.0:
+  version "6.29.0"
+  resolved "https://registry.yarnpkg.com/react-native-ui-lib/-/react-native-ui-lib-6.29.0.tgz#de842816c0ba7e5418f35b2a137f269779e638db"
+  integrity sha512-ivHGP4sMuVcDi+mio2G0fziBlZTI+h3XVuqV1Y2UPsDTuDJqDFSGPNEacAUzpu1CGGQdxB9a3/EdXy3adzVVdQ==
   dependencies:
     babel-plugin-transform-inline-environment-variables "^0.0.2"
     color "^3.1.0"

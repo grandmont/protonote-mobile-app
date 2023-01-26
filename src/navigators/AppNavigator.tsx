@@ -8,6 +8,7 @@ import HomeScreen from "../screens/HomeScreen";
 import CalendarScreen from "../screens/CalendarScreen";
 import SearchScreen from "../screens/SearchScreen";
 import AnalyticsScreen from "../screens/AnalyticsScreen";
+import CreateMemoScreen from "../screens/CreateMemoScreen";
 import MemoScreen from "../screens/MemoScreen";
 
 const Tab = createBottomTabNavigator();
@@ -72,10 +73,13 @@ export default function AppNavigator() {
         component={AnalyticsScreen}
       />
       <Tab.Screen
+        name="CreateMemo"
+        options={{ tabBarButton: () => null }}
+        component={CreateMemoScreen}
+      />
+      <Tab.Screen
         name="Memo"
-        options={{
-          tabBarButton: () => null,
-        }}
+        options={{ tabBarButton: () => null }}
         component={MemoScreen}
       />
     </Tab.Navigator>
