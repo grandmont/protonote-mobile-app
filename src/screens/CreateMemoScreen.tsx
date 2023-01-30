@@ -14,11 +14,14 @@ import { CreateProtoMutationDocument } from "../graphql/generated";
 import MemoEditor from "../components/memo/MemoEditor/MemoEditor";
 import Divider from "../components/elements/Divider/Divider";
 import ScreenLayout from "../components/layout/ScreenLayout";
+import useAuth from "../hooks/useAuth";
 
 export default function CreateMemoScreen({ navigation }) {
   const [memoData, setMemoData] = useState({ title: null });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const { userInfo } = useAuth();
 
   const [createMemoMutation] = useMutation(CreateProtoMutationDocument);
 
@@ -34,7 +37,7 @@ export default function CreateMemoScreen({ navigation }) {
             ...memoData,
             user: {
               connect: {
-                id: 1,
+                id: userInfo.id,
               },
             },
           },

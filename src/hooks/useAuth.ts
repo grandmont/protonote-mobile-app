@@ -43,6 +43,8 @@ export default function useAuth() {
       const persistAuth = async () => {
         const { accessToken } = response.authentication;
 
+        console.log("accessToken:", accessToken)
+
         const { data } = await authenticateMutation({
           variables: {
             input: {
@@ -52,7 +54,7 @@ export default function useAuth() {
         });
 
         if (!data) {
-          // Deal with error
+          // Deal with API error
           return;
         }
 
@@ -105,6 +107,7 @@ export default function useAuth() {
   return {
     isLoggedIn: !!auth,
     isLoading,
+    accessToken: auth || "",
     userInfo,
     login,
     logout,
