@@ -1,0 +1,8 @@
+query ProtosQuery($where: ProtoWhereInput) {
+  protos(where: $where) {
+    id
+    title
+    createdAt
+    updatedAt
+  }
+}

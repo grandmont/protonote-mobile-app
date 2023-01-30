@@ -5,13 +5,32 @@ import { BOTTOM_TAB_ICON_SIZE } from "../config/constants";
 
 // Screens
 import HomeScreen from "../screens/HomeScreen";
-import CalendarScreen from "../screens/CalendarScreen";
 import SearchScreen from "../screens/SearchScreen";
+import CalendarScreen from "../screens/CalendarScreen";
 import AnalyticsScreen from "../screens/AnalyticsScreen";
 import CreateMemoScreen from "../screens/CreateMemoScreen";
 import MemoScreen from "../screens/MemoScreen";
 
 const Tab = createBottomTabNavigator();
+
+const tabs = [
+  {
+    name: "Home",
+    icon: { name: "md-home", variant: "-outline" },
+    component: HomeScreen,
+  },
+  { name: "Search", icon: { name: "md-search" }, component: SearchScreen },
+  {
+    name: "Calendar",
+    icon: { name: "md-calendar-sharp" },
+    component: CalendarScreen,
+  },
+  {
+    name: "Analytics",
+    icon: { name: "md-stats-chart", variant: "-outline" },
+    component: AnalyticsScreen,
+  },
+];
 
 export default function AppNavigator() {
   return (
@@ -20,58 +39,31 @@ export default function AppNavigator() {
         headerShown: false,
       }}
     >
-      <Tab.Screen
-        name="Home"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Ionicons
-              name={`md-home${focused ? "" : "-outline"}`}
-              size={BOTTOM_TAB_ICON_SIZE}
-              color={focused ? "blue" : "black"}
-            />
-          ),
-        }}
-        component={HomeScreen}
-      />
-      <Tab.Screen
-        name="Search"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Ionicons
-              name="md-search"
-              size={BOTTOM_TAB_ICON_SIZE}
-              color={focused ? "blue" : "black"}
-            />
-          ),
-        }}
-        component={SearchScreen}
-      />
-      <Tab.Screen
-        name="Calendar"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Ionicons
-              name={`md-calendar-sharp`}
-              size={BOTTOM_TAB_ICON_SIZE}
-              color={focused ? "blue" : "black"}
-            />
-          ),
-        }}
-        component={CalendarScreen}
-      />
-      <Tab.Screen
-        name="Analytics"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Ionicons
-              name={`md-stats-chart${focused ? "" : "-outline"}`}
-              size={BOTTOM_TAB_ICON_SIZE}
-              color={focused ? "blue" : "black"}
-            />
-          ),
-        }}
-        component={AnalyticsScreen}
-      />
+      {tabs.map(({ icon, ...props }) => (
+        <Tab.Screen
+          {...props}
+          key={icon.name}
+          options={{
+            tabBarIcon: ({ focused }) => {
+              const hasVariant = !!icon.variant;
+              const focusedName = focused ? "" : icon.variant;
+              const iconName = `${icon.name}${
+                hasVariant ? focusedName : ""
+              }` as any;
+              const color = focused ? "blue" : "black";
+
+              return (
+                <Ionicons
+                  name={iconName}
+                  size={BOTTOM_TAB_ICON_SIZE}
+                  color={color}
+                />
+              );
+            },
+          }}
+        />
+      ))}
+
       <Tab.Screen
         name="CreateMemo"
         options={{ tabBarButton: () => null }}
