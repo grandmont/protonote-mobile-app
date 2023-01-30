@@ -7,14 +7,13 @@ export default function Greetings() {
   console.log("userInfo:", userInfo);
 
   const handleAvatarPress = () => {
-    console.log("logging out");
     logout();
   };
 
   return (
     <View row spread>
       <View>
-        <Text h2>Hey, {userInfo?.name}</Text>
+        <Text h2>Hey, {userInfo?.username}</Text>
         <Text sub>Good morning</Text>
       </View>
 

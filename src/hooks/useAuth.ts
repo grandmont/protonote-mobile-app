@@ -2,9 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import Constants from "expo-constants";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as AuthSession from "expo-auth-session";
+import { useMutation } from "@apollo/client";
 
-import { AuthContext, AuthType } from "../contexts/Auth";
+import { AuthContext } from "../contexts/Auth";
+import { AuthenticateDocument, User } from "../graphql/generated";
 
 const IS_EXPO_GO = Constants.appOwnership === "expo";
 
@@ -15,51 +16,54 @@ const ANDROID_CLIENT_ID =
 const EXPO_CLIENT_ID =
   "227660563070-bppokg502t6sphrb9go3omjpahdjp3du.apps.googleusercontent.com";
 
-type UserInfoType = {
-  name: string;
-  email: string;
-  picture: string;
-};
-
 export default function useAuth() {
-  const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
-  const { state, dispatch } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const auth = state.auth;
-  const setAuth = (payload: AuthType) =>
-    dispatch({ type: "CHANGE_AUTH", payload });
+  const { state, setAuth, setUserInfo } = useContext(AuthContext);
 
-  const [request, response, promptAsync] = Google.useAuthRequest({
+  const { auth, userInfo } = state;
+
+  const [authenticateMutation] = useMutation(AuthenticateDocument);
+
+  const [, response, promptAsync] = Google.useAuthRequest({
     androidClientId: ANDROID_CLIENT_ID,
     iosClientId: IOS_CLIENT_ID,
     expoClientId: EXPO_CLIENT_ID,
   });
 
-  const getUserData = async () => {
-    const userInfoResponse = await fetch(
-      "https://www.googleapis.com/userinfo/v2/me",
-      {
-        headers: {
-          Authorization: `Bearer ${auth.accessToken}`,
-        },
-      }
-    );
-
-    userInfoResponse.json().then((data) => {
-      // console.log(data)
-      setUserInfo(data);
-    });
-  };
-
   // Save response to storage
   useEffect(() => {
-    if (response?.type === "success") {
+    if (!response) return;
+
+    if (["cancel", "dismiss", "error"].includes(response.type)) {
+      setIsLoading(false);
+    }
+
+    if (response.type === "success") {
       const persistAuth = async () => {
-        await AsyncStorage.setItem(
-          "auth",
-          JSON.stringify(response.authentication)
-        );
-        setAuth(response.authentication);
+        const { accessToken } = response.authentication;
+
+        const { data } = await authenticateMutation({
+          variables: {
+            input: {
+              accessToken,
+            },
+          },
+        });
+
+        if (!data) {
+          // Deal with error
+          return;
+        }
+
+        const { access_token, user } = data.authenticate;
+
+        await AsyncStorage.setItem("auth", access_token);
+        await AsyncStorage.setItem("user", JSON.stringify(user));
+
+        setAuth(access_token);
+        setUserInfo(user as User);
+        setIsLoading(false)
       };
 
       persistAuth();
@@ -68,53 +72,40 @@ export default function useAuth() {
 
   // Mount
   useEffect(() => {
-    const getPersistedAuth = async () => {
-      const jsonValue = await AsyncStorage.getItem("auth");
-      // Auth exists
-      if (jsonValue != null) {
-        const authFromJson = JSON.parse(jsonValue);
-        setAuth(authFromJson);
+    const getStorageValues = async () => {
+      const accessToken = await AsyncStorage.getItem("auth");
+      const user = await AsyncStorage.getItem("user");
+
+      if (!accessToken || !user) {
+        return logout();
       }
+
+      setAuth(accessToken);
+      setUserInfo(JSON.parse(user));
     };
 
-    getPersistedAuth();
+    getStorageValues();
   }, []);
 
-  // Load user data if auth exists
-  useEffect(() => {
-    if (!auth) return;
-
-    // Get user data if auth exists
-    getUserData();
-  }, [auth]);
-
-  const clear = async () => {
+  const clearStorage = async () => {
     await AsyncStorage.removeItem("auth");
     setAuth(null);
     setUserInfo(null);
   };
 
   const login = async () => {
+    setIsLoading(true);
     await promptAsync({ useProxy: IS_EXPO_GO, showInRecents: true });
   };
 
   const logout = async () => {
-    await AuthSession.revokeAsync(
-      {
-        token: auth.accessToken,
-      },
-      {
-        revocationEndpoint: "https://oauth2.googleapis.com/revoke",
-      }
-    );
-
-    clear();
+    clearStorage();
   };
 
   return {
     isLoggedIn: !!auth,
+    isLoading,
     userInfo,
-    request,
     login,
     logout,
   };

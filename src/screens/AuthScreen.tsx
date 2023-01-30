@@ -1,14 +1,17 @@
 import { Button } from "react-native";
+import { LoaderScreen } from "react-native-ui-lib";
 
 import ScreenLayout from "../components/layout/ScreenLayout";
 import useAuth from "../hooks/useAuth";
 
 export default function AuthScreen() {
-  const { request, login } = useAuth();
+  const { login, isLoading } = useAuth();
 
   return (
     <ScreenLayout>
-      <Button disabled={!request} title="Login" onPress={login} />
+      <Button disabled={isLoading} title="Login" onPress={login} />
+
+      {isLoading && <LoaderScreen overlay />}
     </ScreenLayout>
   );
 }

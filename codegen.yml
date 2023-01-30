@@ -1,4 +1,4 @@
-schema: https://1871-201-42-14-58.sa.ngrok.io/graphql
+schema: https://9a43-2804-431-e7de-9adb-79d6-614e-488e-a348.sa.ngrok.io/graphql
 documents: "./src/graphql/**/*.graphql"
 generates:
   ./src/graphql/generated.ts:
