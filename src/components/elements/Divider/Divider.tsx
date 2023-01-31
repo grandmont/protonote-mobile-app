@@ -1,5 +1,23 @@
 import { View } from "react-native-ui-lib";
 
-export default function Divider() {
-  return <View marginT-36 />;
+type DividerSizeType = "small" | "regular";
+
+interface DividerProps {
+  size: DividerSizeType;
+}
+
+export default function Divider({ size }: DividerProps) {
+  const dividerSize = {
+    small: 36,
+    regular: 96,
+  }[size];
+
+  return (
+    <View
+      style={{
+        // backgroundColor: "grey",
+        height: dividerSize,
+      }}
+    />
+  );
 }

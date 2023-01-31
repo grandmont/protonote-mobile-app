@@ -77,19 +77,23 @@ export default function CalendarScreen({ navigation }) {
   }
 
   return (
-    <View useSafeArea bg-white>
-      <CalendarList
-        onDayPress={handleDayPress}
-        maxDate={todayDateString}
-        pastScrollRange={12}
-        futureScrollRange={0}
-        markingType="custom"
-        markedDates={markedDates}
-        theme={{
-          textMonthFontWeight: "600",
-        }}
-      />
-      <Fade />
+    <View bg-white>
+      <View marginV-48 paddingB-48>
+        <CalendarList
+          onDayPress={handleDayPress}
+          maxDate={todayDateString}
+          pastScrollRange={12}
+          futureScrollRange={0}
+          markingType="custom"
+          markedDates={markedDates}
+          // dayComponent={() => <View />}
+          theme={{
+            textMonthFontWeight: "600",
+          }}
+        />
+        <Fade top />
+        <Fade bottom />
+      </View>
     </View>
   );
 }
