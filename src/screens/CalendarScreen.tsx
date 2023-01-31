@@ -8,6 +8,7 @@ import { DATE_FORMAT } from "../config/constants";
 import { ProtosQueryDocument } from "../graphql/generated";
 import useAuth from "../hooks/useAuth";
 import { getTodayDateString } from "../utils/parsers";
+import Fade from "../components/elements/Fade/Fade";
 
 export default function CalendarScreen({ navigation }) {
   const todayDateString = getTodayDateString();
@@ -88,6 +89,7 @@ export default function CalendarScreen({ navigation }) {
           textMonthFontWeight: "600",
         }}
       />
+      <Fade />
     </View>
   );
 }

@@ -10,13 +10,14 @@ import CalendarScreen from "../screens/CalendarScreen";
 import AnalyticsScreen from "../screens/AnalyticsScreen";
 import CreateMemoScreen from "../screens/CreateMemoScreen";
 import MemoScreen from "../screens/MemoScreen";
+import TabBar from "../components/layout/TabBar";
 
 const Tab = createBottomTabNavigator();
 
 const tabs = [
   {
     name: "Home",
-    icon: { name: "md-home", variant: "-outline" },
+    icon: { name: "md-home-sharp" },
     component: HomeScreen,
   },
   { name: "Search", icon: { name: "md-search" }, component: SearchScreen },
@@ -35,8 +36,11 @@ const tabs = [
 export default function AppNavigator() {
   return (
     <Tab.Navigator
+      tabBar={(props) => <TabBar {...props} />}
       screenOptions={{
         headerShown: false,
+        tabBarShowLabel: false,
+        lazy: false,
       }}
     >
       {tabs.map(({ icon, ...props }) => (
@@ -50,7 +54,7 @@ export default function AppNavigator() {
               const iconName = `${icon.name}${
                 hasVariant ? focusedName : ""
               }` as any;
-              const color = focused ? "blue" : "black";
+              const color = focused ? "white" : "black";
 
               return (
                 <Ionicons
