@@ -24,8 +24,6 @@ export default function HomeScreen() {
 
   const getToday = data?.getToday;
 
-  console.log(getToday);
-
   if (loading) {
     return <LoaderScreen />;
   }

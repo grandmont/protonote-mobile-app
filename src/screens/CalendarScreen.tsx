@@ -47,7 +47,6 @@ export default function CalendarScreen({ navigation }) {
       const date = moment(cur.createdAt).format(DATE_FORMAT);
 
       const calendarOptions = {
-        title: cur.title,
         customStyles: {
           container: {
             backgroundColor: "blue",

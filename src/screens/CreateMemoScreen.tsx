@@ -10,11 +10,16 @@ import {
 } from "react-native-ui-lib";
 const { Toast } = Incubator;
 
-import { CreateProtoMutationDocument } from "../graphql/generated";
+import {
+  CreateProtoMutationDocument,
+  GetTodayDocument,
+  ProtosQueryDocument,
+} from "../graphql/generated";
 import MemoEditor from "../components/memo/MemoEditor/MemoEditor";
 import Divider from "../components/elements/Divider/Divider";
 import ScreenLayout from "../components/layout/ScreenLayout";
 import useAuth from "../hooks/useAuth";
+import { client } from "../services/client";
 
 export default function CreateMemoScreen({ navigation }) {
   const [memoData, setMemoData] = useState({ title: null });
@@ -42,6 +47,10 @@ export default function CreateMemoScreen({ navigation }) {
             },
           },
         },
+      });
+
+      client.refetchQueries({
+        include: [GetTodayDocument, ProtosQueryDocument],
       });
 
       navigation.navigate("Home");
