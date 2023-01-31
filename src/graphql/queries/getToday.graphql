@@ -1,0 +1,8 @@
+query GetToday($dateString: String!) {
+  getToday(dateString: $dateString) {
+    id
+    title
+    createdAt
+    updatedAt
+  }
+}

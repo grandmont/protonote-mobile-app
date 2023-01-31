@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { CalendarList, DateData } from "react-native-calendars";
 import moment from "moment";
-import { View } from "react-native-ui-lib";
+import { LoaderScreen, View } from "react-native-ui-lib";
 import { useQuery } from "@apollo/client";
 
 import { DATE_FORMAT } from "../config/constants";
 import { ProtosQueryDocument } from "../graphql/generated";
+import useAuth from "../hooks/useAuth";
+import { getTodayDateString } from "../utils/parsers";
 
 export default function CalendarScreen({ navigation }) {
-  const today = moment(Date.now()).format(DATE_FORMAT);
+  const todayDateString = getTodayDateString();
 
   const initialCalendarDates = {
-    [today]: {
+    [todayDateString]: {
       customStyles: {
         text: {
           color: "blue",
@@ -21,14 +23,15 @@ export default function CalendarScreen({ navigation }) {
     },
   };
 
+  const { userInfo } = useAuth();
+
   const [markedDates, setMarkedDates] = useState(initialCalendarDates);
 
-  const { data } = useQuery(ProtosQueryDocument, {
+  const { data, loading } = useQuery(ProtosQueryDocument, {
     variables: {
       where: {
         userId: {
-          // Should put the current userId here
-          equals: 1,
+          equals: userInfo?.id,
         },
       },
     },
@@ -69,11 +72,15 @@ export default function CalendarScreen({ navigation }) {
     navigation.navigate("Memo", { date });
   };
 
+  if (loading) {
+    return <LoaderScreen overlay />;
+  }
+
   return (
     <View useSafeArea bg-white>
       <CalendarList
         onDayPress={handleDayPress}
-        maxDate={today}
+        maxDate={todayDateString}
         pastScrollRange={12}
         futureScrollRange={0}
         markingType="custom"

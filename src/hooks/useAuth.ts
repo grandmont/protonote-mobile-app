@@ -91,6 +91,7 @@ export default function useAuth() {
 
   const clearStorage = async () => {
     await AsyncStorage.removeItem("auth");
+    await AsyncStorage.removeItem("user");
     setAuth(null);
     setUserInfo(null);
   };

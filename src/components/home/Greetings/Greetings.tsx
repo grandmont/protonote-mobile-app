@@ -1,10 +1,13 @@
-import { View, Text, Avatar } from "react-native-ui-lib";
+import { View, Text, Avatar, Button } from "react-native-ui-lib";
+import Ionicons from "@expo/vector-icons/Ionicons";
+
 import useAuth from "../../../hooks/useAuth";
+import { BOTTOM_TAB_ICON_SIZE } from "../../../config/constants";
+
+import { getTimeRangeGreetings } from "../../../utils/parsers";
 
 export default function Greetings() {
   const { userInfo, logout } = useAuth();
-
-  console.log("userInfo:", userInfo);
 
   const handleAvatarPress = () => {
     logout();
@@ -13,14 +16,17 @@ export default function Greetings() {
   return (
     <View row spread>
       <View>
-        <Text h2>Hey, {userInfo?.username}</Text>
-        <Text sub>Good morning</Text>
+        <Text h2>Hey, {userInfo?.username}!</Text>
+        <Text p>Good {getTimeRangeGreetings()}</Text>
       </View>
 
-      <View>
+      <View row top>
+        <Button marginR-12 padding-4 link>
+          <Ionicons name="notifications-outline" size={BOTTOM_TAB_ICON_SIZE} />
+        </Button>
         <Avatar
           onPress={handleAvatarPress}
-          size={36}
+          size={32}
           source={{
             uri: userInfo?.picture,
           }}
