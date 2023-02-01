@@ -9,9 +9,9 @@ export default function TabBar({ state, descriptors, navigation }) {
         alignItems: "center",
         backgroundColor: "white",
 
-        paddingVertical: 8,
+        paddingVertical: 10,
         borderRadius: 60,
-        marginBottom: 48,
+        marginBottom: 36,
         marginHorizontal: 60,
 
         position: "absolute",
@@ -61,10 +61,9 @@ export default function TabBar({ state, descriptors, navigation }) {
               onPress={onPress}
               onLongPress={onLongPress}
               style={{
-                backgroundColor: isFocused ? "blue" : "white",
                 padding: 12,
-                paddingHorizontal: 13,
-                borderRadius: 60,
+                borderRadius: "100%",
+                backgroundColor: isFocused ? "blue" : "white",
               }}
             >
               {tabBarIcon && tabBarIcon({ focused: isFocused })}
