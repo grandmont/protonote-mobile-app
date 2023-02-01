@@ -16,7 +16,7 @@ export default function Greetings() {
   return (
     <View row spread top>
       <View>
-        <Text h2>Hey, {userInfo?.username}!</Text>
+        <Text h2>Hey, {userInfo?.name}!</Text>
         <Text p>Good {getTimeRangeGreetings()}</Text>
       </View>
 

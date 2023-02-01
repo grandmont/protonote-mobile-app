@@ -70,7 +70,7 @@ export default function CreateMemoScreen({ navigation }) {
     <ScreenLayout>
       <View onTouchStart={Keyboard.dismiss}>
         <Text h2>Create Memo</Text>
-        <Divider />
+        <Divider size="small" />
       </View>
 
       <KeyboardAvoidingView

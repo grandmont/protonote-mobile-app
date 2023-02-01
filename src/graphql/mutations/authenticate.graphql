@@ -5,7 +5,7 @@ mutation Authenticate($input: AuthInput!) {
      user {
        id
        email
-       username
+       name
        picture
      }
   }

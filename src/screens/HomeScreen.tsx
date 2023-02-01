@@ -36,7 +36,7 @@ export default function HomeScreen() {
       {!getToday && <MemoSection />}
       {getToday && (
         <>
-          <Divider />
+          <Divider size="small" />
           <TodaySection data={getToday} />
         </>
       )}
