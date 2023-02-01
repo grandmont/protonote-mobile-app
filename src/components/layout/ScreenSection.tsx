@@ -12,7 +12,7 @@ export default function ScreenSection({
 }: ScreenSectionProps) {
   return (
     <View {...props}>
-      <Text title marginB-6>
+      <Text title marginB-8>
         {title}
       </Text>
       {children}

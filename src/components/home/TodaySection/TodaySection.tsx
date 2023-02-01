@@ -1,17 +1,16 @@
-import { View, Text, Button, Image } from "react-native-ui-lib";
-
 import { Proto } from "../../../graphql/generated";
-import Card from "../../elements/Card/Card";
+import MemoCard from "../../memo/MemoCard/MemoCard";
 import ScreenSection from "../../layout/ScreenSection";
 
 interface TodaySectionProps {
-  data: Proto;
+  data: Partial<Proto>;
 }
 
-export default function TodaySection({ data }) {
+export default function TodaySection({ data }: TodaySectionProps) {
+  const { title, createdAt } = data;
   return (
     <ScreenSection title="Today's Memo">
-      <Card title={data.title} />
+      <MemoCard title={title} date={createdAt} />
     </ScreenSection>
   );
 }
