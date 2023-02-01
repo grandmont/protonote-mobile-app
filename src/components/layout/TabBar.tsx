@@ -1,36 +1,22 @@
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import { StyleSheet } from "react-native";
 import { Card, View, TouchableOpacity } from "react-native-ui-lib";
 
-export default function TabBar({ state, descriptors, navigation }) {
+import { BOTTOM_TAB_ICON_SIZE } from "../../config/constants";
+
+export default function TabBar({
+  state,
+  descriptors,
+  navigation,
+}: BottomTabBarProps) {
   return (
-    <Card
-      style={{
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "white",
-
-        paddingVertical: 10,
-        borderRadius: 60,
-        marginBottom: 36,
-        marginHorizontal: 60,
-
-        position: "absolute",
-        left: 0,
-        right: 0,
-        bottom: 0,
-      }}
-    >
+    <Card style={styles.tabBar}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
 
-        const {
-          tabBarAccessibilityLabel,
-          tabBarTestID,
-          tabBarIcon,
-          tabBarButton,
-        } = options;
+        const { tabBarAccessibilityLabel, tabBarTestID, tabBarIcon } = options;
 
-        if (tabBarButton) return null;
+        if (!tabBarIcon) return null;
 
         const isFocused = state.index === index;
 
@@ -38,6 +24,7 @@ export default function TabBar({ state, descriptors, navigation }) {
           const event = navigation.emit({
             type: "tabPress",
             target: route.key,
+            canPreventDefault: true,
           });
 
           if (!isFocused && !event.defaultPrevented) {
@@ -52,21 +39,26 @@ export default function TabBar({ state, descriptors, navigation }) {
           });
         };
 
+        const defaultTabBarIconProps = {
+          focused: isFocused,
+          color: isFocused ? "white" : "black",
+          size: BOTTOM_TAB_ICON_SIZE,
+        };
+
         return (
-          <View key={route} flex center>
+          <View key={route.key} flex center>
             <TouchableOpacity
               accessibilityRole="button"
               accessibilityLabel={tabBarAccessibilityLabel}
               testID={tabBarTestID}
               onPress={onPress}
               onLongPress={onLongPress}
-              style={{
-                padding: 12,
-                borderRadius: "100%",
-                backgroundColor: isFocused ? "blue" : "white",
-              }}
+              style={[
+                styles.tabBarButton,
+                { backgroundColor: isFocused ? "blue" : "white" },
+              ]}
             >
-              {tabBarIcon && tabBarIcon({ focused: isFocused })}
+              {tabBarIcon && tabBarIcon(defaultTabBarIconProps)}
             </TouchableOpacity>
           </View>
         );
@@ -74,3 +66,25 @@ export default function TabBar({ state, descriptors, navigation }) {
     </Card>
   );
 }
+
+const styles = StyleSheet.create({
+  tabBar: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    paddingVertical: 10,
+    borderRadius: 60,
+    marginBottom: 36,
+    marginHorizontal: 60,
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  tabBarButton: {
+    padding: 12,
+    paddingHorizontal: 13,
+    borderRadius: 60,
+  },
+});

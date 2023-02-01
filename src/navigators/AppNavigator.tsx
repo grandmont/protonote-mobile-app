@@ -48,36 +48,21 @@ export default function AppNavigator() {
           {...props}
           key={icon.name}
           options={{
-            tabBarIcon: ({ focused }) => {
+            tabBarIcon: ({ focused, ...props }) => {
               const hasVariant = !!icon.variant;
               const focusedName = focused ? "" : icon.variant;
               const iconName = `${icon.name}${
                 hasVariant ? focusedName : ""
               }` as any;
-              const color = focused ? "white" : "black";
 
-              return (
-                <Ionicons
-                  name={iconName}
-                  size={BOTTOM_TAB_ICON_SIZE}
-                  color={color}
-                />
-              );
+              return <Ionicons name={iconName} {...props} />;
             },
           }}
         />
       ))}
 
-      <Tab.Screen
-        name="CreateMemo"
-        options={{ tabBarButton: () => null }}
-        component={CreateMemoScreen}
-      />
-      <Tab.Screen
-        name="Memo"
-        options={{ tabBarButton: () => null }}
-        component={MemoScreen}
-      />
+      <Tab.Screen name="CreateMemo" component={CreateMemoScreen} />
+      <Tab.Screen name="Memo" component={MemoScreen} />
     </Tab.Navigator>
   );
 }
