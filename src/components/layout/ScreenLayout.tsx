@@ -1,11 +1,20 @@
 import { View } from "react-native-ui-lib";
 import Divider from "../elements/Divider/Divider";
 
-export default function ScreenLayout({ children, ...props }) {
+interface ScreenLayoutProps {
+  children: React.ReactNode;
+  divider?: boolean;
+}
+
+export default function ScreenLayout({
+  children,
+  divider = true,
+  ...props
+}: ScreenLayoutProps) {
   return (
     <View flex paddingH-18 paddingT-72 bg-white {...props}>
       {children}
-      <Divider size="big" />
+      {divider && <Divider size="big" />}
     </View>
   );
 }

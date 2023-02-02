@@ -7,7 +7,6 @@ import ScreenLayout from "../components/layout/ScreenLayout";
 // Components
 import Greetings from "../components/home/Greetings/Greetings";
 import Divider from "../components/elements/Divider/Divider";
-// import RecentActivity from "../components/home/RecentActivity/RecentActivity";
 import MemoSection from "../components/home/MemoSection/MemoSection";
 import TodaySection from "../components/home/TodaySection/TodaySection";
 import { GetTodayDocument } from "../graphql/generated";
@@ -31,8 +30,6 @@ export default function HomeScreen() {
   return (
     <ScreenLayout>
       <Greetings />
-      {/* <Divider />
-      <RecentActivity /> */}
       {!getToday && <MemoSection />}
       {getToday && (
         <>

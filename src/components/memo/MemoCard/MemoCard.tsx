@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { Card, View, Text, Button } from "react-native-ui-lib";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -7,7 +8,6 @@ import {
   getWrittenDateString,
 } from "../../../utils/parsers";
 import { BOTTOM_TAB_ICON_SIZE } from "../../../config/constants";
-import { useNavigation } from "@react-navigation/native";
 
 interface MemoCardProps {
   title: string;
