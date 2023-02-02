@@ -78,7 +78,7 @@ export default function CalendarScreen({ navigation }) {
 
   return (
     <View bg-white>
-      <View marginV-48 paddingB-48>
+      <View marginT-48 paddingB-48>
         <CalendarList
           onDayPress={handleDayPress}
           maxDate={todayDateString}
@@ -86,6 +86,7 @@ export default function CalendarScreen({ navigation }) {
           futureScrollRange={0}
           markingType="custom"
           markedDates={markedDates}
+          calendarHeight={380}
           // dayComponent={() => <View />}
           theme={{
             textMonthFontWeight: "600",

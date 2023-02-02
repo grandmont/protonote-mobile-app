@@ -1,24 +1,30 @@
 import { ScrollView } from "react-native";
 import { View, Text } from "react-native-ui-lib";
 import {
+  VictoryAxis,
   VictoryBar,
+  VictoryCandlestick,
   VictoryChart,
+  VictoryHistogram,
   VictoryLine,
   VictoryPie,
+  VictoryScatter,
   VictoryTheme,
+  VictoryVoronoi,
 } from "victory-native";
 import Divider from "../components/elements/Divider/Divider";
 import Fade from "../components/elements/Fade/Fade";
 
-const data = [
-  { quarter: 1, earnings: 13000 },
-  { quarter: 2, earnings: 16500 },
-  { quarter: 3, earnings: 14250 },
-  { quarter: 4, earnings: 19000 },
-  { quarter: 5, earnings: 18000 },
-];
-
 import ScreenLayout from "../components/layout/ScreenLayout";
+import {
+  barData,
+  candleStickData,
+  histogramData,
+  lineData,
+  pieData,
+  scatterData,
+  voronoiData,
+} from "../utils/fakeData";
 
 export default function AnalyticsScreen() {
   return (
@@ -29,34 +35,69 @@ export default function AnalyticsScreen() {
       </Text>
       <ScrollView>
         <View centerH>
-          <VictoryChart width={350} height={300} theme={VictoryTheme.material}>
-            <VictoryBar data={data} x="quarter" y="earnings" />
+          {/* Pie */}
+          <VictoryPie labels={() => null} data={pieData} />
+
+          {/* Bar */}
+          <VictoryChart height={300} theme={VictoryTheme.material}>
+            <VictoryBar
+              data={barData}
+              alignment="start"
+              horizontal
+              x="quarter"
+              y="earnings"
+            />
           </VictoryChart>
 
-          <VictoryPie
-            height={300}
-            data={[
-              { x: "Cats", y: 35 },
-              { x: "Dogs", y: 40 },
-              { x: "Birds", y: 55 },
-            ]}
-          />
-
-          <VictoryChart width={350} height={300} theme={VictoryTheme.material}>
+          {/* Line */}
+          <VictoryChart height={300} theme={VictoryTheme.material}>
             <VictoryLine
               style={{
                 data: { stroke: "#c43a31" },
                 parent: { border: "1px solid #ccc" },
               }}
-              data={[
-                { x: 1, y: 2 },
-                { x: 2, y: 3 },
-                { x: 3, y: 5 },
-                { x: 4, y: 4 },
-                { x: 5, y: 7 },
-              ]}
+              data={lineData}
             />
           </VictoryChart>
+
+          {/* Candlestick */}
+          <VictoryChart
+            height={300}
+            theme={VictoryTheme.material}
+            domainPadding={{ x: 25 }}
+            // scale={{ x: "time" }}
+          >
+            <VictoryAxis tickFormat={(t) => t} />
+            <VictoryAxis dependentAxis />
+            <VictoryCandlestick
+              candleColors={{ positive: "#5f5c5b", negative: "#c43a31" }}
+              data={candleStickData}
+            />
+          </VictoryChart>
+
+          {/* Scatter */}
+          <VictoryChart
+            theme={VictoryTheme.material}
+            domain={{ x: [0, 5], y: [0, 7] }}
+          >
+            <VictoryScatter
+              style={{ data: { fill: "#c43a31" } }}
+              size={7}
+              data={scatterData}
+            />
+          </VictoryChart>
+
+          {/* Voronoi */}
+          <VictoryChart
+            theme={VictoryTheme.material}
+            domain={{ x: [0, 5], y: [0, 7] }}
+          >
+            <VictoryVoronoi
+              style={{ data: { stroke: "#c43a31", strokeWidth: 2 } }}
+              data={voronoiData}
+            />
+          </VictoryChart>
+          {/* padding */}
           <Divider size="big" />
         </View>
       </ScrollView>
