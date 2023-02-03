@@ -1,13 +1,6 @@
 import { useState } from "react";
-import { KeyboardAvoidingView, Platform } from "react-native";
 import { useMutation } from "@apollo/client";
-import {
-  Text,
-  Button,
-  View,
-  LoaderScreen,
-  Incubator,
-} from "react-native-ui-lib";
+import { Button, View, LoaderScreen, Incubator } from "react-native-ui-lib";
 const { Toast } = Incubator;
 
 import {
@@ -20,8 +13,12 @@ import ScreenLayout from "../components/layout/ScreenLayout";
 import useAuth from "../hooks/useAuth";
 import { client } from "../services/client";
 import Header from "../components/elements/Header/Header";
+import KeyboardAccessoryView from "../components/layout/KeyboardAccessoryView";
+import KeyboardAvoidingView from "../components/layout/KeyboardAvoidingView";
 
 export default function CreateMemoScreen({ navigation }) {
+  const nativeId = "id";
+
   const [memoData, setMemoData] = useState({ title: null });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -70,11 +67,11 @@ export default function CreateMemoScreen({ navigation }) {
     <ScreenLayout dividerSize="small">
       <Header title="Create Memo" />
 
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
-      >
-        <MemoEditor onChange={handleChangeMemoEditor} />
+      <KeyboardAvoidingView>
+        <MemoEditor
+          onChange={handleChangeMemoEditor}
+          inputAccessoryViewID={nativeId}
+        />
       </KeyboardAvoidingView>
 
       <View flex bottom>
@@ -85,6 +82,8 @@ export default function CreateMemoScreen({ navigation }) {
           marginT-24
         />
       </View>
+
+      <KeyboardAccessoryView nativeId={nativeId} />
 
       <Toast
         visible={!!error}

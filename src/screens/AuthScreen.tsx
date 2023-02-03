@@ -8,7 +8,7 @@ export default function AuthScreen() {
   const { login, isLoading } = useAuth();
 
   return (
-    <ScreenLayout>
+    <ScreenLayout center>
       <Button disabled={isLoading} title="Login" onPress={login} />
 
       {isLoading && <LoaderScreen overlay />}

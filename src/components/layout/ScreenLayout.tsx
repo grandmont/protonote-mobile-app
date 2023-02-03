@@ -1,7 +1,7 @@
-import { View } from "react-native-ui-lib";
+import { View, ViewProps } from "react-native-ui-lib";
 import Divider, { DividerSizeType } from "../elements/Divider/Divider";
 
-interface ScreenLayoutProps {
+interface ScreenLayoutProps extends ViewProps {
   children: React.ReactNode;
   divider?: boolean;
   dividerSize?: DividerSizeType;
