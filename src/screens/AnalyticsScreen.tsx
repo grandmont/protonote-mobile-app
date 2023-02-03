@@ -19,7 +19,6 @@ import ScreenLayout from "../components/layout/ScreenLayout";
 import {
   barData,
   candleStickData,
-  histogramData,
   lineData,
   pieData,
   scatterData,
@@ -97,7 +96,8 @@ export default function AnalyticsScreen() {
               data={voronoiData}
             />
           </VictoryChart>
-          {/* padding */}
+
+          {/* Padding */}
           <Divider size="big" />
         </View>
       </ScrollView>

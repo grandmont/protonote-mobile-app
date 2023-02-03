@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, Text, SafeAreaView } from "react-native";
+import { LoaderScreen, View } from "react-native-ui-lib";
 
 import ScreenLayout from "../components/layout/ScreenLayout";
 import SearchBar from "../components/elements/SearchBar/SearchBar";
 import List from "../components/elements/List/List";
-import { LoaderScreen } from "react-native-ui-lib";
+import Fade from "../components/elements/Fade/Fade";
 
 export default function SearchScreen() {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
-  const [fakeData, setFakeData] = useState();
+  const [fakeData, setFakeData] = useState(null);
 
-  // get data from the fake api endpoint
   useEffect(() => {
     const getData = async () => {
       const apiResponse = await fetch(
@@ -20,6 +19,7 @@ export default function SearchScreen() {
       const data = await apiResponse.json();
       setFakeData(data);
     };
+
     getData();
   }, []);
 
@@ -29,37 +29,21 @@ export default function SearchScreen() {
 
   return (
     <ScreenLayout>
-      <SafeAreaView style={styles.root}>
-        {!clicked && <Text style={styles.title}>Programming Languages</Text>}
-
+      <View centerH marginB-48>
         <SearchBar
           searchPhrase={searchPhrase}
           setSearchPhrase={setSearchPhrase}
-          clicked={clicked}
+          // clicked={clicked}
           setClicked={setClicked}
         />
-        {
-          <List
-            searchPhrase={searchPhrase}
-            data={fakeData}
-            setClicked={setClicked}
-          />
-        }
-      </SafeAreaView>
+
+        <List
+          searchPhrase={searchPhrase}
+          data={fakeData}
+          setClicked={setClicked}
+        />
+        <Fade bottom />
+      </View>
     </ScreenLayout>
   );
 }
-
-const styles = StyleSheet.create({
-  root: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: {
-    width: "100%",
-    marginTop: 20,
-    fontSize: 25,
-    fontWeight: "bold",
-    marginLeft: "10%",
-  },
-});
