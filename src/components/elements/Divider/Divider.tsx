@@ -1,6 +1,6 @@
 import { View } from "react-native";
 
-type DividerSizeType = "tiny" | "small" | "regular" | "big" | "huge";
+export type DividerSizeType = "tiny" | "small" | "regular" | "big" | "huge";
 
 interface DividerProps {
   size: DividerSizeType;

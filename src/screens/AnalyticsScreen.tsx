@@ -1,20 +1,20 @@
 import { ScrollView } from "react-native";
-import { View, Text } from "react-native-ui-lib";
+import { View } from "react-native-ui-lib";
 import {
   VictoryAxis,
   VictoryBar,
   VictoryCandlestick,
   VictoryChart,
-  VictoryHistogram,
   VictoryLine,
   VictoryPie,
   VictoryScatter,
   VictoryTheme,
   VictoryVoronoi,
 } from "victory-native";
+
 import Divider from "../components/elements/Divider/Divider";
 import Fade from "../components/elements/Fade/Fade";
-
+import Header from "../components/elements/Header/Header";
 import ScreenLayout from "../components/layout/ScreenLayout";
 import {
   barData,
@@ -28,10 +28,11 @@ import {
 export default function AnalyticsScreen() {
   return (
     <ScreenLayout divider={false}>
-      <Text h2>Usage report</Text>
-      <Text p marginB-12>
-        Find information about your memos
-      </Text>
+      <Header
+        title="Usage report"
+        description="Find information about your memos"
+      />
+
       <ScrollView>
         <View centerH>
           {/* Pie */}

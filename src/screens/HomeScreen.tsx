@@ -6,8 +6,7 @@ import ScreenLayout from "../components/layout/ScreenLayout";
 
 // Components
 import Greetings from "../components/home/Greetings/Greetings";
-import Divider from "../components/elements/Divider/Divider";
-import MemoSection from "../components/home/MemoSection/MemoSection";
+import NoMemoSection from "../components/home/NoMemoSection/NoMemoSection";
 import TodaySection from "../components/home/TodaySection/TodaySection";
 import { GetTodayDocument } from "../graphql/generated";
 import { getTodayDateString } from "../utils/parsers";
@@ -23,20 +22,13 @@ export default function HomeScreen() {
 
   const getToday = data?.getToday;
 
-  if (loading) {
-    return <LoaderScreen />;
-  }
+  if (loading) return <LoaderScreen overlay />;
 
   return (
     <ScreenLayout>
       <Greetings />
-      {!getToday && <MemoSection />}
-      {getToday && (
-        <>
-          <Divider size="small" />
-          <TodaySection data={getToday} />
-        </>
-      )}
+      {!getToday && <NoMemoSection />}
+      {getToday && <TodaySection data={getToday} />}
     </ScreenLayout>
   );
 }

@@ -1,7 +1,8 @@
+import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import { BOTTOM_TAB_ICON_SIZE } from "../config/constants";
+import TabBar from "../components/layout/TabBar";
 
 // Screens
 import HomeScreen from "../screens/HomeScreen";
@@ -10,8 +11,8 @@ import CalendarScreen from "../screens/CalendarScreen";
 import AnalyticsScreen from "../screens/AnalyticsScreen";
 import CreateMemoScreen from "../screens/CreateMemoScreen";
 import MemoScreen from "../screens/MemoScreen";
-import TabBar from "../components/layout/TabBar";
 
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const tabs = [
@@ -33,7 +34,7 @@ const tabs = [
   },
 ];
 
-export default function AppNavigator() {
+function TabNavigator() {
   return (
     <Tab.Navigator
       tabBar={(props) => <TabBar {...props} />}
@@ -60,9 +61,20 @@ export default function AppNavigator() {
           }}
         />
       ))}
-
-      <Tab.Screen name="CreateMemo" component={CreateMemoScreen} />
-      <Tab.Screen name="Memo" component={MemoScreen} />
     </Tab.Navigator>
+  );
+}
+
+export default function AppNavigator() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="Tab" component={TabNavigator} />
+      <Stack.Screen name="CreateMemo" component={CreateMemoScreen} />
+      <Stack.Screen name="Memo" component={MemoScreen} />
+    </Stack.Navigator>
   );
 }

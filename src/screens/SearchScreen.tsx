@@ -23,9 +23,7 @@ export default function SearchScreen() {
     getData();
   }, []);
 
-  if (!fakeData) {
-    return <LoaderScreen />;
-  }
+  if (!fakeData) return <LoaderScreen overlay />;
 
   return (
     <ScreenLayout>

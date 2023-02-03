@@ -72,9 +72,7 @@ export default function CalendarScreen({ navigation }) {
     navigation.navigate("Memo", { date });
   };
 
-  if (loading) {
-    return <LoaderScreen overlay />;
-  }
+  if (loading) return <LoaderScreen overlay />;
 
   return (
     <View bg-white>

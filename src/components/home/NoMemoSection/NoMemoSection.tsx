@@ -1,11 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, Button, Image } from "react-native-ui-lib";
 
-export default function MemoSection() {
+export default function NoMemoSection() {
   const navigation = useNavigation();
 
   const handleCreateMemo = () => {
-    navigation.navigate("CreateMemo");
+    navigation.navigate("CreateMemo" as any);
   };
 
   return (

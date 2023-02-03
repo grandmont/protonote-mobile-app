@@ -8,6 +8,7 @@ interface TodaySectionProps {
 
 export default function TodaySection({ data }: TodaySectionProps) {
   const { title, createdAt } = data;
+
   return (
     <ScreenSection title="Today's Memo">
       <MemoCard title={title} date={createdAt} />

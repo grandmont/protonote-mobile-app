@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Keyboard, KeyboardAvoidingView, Platform } from "react-native";
+import { KeyboardAvoidingView, Platform } from "react-native";
 import { useMutation } from "@apollo/client";
 import {
   Text,
@@ -16,10 +16,10 @@ import {
   ProtosQueryDocument,
 } from "../graphql/generated";
 import MemoEditor from "../components/memo/MemoEditor/MemoEditor";
-import Divider from "../components/elements/Divider/Divider";
 import ScreenLayout from "../components/layout/ScreenLayout";
 import useAuth from "../hooks/useAuth";
 import { client } from "../services/client";
+import Header from "../components/elements/Header/Header";
 
 export default function CreateMemoScreen({ navigation }) {
   const [memoData, setMemoData] = useState({ title: null });
@@ -67,11 +67,8 @@ export default function CreateMemoScreen({ navigation }) {
   };
 
   return (
-    <ScreenLayout>
-      <View onTouchStart={Keyboard.dismiss}>
-        <Text h2>Create Memo</Text>
-        <Divider size="small" />
-      </View>
+    <ScreenLayout dividerSize="small">
+      <Header title="Create Memo" />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}

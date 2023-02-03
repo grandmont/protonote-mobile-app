@@ -53,9 +53,11 @@ export default function TabBar({
               testID={tabBarTestID}
               onPress={onPress}
               onLongPress={onLongPress}
+              hitSlop={{ left: 10, right: 10 }}
               style={[
                 styles.tabBarButton,
                 { backgroundColor: isFocused ? "blue" : "white" },
+                // { backgroundColor: "grey" },
               ]}
             >
               {tabBarIcon && tabBarIcon(defaultTabBarIconProps)}

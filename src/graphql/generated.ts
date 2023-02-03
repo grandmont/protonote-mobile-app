@@ -351,6 +351,8 @@ export type NullableStringFieldUpdateOperationsInput = {
 export type Proto = {
   __typename?: 'Proto';
   createdAt: Scalars['DateTime'];
+  dateString?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
@@ -373,6 +375,8 @@ export type ProtoCountAggregate = {
   __typename?: 'ProtoCountAggregate';
   _all: Scalars['Int'];
   createdAt: Scalars['Int'];
+  dateString: Scalars['Int'];
+  description: Scalars['Int'];
   id: Scalars['Int'];
   title: Scalars['Int'];
   updatedAt: Scalars['Int'];
@@ -381,6 +385,8 @@ export type ProtoCountAggregate = {
 
 export type ProtoCountOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  dateString?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -389,6 +395,8 @@ export type ProtoCountOrderByAggregateInput = {
 
 export type ProtoCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  dateString?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   user: UserCreateNestedOneWithoutProtosInput;
@@ -396,6 +404,8 @@ export type ProtoCreateInput = {
 
 export type ProtoCreateManyInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  dateString?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -404,6 +414,8 @@ export type ProtoCreateManyInput = {
 
 export type ProtoCreateManyUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  dateString?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -428,6 +440,8 @@ export type ProtoCreateOrConnectWithoutUserInput = {
 
 export type ProtoCreateWithoutUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  dateString?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -440,6 +454,8 @@ export type ProtoGroupBy = {
   _min?: Maybe<ProtoMinAggregate>;
   _sum?: Maybe<ProtoSumAggregate>;
   createdAt: Scalars['DateTime'];
+  dateString?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
@@ -455,6 +471,8 @@ export type ProtoListRelationFilter = {
 export type ProtoMaxAggregate = {
   __typename?: 'ProtoMaxAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
+  dateString?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -463,6 +481,8 @@ export type ProtoMaxAggregate = {
 
 export type ProtoMaxOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  dateString?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -472,6 +492,8 @@ export type ProtoMaxOrderByAggregateInput = {
 export type ProtoMinAggregate = {
   __typename?: 'ProtoMinAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
+  dateString?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -480,6 +502,8 @@ export type ProtoMinAggregate = {
 
 export type ProtoMinOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  dateString?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -497,6 +521,8 @@ export type ProtoOrderByWithAggregationInput = {
   _min?: InputMaybe<ProtoMinOrderByAggregateInput>;
   _sum?: InputMaybe<ProtoSumOrderByAggregateInput>;
   createdAt?: InputMaybe<SortOrder>;
+  dateString?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -505,6 +531,8 @@ export type ProtoOrderByWithAggregationInput = {
 
 export type ProtoOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
+  dateString?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -514,6 +542,8 @@ export type ProtoOrderByWithRelationInput = {
 
 export enum ProtoScalarFieldEnum {
   CreatedAt = 'createdAt',
+  DateString = 'dateString',
+  Description = 'description',
   Id = 'id',
   Title = 'title',
   UpdatedAt = 'updatedAt',
@@ -525,6 +555,8 @@ export type ProtoScalarWhereInput = {
   NOT?: InputMaybe<Array<ProtoScalarWhereInput>>;
   OR?: InputMaybe<Array<ProtoScalarWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  dateString?: InputMaybe<StringNullableFilter>;
+  description?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<IntFilter>;
   title?: InputMaybe<StringNullableFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -536,6 +568,8 @@ export type ProtoScalarWhereWithAggregatesInput = {
   NOT?: InputMaybe<Array<ProtoScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<ProtoScalarWhereWithAggregatesInput>>;
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  dateString?: InputMaybe<StringNullableWithAggregatesFilter>;
+  description?: InputMaybe<StringNullableWithAggregatesFilter>;
   id?: InputMaybe<IntWithAggregatesFilter>;
   title?: InputMaybe<StringNullableWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
@@ -555,6 +589,8 @@ export type ProtoSumOrderByAggregateInput = {
 
 export type ProtoUpdateInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  dateString?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   title?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutProtosInput>;
@@ -562,6 +598,8 @@ export type ProtoUpdateInput = {
 
 export type ProtoUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  dateString?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   title?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -592,6 +630,8 @@ export type ProtoUpdateWithWhereUniqueWithoutUserInput = {
 
 export type ProtoUpdateWithoutUserInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  dateString?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   title?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -607,6 +647,8 @@ export type ProtoWhereInput = {
   NOT?: InputMaybe<Array<ProtoWhereInput>>;
   OR?: InputMaybe<Array<ProtoWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  dateString?: InputMaybe<StringNullableFilter>;
+  description?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<IntFilter>;
   title?: InputMaybe<StringNullableFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -1047,7 +1089,6 @@ export type UserWhereInput = {
 export type UserWhereUniqueInput = {
   email?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
 };
 
 export type AuthenticateMutationVariables = Exact<{
