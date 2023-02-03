@@ -65,7 +65,7 @@ export default function CreateMemoScreen({ navigation }) {
 
   return (
     <ScreenLayout dividerSize="small">
-      <Header title="Create Memo" />
+      <Header title="Create Memo" canGoBack />
 
       <KeyboardAvoidingView>
         <MemoEditor
