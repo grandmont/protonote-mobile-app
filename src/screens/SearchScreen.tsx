@@ -1,47 +1,61 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useDeferredValue, useId } from "react";
+import { useLazyQuery } from "@apollo/client";
 import { LoaderScreen, View } from "react-native-ui-lib";
 
 import ScreenLayout from "../components/layout/ScreenLayout";
-import SearchBar from "../components/elements/SearchBar/SearchBar";
-import List from "../components/elements/List/List";
+import SearchBar from "../components/search/SearchBar/SearchBar";
+import KeyboardAccessoryView from "../components/layout/KeyboardAccessoryView";
+import MemoList from "../components/search/MemoList/MemoList";
 import Fade from "../components/elements/Fade/Fade";
+import { ProtosQueryDocument, QueryMode } from "../graphql/generated";
+import KeyboardAvoidingView from "../components/layout/KeyboardAvoidingView";
 
 export default function SearchScreen() {
+  const nativeId = useId();
+
   const [searchPhrase, setSearchPhrase] = useState("");
-  const [clicked, setClicked] = useState(false);
-  const [fakeData, setFakeData] = useState(null);
+
+  const deferredSearchPhrase = useDeferredValue(searchPhrase);
+  const [, { data, loading, refetch }] = useLazyQuery(ProtosQueryDocument);
 
   useEffect(() => {
-    const getData = async () => {
-      const apiResponse = await fetch(
-        "https://my-json-server.typicode.com/kevintomas1995/logRocket_searchBar/languages"
-      );
-      const data = await apiResponse.json();
-      setFakeData(data);
+    const filterOptions = {
+      contains: deferredSearchPhrase,
+      mode: QueryMode.Insensitive,
     };
 
-    getData();
-  }, []);
-
-  if (!fakeData) return <LoaderScreen overlay />;
+    refetch({
+      where: {
+        OR: [
+          {
+            title: filterOptions,
+          },
+          {
+            description: filterOptions,
+          },
+        ],
+      },
+    });
+  }, [deferredSearchPhrase]);
 
   return (
     <ScreenLayout>
-      <View centerH marginB-48>
-        <SearchBar
-          searchPhrase={searchPhrase}
-          setSearchPhrase={setSearchPhrase}
-          // clicked={clicked}
-          setClicked={setClicked}
-        />
+      <KeyboardAvoidingView>
+        <View centerH marginB-48>
+          <SearchBar
+            searchPhrase={searchPhrase}
+            setSearchPhrase={setSearchPhrase}
+            inputAccessoryViewID={nativeId}
+          />
 
-        <List
-          searchPhrase={searchPhrase}
-          data={fakeData}
-          setClicked={setClicked}
-        />
-        <Fade bottom />
-      </View>
+          <MemoList data={data?.protos} />
+
+          <KeyboardAccessoryView nativeId={nativeId} />
+
+          {loading && <LoaderScreen overlay />}
+        </View>
+      </KeyboardAvoidingView>
+      <Fade bottom />
     </ScreenLayout>
   );
 }

@@ -20,7 +20,16 @@ export default function TodaySection({
 
   return (
     <ScreenSection title="Today's Memo">
-      <Card padding-16 paddingT-12 onPress={handleGoToMemo}>
+      <Card
+        padding-16
+        paddingT-12
+        // enableShadow={false}
+        // style={{
+        //   borderWidth: 1,
+        //   borderColor: "#ededed",
+        // }}
+        onPress={handleGoToMemo}
+      >
         <View row spread centerV>
           <Text text80M>{title}</Text>
         </View>

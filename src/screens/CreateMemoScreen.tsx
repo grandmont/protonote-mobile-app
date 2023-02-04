@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { Button, View, LoaderScreen, Incubator } from "react-native-ui-lib";
 const { Toast } = Incubator;
@@ -18,7 +18,7 @@ import KeyboardAvoidingView from "../components/layout/KeyboardAvoidingView";
 import { getTodayDateString, getWrittenDateString } from "../utils/parsers";
 
 export default function CreateMemoScreen({ navigation, route }) {
-  const nativeId = "id";
+  const nativeId = useId();
 
   const {
     date: { dateString },
@@ -81,7 +81,7 @@ export default function CreateMemoScreen({ navigation, route }) {
     <ScreenLayout dividerSize="small">
       <Header title={title} canGoBack />
 
-      <KeyboardAvoidingView>
+      <KeyboardAvoidingView keyboardVerticalOffset={96}>
         <MemoEditor
           onChange={handleChangeMemoEditor}
           inputAccessoryViewID={nativeId}

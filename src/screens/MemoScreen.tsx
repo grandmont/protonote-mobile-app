@@ -31,7 +31,7 @@ export default function MemoScreen({ route }) {
 
   const title = getWrittenDateString(dateString);
 
-  const [memo] = data && data.protos;
+  const [memo] = data ? data?.protos : [];
 
   return (
     <ScreenLayout>

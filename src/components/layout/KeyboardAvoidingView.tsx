@@ -3,11 +3,14 @@ import {
   Platform,
 } from "react-native";
 
-export default function KeyboardAvoidingView({ children }) {
+export default function KeyboardAvoidingView({
+  children,
+  keyboardVerticalOffset = 0,
+}) {
   return (
     <RNKeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={96}
+      keyboardVerticalOffset={keyboardVerticalOffset}
       style={{ flex: 1 }}
     >
       {children}
