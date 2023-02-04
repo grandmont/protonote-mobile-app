@@ -1,13 +1,7 @@
-import { useNavigation } from "@react-navigation/native";
 import { View, Text, Button, Image } from "react-native-ui-lib";
+import CreateMemoButton from "../../elements/CreateMemoButton/CreateMemoButton";
 
 export default function NoMemoSection() {
-  const navigation = useNavigation();
-
-  const handleCreateMemo = () => {
-    navigation.navigate("CreateMemo" as any);
-  };
-
   return (
     <View flex center>
       <Text h2>How was your day?</Text>
@@ -21,7 +15,7 @@ export default function NoMemoSection() {
       <Text p marginB-24 center>
         Add today's memo and keep{"\n"}tracking your progress!
       </Text>
-      <Button label="Let's do it" onPress={handleCreateMemo} />
+      <CreateMemoButton label="Let's do it" />
     </View>
   );
 }

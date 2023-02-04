@@ -6,7 +6,7 @@ export default function SettingsScreen() {
 
   return (
     <ScreenLayout>
-      <Header title={title} />
+      <Header title={title} canGoBack />
     </ScreenLayout>
   );
 }

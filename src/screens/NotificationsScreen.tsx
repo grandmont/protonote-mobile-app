@@ -8,7 +8,8 @@ export default function NotificationsScreen() {
 
   return (
     <ScreenLayout>
-      <Header title={title} />
+      <Header title={title} canGoBack />
+
       <View flex center>
         <Text title marginB-12>
           No notifications yet

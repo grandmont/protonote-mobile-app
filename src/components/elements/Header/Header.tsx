@@ -4,8 +4,6 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import Divider from "../Divider/Divider";
 import { BOTTOM_TAB_ICON_SIZE } from "../../../config/constants";
 import { useNavigation } from "@react-navigation/native";
-import { Pressable } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 interface HeaderProps {
   title: string;
@@ -33,7 +31,11 @@ export default function Header({
           hitSlop={12}
           link
         >
-          <Ionicons name="md-chevron-back" size={24} />
+          <Ionicons
+            name="md-chevron-back"
+            color="blue"
+            size={BOTTOM_TAB_ICON_SIZE}
+          />
         </Button>
       )}
 

@@ -6,7 +6,7 @@ import {
   VictoryCandlestick,
   VictoryChart,
   VictoryLine,
-  VictoryPie,
+  // VictoryPie,
   VictoryScatter,
   VictoryTheme,
   VictoryVoronoi,
@@ -20,7 +20,7 @@ import {
   barData,
   candleStickData,
   lineData,
-  pieData,
+  // pieData,
   scatterData,
   voronoiData,
 } from "../utils/fakeData";
@@ -36,7 +36,7 @@ export default function AnalyticsScreen() {
       <ScrollView>
         <View centerH>
           {/* Pie */}
-          <VictoryPie labels={() => null} data={pieData} />
+          {/* <VictoryPie labels={() => null} data={pieData} /> */}
 
           {/* Bar */}
           <VictoryChart height={300} theme={VictoryTheme.material}>

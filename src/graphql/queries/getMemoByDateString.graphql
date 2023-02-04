@@ -1,0 +1,10 @@
+query GetMemoByDateString($dateString: String!) {
+  getMemoByDateString(dateString: $dateString) {
+    id
+    title
+    description
+    dateString
+    createdAt
+    updatedAt
+  }
+}

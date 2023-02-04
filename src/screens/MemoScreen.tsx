@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { LoaderScreen } from "react-native-ui-lib";
 
@@ -7,11 +6,15 @@ import { ProtosQueryDocument } from "../graphql/generated";
 import useAuth from "../hooks/useAuth";
 import { getWrittenDateString } from "../utils/parsers";
 import Header from "../components/elements/Header/Header";
+import MemoDetailsSection from "../components/memo/MemoDetailsSection/MemoDetailsSection";
+import NoMemoDetailsSection from "../components/memo/NoMemoDetailsSection/NoMemoDetailsSection";
 
 export default function MemoScreen({ route }) {
   const { userInfo } = useAuth();
 
-  const { date } = route.params;
+  const {
+    date: { dateString },
+  } = route.params;
 
   const { data, loading } = useQuery(ProtosQueryDocument, {
     variables: {
@@ -20,22 +23,26 @@ export default function MemoScreen({ route }) {
           equals: userInfo?.id,
         },
         dateString: {
-          equals: date.dateString,
+          equals: dateString,
         },
       },
     },
   });
 
-  useEffect(() => {
-    if (!data) return;
-    console.log(data);
-  }, [data]);
+  const title = getWrittenDateString(dateString);
 
-  const title = getWrittenDateString(date.dateString);
+  const [memo] = data && data.protos;
 
   return (
     <ScreenLayout>
       <Header title={title} canGoBack />
+
+      {!loading &&
+        (memo ? (
+          <MemoDetailsSection {...memo} />
+        ) : (
+          <NoMemoDetailsSection dateString={dateString} />
+        ))}
 
       {loading && <LoaderScreen overlay />}
     </ScreenLayout>

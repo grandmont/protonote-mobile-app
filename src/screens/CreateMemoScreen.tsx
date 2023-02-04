@@ -5,7 +5,7 @@ const { Toast } = Incubator;
 
 import {
   CreateProtoMutationDocument,
-  GetTodayDocument,
+  GetMemoByDateStringDocument,
   ProtosQueryDocument,
 } from "../graphql/generated";
 import MemoEditor from "../components/memo/MemoEditor/MemoEditor";
@@ -15,11 +15,16 @@ import { client } from "../services/client";
 import Header from "../components/elements/Header/Header";
 import KeyboardAccessoryView from "../components/layout/KeyboardAccessoryView";
 import KeyboardAvoidingView from "../components/layout/KeyboardAvoidingView";
+import { getTodayDateString, getWrittenDateString } from "../utils/parsers";
 
-export default function CreateMemoScreen({ navigation }) {
+export default function CreateMemoScreen({ navigation, route }) {
   const nativeId = "id";
 
-  const [memoData, setMemoData] = useState({ title: null });
+  const {
+    date: { dateString },
+  } = route.params;
+
+  const [memoData, setMemoData] = useState({ description: null });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -27,16 +32,25 @@ export default function CreateMemoScreen({ navigation }) {
 
   const [createMemoMutation] = useMutation(CreateProtoMutationDocument);
 
+  const parsedDateString = dateString || getTodayDateString();
+  const title = getWrittenDateString(parsedDateString);
+
   const handleCreateMemo = async () => {
-    if (!memoData?.title) return;
+    if (!memoData?.description) return;
 
     setIsLoading(true);
+
+    const createMemoData = {
+      ...memoData,
+      title,
+      dateString: parsedDateString,
+    };
 
     try {
       await createMemoMutation({
         variables: {
           data: {
-            ...memoData,
+            ...createMemoData,
             user: {
               connect: {
                 id: userInfo.id,
@@ -47,7 +61,7 @@ export default function CreateMemoScreen({ navigation }) {
       });
 
       client.refetchQueries({
-        include: [GetTodayDocument, ProtosQueryDocument],
+        include: [GetMemoByDateStringDocument, ProtosQueryDocument],
       });
 
       navigation.navigate("Home");
@@ -59,13 +73,13 @@ export default function CreateMemoScreen({ navigation }) {
     }
   };
 
-  const handleChangeMemoEditor = (title: string) => {
-    setMemoData((prevState) => ({ ...prevState, title }));
+  const handleChangeMemoEditor = (description: string) => {
+    setMemoData((prevState) => ({ ...prevState, description }));
   };
 
   return (
     <ScreenLayout dividerSize="small">
-      <Header title="Create Memo" canGoBack />
+      <Header title={title} canGoBack />
 
       <KeyboardAvoidingView>
         <MemoEditor
