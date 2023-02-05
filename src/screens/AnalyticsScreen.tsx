@@ -1,107 +1,39 @@
-import { ScrollView } from "react-native";
-import { View } from "react-native-ui-lib";
-import {
-  VictoryAxis,
-  VictoryBar,
-  VictoryCandlestick,
-  VictoryChart,
-  VictoryLine,
-  // VictoryPie,
-  VictoryScatter,
-  VictoryTheme,
-  VictoryVoronoi,
-} from "victory-native";
+import { Button, View } from "react-native-ui-lib";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 import Divider from "../components/elements/Divider/Divider";
 import Fade from "../components/elements/Fade/Fade";
 import Header from "../components/elements/Header/Header";
 import ScreenLayout from "../components/layout/ScreenLayout";
-import {
-  barData,
-  candleStickData,
-  lineData,
-  // pieData,
-  scatterData,
-  voronoiData,
-} from "../utils/fakeData";
+import UsageInformation from "../components/analytics/UsageInformation/UsageInformation";
+import ChartsSection from "../components/analytics/ChartsSection/ChartsSection";
+import ActivitiesSection from "../components/analytics/ActivitiesSection/ActivitiesSection";
+import { BOTTOM_TAB_ICON_SIZE } from "../config/constants";
 
 export default function AnalyticsScreen() {
   return (
-    <ScreenLayout divider={false}>
-      <Header
-        title="Usage report"
-        description="Find information about your memos"
-      />
+    <ScreenLayout paddingT-48 divider={false}>
+      <Divider size="tiny" />
+      <View row spread top>
+        <Header
+          title="Usage report"
+          description="Get to know more about your memos"
+        />
 
-      <ScrollView>
-        <View centerH>
-          {/* Pie */}
-          {/* <VictoryPie labels={() => null} data={pieData} /> */}
-
-          {/* Bar */}
-          <VictoryChart height={300} theme={VictoryTheme.material}>
-            <VictoryBar
-              data={barData}
-              alignment="start"
-              horizontal
-              x="quarter"
-              y="earnings"
-            />
-          </VictoryChart>
-
-          {/* Line */}
-          <VictoryChart height={300} theme={VictoryTheme.material}>
-            <VictoryLine
-              style={{
-                data: { stroke: "#c43a31" },
-                parent: { border: "1px solid #ccc" },
-              }}
-              data={lineData}
-            />
-          </VictoryChart>
-
-          {/* Candlestick */}
-          <VictoryChart
-            height={300}
-            theme={VictoryTheme.material}
-            domainPadding={{ x: 25 }}
-            // scale={{ x: "time" }}
-          >
-            <VictoryAxis tickFormat={(t) => t} />
-            <VictoryAxis dependentAxis />
-            <VictoryCandlestick
-              candleColors={{ positive: "#5f5c5b", negative: "#c43a31" }}
-              data={candleStickData}
-            />
-          </VictoryChart>
-
-          {/* Scatter */}
-          <VictoryChart
-            theme={VictoryTheme.material}
-            domain={{ x: [0, 5], y: [0, 7] }}
-          >
-            <VictoryScatter
-              style={{ data: { fill: "#c43a31" } }}
-              size={7}
-              data={scatterData}
-            />
-          </VictoryChart>
-
-          {/* Voronoi */}
-          <VictoryChart
-            theme={VictoryTheme.material}
-            domain={{ x: [0, 5], y: [0, 7] }}
-          >
-            <VictoryVoronoi
-              style={{ data: { stroke: "#c43a31", strokeWidth: 2 } }}
-              data={voronoiData}
-            />
-          </VictoryChart>
-
-          {/* Padding */}
-          <Divider size="big" />
+        <View row top centerV>
+          <Button onPress={() => null} hitSlop={5} padding-4 link>
+            <Ionicons name="md-share-outline" size={BOTTOM_TAB_ICON_SIZE} />
+          </Button>
         </View>
-      </ScrollView>
+      </View>
+
+      <UsageInformation />
+      <Divider size="tiny" />
+
+      <ActivitiesSection />
+      <Divider size="tiny" />
+
+      <ChartsSection />
       <Fade bottom />
     </ScreenLayout>
   );

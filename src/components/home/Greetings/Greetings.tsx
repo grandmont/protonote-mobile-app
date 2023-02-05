@@ -16,11 +16,11 @@ export default function Greetings() {
   };
 
   const handleNotificationsPress = () => {
-    navigation.navigate("Notifications");
+    navigation.navigate("Notifications" as any);
   };
 
   const handleSettingsPress = () => {
-    navigation.navigate("Settings");
+    navigation.navigate("Settings" as any);
   };
 
   const title = `Hey, ${userInfo?.name}!`;

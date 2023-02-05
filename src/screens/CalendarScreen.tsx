@@ -76,7 +76,6 @@ export default function CalendarScreen({ navigation }) {
             textMonthFontWeight: "600",
           }}
         />
-        <Fade top />
         <Fade bottom />
       </View>
     </View>
