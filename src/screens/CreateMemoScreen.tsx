@@ -1,59 +1,84 @@
-import { useState } from "react";
-import { Keyboard, KeyboardAvoidingView, Platform } from "react-native";
+import { useId, useState } from "react";
 import { useMutation } from "@apollo/client";
-import {
-  Text,
-  Button,
-  View,
-  LoaderScreen,
-  Incubator,
-} from "react-native-ui-lib";
+import { Button, View, LoaderScreen, Incubator } from "react-native-ui-lib";
 const { Toast } = Incubator;
 
 import {
   CreateProtoMutationDocument,
-  GetTodayDocument,
+  CreateProtoMutationMutation,
+  GetMemoByDateStringDocument,
   ProtosQueryDocument,
+  UpdateProtoMutationDocument,
+  UpdateProtoMutationMutation,
 } from "../graphql/generated";
 import MemoEditor from "../components/memo/MemoEditor/MemoEditor";
-import Divider from "../components/elements/Divider/Divider";
 import ScreenLayout from "../components/layout/ScreenLayout";
 import useAuth from "../hooks/useAuth";
 import { client } from "../services/client";
+import Header from "../components/elements/Header/Header";
+import KeyboardAccessoryView from "../components/layout/KeyboardAccessoryView";
+import KeyboardAvoidingView from "../components/layout/KeyboardAvoidingView";
+import { getTodayDateString, getWrittenDateString } from "../utils/parsers";
 
-export default function CreateMemoScreen({ navigation }) {
-  const [memoData, setMemoData] = useState({ title: null });
+export default function CreateMemoScreen({ navigation, route }) {
+  const nativeId = useId();
+
+  const {
+    date: { dateString, editData },
+  } = route.params;
+
+  const [memoData, setMemoData] = useState({ description: null });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const { userInfo } = useAuth();
 
-  const [createMemoMutation] = useMutation(CreateProtoMutationDocument);
+  const [createOrUpdateMemoMutation] = useMutation<
+    CreateProtoMutationMutation | UpdateProtoMutationMutation
+  >(!editData ? CreateProtoMutationDocument : UpdateProtoMutationDocument);
+
+  const parsedDateString = dateString || getTodayDateString();
+  const title = getWrittenDateString(parsedDateString);
 
   const handleCreateMemo = async () => {
-    if (!memoData?.title) return;
+    if (!memoData?.description) return;
 
     setIsLoading(true);
 
-    try {
-      await createMemoMutation({
-        variables: {
-          data: {
-            ...memoData,
-            user: {
-              connect: {
-                id: userInfo.id,
-              },
-            },
+    const createMemoData = {
+      data: {
+        ...memoData,
+        title,
+        dateString: parsedDateString,
+        user: {
+          connect: {
+            id: userInfo.id,
           },
         },
-      });
+      },
+    };
+
+    const updateMemoData = {
+      data: {
+        description: {
+          set: memoData.description,
+        },
+      },
+      where: {
+        id: editData?.id,
+      },
+    };
+
+    const variables = !editData ? createMemoData : updateMemoData;
+
+    try {
+      await createOrUpdateMemoMutation({ variables });
 
       client.refetchQueries({
-        include: [GetTodayDocument, ProtosQueryDocument],
+        include: [GetMemoByDateStringDocument, ProtosQueryDocument],
       });
 
-      navigation.navigate("Home");
+      navigation.goBack();
     } catch (error) {
       console.error(error);
       setError(error);
@@ -62,22 +87,20 @@ export default function CreateMemoScreen({ navigation }) {
     }
   };
 
-  const handleChangeMemoEditor = (title: string) => {
-    setMemoData((prevState) => ({ ...prevState, title }));
+  const handleChangeMemoEditor = (description: string) => {
+    setMemoData((prevState) => ({ ...prevState, description }));
   };
 
   return (
-    <ScreenLayout>
-      <View onTouchStart={Keyboard.dismiss}>
-        <Text h2>Create Memo</Text>
-        <Divider size="small" />
-      </View>
+    <ScreenLayout dividerSize="small">
+      <Header title={title} canGoBack />
 
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
-      >
-        <MemoEditor onChange={handleChangeMemoEditor} />
+      <KeyboardAvoidingView keyboardVerticalOffset={96}>
+        <MemoEditor
+          defaultValue={editData?.description}
+          onChange={handleChangeMemoEditor}
+          inputAccessoryViewID={nativeId}
+        />
       </KeyboardAvoidingView>
 
       <View flex bottom>
@@ -88,6 +111,8 @@ export default function CreateMemoScreen({ navigation }) {
           marginT-24
         />
       </View>
+
+      <KeyboardAccessoryView nativeId={nativeId} />
 
       <Toast
         visible={!!error}

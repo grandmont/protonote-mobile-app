@@ -2,6 +2,8 @@ query ProtosQuery($where: ProtoWhereInput) {
   protos(where: $where) {
     id
     title
+    description
+    dateString
     createdAt
     updatedAt
   }

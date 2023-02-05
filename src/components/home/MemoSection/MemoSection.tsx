@@ -1,27 +1,41 @@
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, Button, Image } from "react-native-ui-lib";
+import { Card, View, Text } from "react-native-ui-lib";
 
-export default function MemoSection() {
+import Divider from "../../elements/Divider/Divider";
+import { Proto } from "../../../graphql/generated";
+import ScreenSection from "../../layout/ScreenSection";
+
+interface TodaySectionProps extends Partial<Proto> {}
+
+export default function TodaySection({
+  title,
+  description,
+  dateString,
+}: TodaySectionProps) {
   const navigation = useNavigation();
 
-  const handleCreateMemo = () => {
-    navigation.navigate("CreateMemo");
+  const handleGoToMemo = () => {
+    navigation.navigate("Memo" as any, { date: { dateString } });
   };
 
   return (
-    <View flex center>
-      <Text h2>How was your day?</Text>
-      <Image
-        source={require("../../../../assets/bed.png")}
-        style={{
-          width: 300,
-          height: 250,
-        }}
-      />
-      <Text p marginB-24 center>
-        Add today's memo and keep{"\n"}tracking your progress!
-      </Text>
-      <Button label="Let's do it" onPress={handleCreateMemo} />
-    </View>
+    <ScreenSection title="Today's Memo">
+      <Card
+        padding-16
+        paddingT-12
+        // enableShadow={false}
+        // style={{
+        //   borderWidth: 1,
+        //   borderColor: "#ededed",
+        // }}
+        onPress={handleGoToMemo}
+      >
+        <View row spread centerV>
+          <Text text80M>{title}</Text>
+        </View>
+        <Divider size="tiny" showDividerLine />
+        <Text p>{description}</Text>
+      </Card>
+    </ScreenSection>
   );
 }

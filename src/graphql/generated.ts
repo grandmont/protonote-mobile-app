@@ -351,6 +351,8 @@ export type NullableStringFieldUpdateOperationsInput = {
 export type Proto = {
   __typename?: 'Proto';
   createdAt: Scalars['DateTime'];
+  dateString?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
@@ -373,6 +375,8 @@ export type ProtoCountAggregate = {
   __typename?: 'ProtoCountAggregate';
   _all: Scalars['Int'];
   createdAt: Scalars['Int'];
+  dateString: Scalars['Int'];
+  description: Scalars['Int'];
   id: Scalars['Int'];
   title: Scalars['Int'];
   updatedAt: Scalars['Int'];
@@ -381,6 +385,8 @@ export type ProtoCountAggregate = {
 
 export type ProtoCountOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  dateString?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -389,6 +395,8 @@ export type ProtoCountOrderByAggregateInput = {
 
 export type ProtoCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  dateString?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   user: UserCreateNestedOneWithoutProtosInput;
@@ -396,6 +404,8 @@ export type ProtoCreateInput = {
 
 export type ProtoCreateManyInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  dateString?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -404,6 +414,8 @@ export type ProtoCreateManyInput = {
 
 export type ProtoCreateManyUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  dateString?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -428,6 +440,8 @@ export type ProtoCreateOrConnectWithoutUserInput = {
 
 export type ProtoCreateWithoutUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  dateString?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -440,6 +454,8 @@ export type ProtoGroupBy = {
   _min?: Maybe<ProtoMinAggregate>;
   _sum?: Maybe<ProtoSumAggregate>;
   createdAt: Scalars['DateTime'];
+  dateString?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
@@ -455,6 +471,8 @@ export type ProtoListRelationFilter = {
 export type ProtoMaxAggregate = {
   __typename?: 'ProtoMaxAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
+  dateString?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -463,6 +481,8 @@ export type ProtoMaxAggregate = {
 
 export type ProtoMaxOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  dateString?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -472,6 +492,8 @@ export type ProtoMaxOrderByAggregateInput = {
 export type ProtoMinAggregate = {
   __typename?: 'ProtoMinAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
+  dateString?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -480,6 +502,8 @@ export type ProtoMinAggregate = {
 
 export type ProtoMinOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  dateString?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -497,6 +521,8 @@ export type ProtoOrderByWithAggregationInput = {
   _min?: InputMaybe<ProtoMinOrderByAggregateInput>;
   _sum?: InputMaybe<ProtoSumOrderByAggregateInput>;
   createdAt?: InputMaybe<SortOrder>;
+  dateString?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -505,6 +531,8 @@ export type ProtoOrderByWithAggregationInput = {
 
 export type ProtoOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
+  dateString?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -514,6 +542,8 @@ export type ProtoOrderByWithRelationInput = {
 
 export enum ProtoScalarFieldEnum {
   CreatedAt = 'createdAt',
+  DateString = 'dateString',
+  Description = 'description',
   Id = 'id',
   Title = 'title',
   UpdatedAt = 'updatedAt',
@@ -525,6 +555,8 @@ export type ProtoScalarWhereInput = {
   NOT?: InputMaybe<Array<ProtoScalarWhereInput>>;
   OR?: InputMaybe<Array<ProtoScalarWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  dateString?: InputMaybe<StringNullableFilter>;
+  description?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<IntFilter>;
   title?: InputMaybe<StringNullableFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -536,6 +568,8 @@ export type ProtoScalarWhereWithAggregatesInput = {
   NOT?: InputMaybe<Array<ProtoScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<ProtoScalarWhereWithAggregatesInput>>;
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  dateString?: InputMaybe<StringNullableWithAggregatesFilter>;
+  description?: InputMaybe<StringNullableWithAggregatesFilter>;
   id?: InputMaybe<IntWithAggregatesFilter>;
   title?: InputMaybe<StringNullableWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
@@ -555,6 +589,8 @@ export type ProtoSumOrderByAggregateInput = {
 
 export type ProtoUpdateInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  dateString?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   title?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutProtosInput>;
@@ -562,6 +598,8 @@ export type ProtoUpdateInput = {
 
 export type ProtoUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  dateString?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   title?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -592,6 +630,8 @@ export type ProtoUpdateWithWhereUniqueWithoutUserInput = {
 
 export type ProtoUpdateWithoutUserInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  dateString?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   title?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -607,6 +647,8 @@ export type ProtoWhereInput = {
   NOT?: InputMaybe<Array<ProtoWhereInput>>;
   OR?: InputMaybe<Array<ProtoWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  dateString?: InputMaybe<StringNullableFilter>;
+  description?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<IntFilter>;
   title?: InputMaybe<StringNullableFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -624,7 +666,7 @@ export type Query = {
   aggregateUser: AggregateUser;
   findFirstProto?: Maybe<Proto>;
   findFirstUser?: Maybe<User>;
-  getToday?: Maybe<Proto>;
+  getMemoByDateString?: Maybe<Proto>;
   groupByProto: Array<ProtoGroupBy>;
   groupByUser: Array<UserGroupBy>;
   proto?: Maybe<Proto>;
@@ -673,7 +715,7 @@ export type QueryFindFirstUserArgs = {
 };
 
 
-export type QueryGetTodayArgs = {
+export type QueryGetMemoByDateStringArgs = {
   dateString: Scalars['String'];
 };
 
@@ -1047,7 +1089,6 @@ export type UserWhereInput = {
 export type UserWhereUniqueInput = {
   email?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
 };
 
 export type AuthenticateMutationVariables = Exact<{
@@ -1064,22 +1105,31 @@ export type CreateProtoMutationMutationVariables = Exact<{
 
 export type CreateProtoMutationMutation = { __typename?: 'Mutation', createProto: { __typename?: 'Proto', id: number, title?: string | null } };
 
-export type GetTodayQueryVariables = Exact<{
+export type UpdateProtoMutationMutationVariables = Exact<{
+  data: ProtoUpdateInput;
+  where: ProtoWhereUniqueInput;
+}>;
+
+
+export type UpdateProtoMutationMutation = { __typename?: 'Mutation', updateProto?: { __typename?: 'Proto', id: number, title?: string | null, description?: string | null, dateString?: string | null, createdAt: any, updatedAt: any, userId: number } | null };
+
+export type GetMemoByDateStringQueryVariables = Exact<{
   dateString: Scalars['String'];
 }>;
 
 
-export type GetTodayQuery = { __typename?: 'Query', getToday?: { __typename?: 'Proto', id: number, title?: string | null, createdAt: any, updatedAt: any } | null };
+export type GetMemoByDateStringQuery = { __typename?: 'Query', getMemoByDateString?: { __typename?: 'Proto', id: number, title?: string | null, description?: string | null, dateString?: string | null, createdAt: any, updatedAt: any } | null };
 
 export type ProtosQueryQueryVariables = Exact<{
   where?: InputMaybe<ProtoWhereInput>;
 }>;
 
 
-export type ProtosQueryQuery = { __typename?: 'Query', protos: Array<{ __typename?: 'Proto', id: number, title?: string | null, createdAt: any, updatedAt: any }> };
+export type ProtosQueryQuery = { __typename?: 'Query', protos: Array<{ __typename?: 'Proto', id: number, title?: string | null, description?: string | null, dateString?: string | null, createdAt: any, updatedAt: any }> };
 
 
 export const AuthenticateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Authenticate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AuthInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"authenticate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"access_token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}}]}}]}}]}}]} as unknown as DocumentNode<AuthenticateMutation, AuthenticateMutationVariables>;
 export const CreateProtoMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateProtoMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createProto"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<CreateProtoMutationMutation, CreateProtoMutationMutationVariables>;
-export const GetTodayDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetToday"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"dateString"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getToday"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"dateString"},"value":{"kind":"Variable","name":{"kind":"Name","value":"dateString"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<GetTodayQuery, GetTodayQueryVariables>;
-export const ProtosQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProtosQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoWhereInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"protos"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<ProtosQueryQuery, ProtosQueryQueryVariables>;
+export const UpdateProtoMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateProtoMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoUpdateInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateProto"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"dateString"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}}]}}]} as unknown as DocumentNode<UpdateProtoMutationMutation, UpdateProtoMutationMutationVariables>;
+export const GetMemoByDateStringDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMemoByDateString"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"dateString"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getMemoByDateString"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"dateString"},"value":{"kind":"Variable","name":{"kind":"Name","value":"dateString"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"dateString"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<GetMemoByDateStringQuery, GetMemoByDateStringQueryVariables>;
+export const ProtosQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProtosQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoWhereInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"protos"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"dateString"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<ProtosQueryQuery, ProtosQueryQueryVariables>;

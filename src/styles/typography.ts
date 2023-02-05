@@ -18,5 +18,5 @@ Typography.loadTypographies({
   p: {
     fontSize: 14,
     lineHeight: 22,
-  }
+  },
 });

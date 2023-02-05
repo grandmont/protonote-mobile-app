@@ -6,40 +6,29 @@ import ScreenLayout from "../components/layout/ScreenLayout";
 
 // Components
 import Greetings from "../components/home/Greetings/Greetings";
-import Divider from "../components/elements/Divider/Divider";
-// import RecentActivity from "../components/home/RecentActivity/RecentActivity";
+import NoMemoSection from "../components/home/NoMemoSection/NoMemoSection";
 import MemoSection from "../components/home/MemoSection/MemoSection";
-import TodaySection from "../components/home/TodaySection/TodaySection";
-import { GetTodayDocument } from "../graphql/generated";
+import { GetMemoByDateStringDocument } from "../graphql/generated";
 import { getTodayDateString } from "../utils/parsers";
 
 export default function HomeScreen() {
   const todayDateString = getTodayDateString();
 
-  const { data, loading } = useQuery(GetTodayDocument, {
+  const { data, loading } = useQuery(GetMemoByDateStringDocument, {
     variables: {
       dateString: todayDateString,
     },
   });
 
-  const getToday = data?.getToday;
+  const getToday = data?.getMemoByDateString;
 
-  if (loading) {
-    return <LoaderScreen />;
-  }
+  if (loading) return <LoaderScreen overlay />;
 
   return (
     <ScreenLayout>
       <Greetings />
-      {/* <Divider />
-      <RecentActivity /> */}
-      {!getToday && <MemoSection />}
-      {getToday && (
-        <>
-          <Divider size="small" />
-          <TodaySection data={getToday} />
-        </>
-      )}
+
+      {!getToday ? <NoMemoSection /> : <MemoSection {...getToday} />}
     </ScreenLayout>
   );
 }
