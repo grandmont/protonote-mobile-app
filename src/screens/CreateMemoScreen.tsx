@@ -5,8 +5,11 @@ const { Toast } = Incubator;
 
 import {
   CreateProtoMutationDocument,
+  CreateProtoMutationMutation,
   GetMemoByDateStringDocument,
   ProtosQueryDocument,
+  UpdateProtoMutationDocument,
+  UpdateProtoMutationMutation,
 } from "../graphql/generated";
 import MemoEditor from "../components/memo/MemoEditor/MemoEditor";
 import ScreenLayout from "../components/layout/ScreenLayout";
@@ -21,7 +24,7 @@ export default function CreateMemoScreen({ navigation, route }) {
   const nativeId = useId();
 
   const {
-    date: { dateString },
+    date: { dateString, editData },
   } = route.params;
 
   const [memoData, setMemoData] = useState({ description: null });
@@ -30,7 +33,9 @@ export default function CreateMemoScreen({ navigation, route }) {
 
   const { userInfo } = useAuth();
 
-  const [createMemoMutation] = useMutation(CreateProtoMutationDocument);
+  const [createOrUpdateMemoMutation] = useMutation<
+    CreateProtoMutationMutation | UpdateProtoMutationMutation
+  >(!editData ? CreateProtoMutationDocument : UpdateProtoMutationDocument);
 
   const parsedDateString = dateString || getTodayDateString();
   const title = getWrittenDateString(parsedDateString);
@@ -41,30 +46,39 @@ export default function CreateMemoScreen({ navigation, route }) {
     setIsLoading(true);
 
     const createMemoData = {
-      ...memoData,
-      title,
-      dateString: parsedDateString,
-    };
-
-    try {
-      await createMemoMutation({
-        variables: {
-          data: {
-            ...createMemoData,
-            user: {
-              connect: {
-                id: userInfo.id,
-              },
-            },
+      data: {
+        ...memoData,
+        title,
+        dateString: parsedDateString,
+        user: {
+          connect: {
+            id: userInfo.id,
           },
         },
-      });
+      },
+    };
+
+    const updateMemoData = {
+      data: {
+        description: {
+          set: memoData.description,
+        },
+      },
+      where: {
+        id: editData?.id,
+      },
+    };
+
+    const variables = !editData ? createMemoData : updateMemoData;
+
+    try {
+      await createOrUpdateMemoMutation({ variables });
 
       client.refetchQueries({
         include: [GetMemoByDateStringDocument, ProtosQueryDocument],
       });
 
-      navigation.navigate("Home");
+      navigation.goBack();
     } catch (error) {
       console.error(error);
       setError(error);
@@ -83,6 +97,7 @@ export default function CreateMemoScreen({ navigation, route }) {
 
       <KeyboardAvoidingView keyboardVerticalOffset={96}>
         <MemoEditor
+          defaultValue={editData?.description}
           onChange={handleChangeMemoEditor}
           inputAccessoryViewID={nativeId}
         />

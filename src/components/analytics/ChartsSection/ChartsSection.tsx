@@ -8,15 +8,13 @@ export default function ChartsSection() {
   return (
     <View centerH>
       {/* Pie */}
-      <View marginB-24>
-        <VictoryPie
-          padding={0}
-          height={200}
-          colorScale={["#303030", "#505050", "blue"]}
-          labels={() => null}
-          data={pieData}
-        />
-      </View>
+      <VictoryPie
+        padding={0}
+        height={250}
+        colorScale={["#303030", "#505050", "blue"]}
+        labels={() => null}
+        data={pieData}
+      />
 
       {/* Padding */}
       <Divider size="big" />

@@ -12,8 +12,7 @@ import { BOTTOM_TAB_ICON_SIZE } from "../config/constants";
 
 export default function AnalyticsScreen() {
   return (
-    <ScreenLayout paddingT-48 divider={false}>
-      <Divider size="tiny" />
+    <ScreenLayout divider={false}>
       <View row spread top>
         <Header
           title="Usage report"

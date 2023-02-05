@@ -9,12 +9,14 @@ interface HeaderProps {
   title: string;
   description?: string;
   canGoBack?: boolean;
+  onEdit?: () => void;
 }
 
 export default function Header({
   title,
   description,
   canGoBack = false,
+  onEdit = null,
 }: HeaderProps) {
   const navigation = useNavigation();
 
@@ -27,15 +29,22 @@ export default function Header({
       {canGoBack && (
         <Button
           onPress={handleGoBack}
-          style={{ position: "absolute", top: 3, left: -6, zIndex: 1 }}
+          style={{ position: "absolute", top: 2, left: -6, zIndex: 1 }}
           hitSlop={12}
           link
         >
-          <Ionicons
-            name="md-chevron-back"
-            color="blue"
-            size={BOTTOM_TAB_ICON_SIZE}
-          />
+          <Ionicons name="md-chevron-back" color="blue" size={24} />
+        </Button>
+      )}
+
+      {onEdit && (
+        <Button
+          onPress={onEdit}
+          style={{ position: "absolute", top: 3, right: 0, zIndex: 1 }}
+          hitSlop={12}
+          link
+        >
+          <Ionicons name="md-create-outline" size={BOTTOM_TAB_ICON_SIZE} />
         </Button>
       )}
 
