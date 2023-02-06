@@ -6,18 +6,20 @@ import type {
   AuthContextStateType,
   AuthProviderProps,
   AuthType,
+  ThemeType,
 } from ".";
-import { authReducer, userReducer } from "./reducers";
+import { authReducer, uiReducer, userReducer } from "./reducers";
 import { User } from "../../graphql/generated";
 
 const mainReducer = (
   // State
-  { auth, userInfo }: AuthContextStateType,
+  { auth, userInfo, globalUI }: AuthContextStateType,
   action: AuthContextActionsType
 ) => {
   return {
     auth: authReducer(auth, action),
     userInfo: userReducer(userInfo, action),
+    globalUI: uiReducer(globalUI, action),
   };
 };
 
@@ -30,11 +32,15 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const setUserInfo = (payload: User) =>
     dispatch({ type: "CHANGE_USER", payload });
 
+  const setTheme = (payload: ThemeType) =>
+    dispatch({ type: "CHANGE_THEME", payload });
+
   const providerValue = {
     state,
     dispatch,
     setAuth,
     setUserInfo,
+    setTheme,
   };
 
   return (

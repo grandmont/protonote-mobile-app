@@ -14,7 +14,7 @@ export default function ScreenLayout({
   ...props
 }: ScreenLayoutProps) {
   return (
-    <View flex paddingH-18 paddingT-72 bg-white {...props}>
+    <View flex paddingH-18 paddingT-72 bg-screenBG {...props}>
       {children}
       {divider && <Divider size={dividerSize} />}
     </View>

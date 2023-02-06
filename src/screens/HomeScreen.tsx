@@ -23,8 +23,6 @@ export default function HomeScreen() {
 
   const getToday = data?.getMemoByDateString;
 
-  if (loading) return <LoaderScreen overlay />;
-
   return (
     <ScreenLayout>
       <Greetings />
@@ -32,6 +30,8 @@ export default function HomeScreen() {
       <RecentActivity />
 
       {!getToday ? <NoMemoSection /> : <MemoSection {...getToday} />}
+
+      {loading && <LoaderScreen overlay />}
     </ScreenLayout>
   );
 }
