@@ -1,6 +1,7 @@
 mutation SwapSpotifyCode($input: SpotifyInput!) {
   swapSpotifyCode(input: $input) {
     accessToken
+    refreshToken
   }
 }
 

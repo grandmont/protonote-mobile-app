@@ -11,11 +11,13 @@ export type DividerSizeType =
 interface DividerProps {
   size: DividerSizeType;
   showDividerLine?: boolean;
+  borderColor?: string;
 }
 
 export default function Divider({
   size,
   showDividerLine = false,
+  borderColor = "#ededed",
 }: DividerProps) {
   const dividerSize = {
     invisible: 0,
@@ -39,7 +41,7 @@ export default function Divider({
           style={{
             width: "100%",
             borderTopWidth: 2,
-            borderColor: "#ededed",
+            borderColor,
           }}
         />
       )}

@@ -1,36 +1,33 @@
-import { useState } from "react";
+import { useEffect } from "react";
+import { Card, Text } from "react-native-ui-lib";
 
-import useInterval from "../../../hooks/useInterval";
 import useIntegrations from "../../../hooks/useIntegrations";
-import useSpotify, { PlaybackStateType } from "../../../hooks/useSpotify";
+import useSpotify from "../../../hooks/useSpotify";
 import Divider from "../../elements/Divider/Divider";
 import SpotifyCard from "../../integrations/spotify/SpotifyCard/SpotifyCard";
 import ScreenSection from "../../layout/ScreenSection";
 
-const SPOTIFY_REQUEST_INTERVAL = 2000;
-
 export default function RecentActivity() {
-  const [playbackState, setPlaybackState] = useState<PlaybackStateType | null>(
-    null
-  );
-  const { hasIntegrations } = useIntegrations();
-  const { getPlaybackState } = useSpotify();
+  // const { hasIntegrations } = useIntegrations();
+  const { playbackState, fetchPlaybackState } = useSpotify();
 
-  useInterval(async () => {
-    const data = await getPlaybackState();
+  // const hasRecentActivity = hasIntegrations && !!playbackState;
 
-    console.log(data);
-    if (!data) return;
+  // Mount
+  useEffect(() => {
+    console.log("this runs once");
+    fetchPlaybackState();
+  }, []);
 
-    setPlaybackState(data);
-  }, SPOTIFY_REQUEST_INTERVAL);
-
-  const hasRecentActivity = hasIntegrations && !!playbackState;
-
-  if (!hasRecentActivity) return null;
+  // if (!hasRecentActivity) return null;
 
   return (
     <ScreenSection title="Recent activity">
+      {!playbackState && (
+        <Card padding-16>
+          <Text>There is no recent activity</Text>
+        </Card>
+      )}
       {playbackState && <SpotifyCard {...playbackState} />}
 
       <Divider size="tiny" />

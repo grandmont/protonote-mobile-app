@@ -31,9 +31,7 @@ export default function SpotifyIntegration({
 }: SpotifyIntegrationProps) {
   const [swapSpotifyCode] = useMutation(SwapSpotifyCodeDocument);
 
-  const [registerIntegrationMutation] = useMutation(
-    RegisterIntegrationDocument
-  );
+  const [registerIntegration] = useMutation(RegisterIntegrationDocument);
 
   const [request, response, promptAsync] = useAuthRequest(
     {
@@ -67,11 +65,11 @@ export default function SpotifyIntegration({
 
         const {
           data: {
-            swapSpotifyCode: { accessToken },
+            swapSpotifyCode: { accessToken, refreshToken },
           },
         } = swapResponse;
 
-        const registerResponse = await registerIntegrationMutation({
+        const registerResponse = await registerIntegration({
           variables: {
             input: {
               accessToken,
@@ -85,7 +83,9 @@ export default function SpotifyIntegration({
           return;
         }
 
-        await AsyncStorage.setItem("spotify", accessToken);
+        await AsyncStorage.setItem("spotify:accessToken", accessToken);
+        await AsyncStorage.setItem("spotify:refreshToken", refreshToken);
+
         client.refetchQueries({
           include: [IntegrationsDocument],
         });
@@ -96,9 +96,11 @@ export default function SpotifyIntegration({
     }
   }, [response]);
 
-  const registerIntegration = async () => {
+  const registerSpotifyIntegration = async () => {
     await promptAsync();
   };
 
-  return <SpotifyButton disabled={!request} onPress={registerIntegration} />;
+  return (
+    <SpotifyButton disabled={!request} onPress={registerSpotifyIntegration} />
+  );
 }

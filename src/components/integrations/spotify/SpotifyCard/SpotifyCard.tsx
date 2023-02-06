@@ -1,3 +1,4 @@
+import { Linking } from "react-native";
 import { Card, View, Colors, Image, Text } from "react-native-ui-lib";
 import Entypo from "@expo/vector-icons/Entypo";
 
@@ -8,18 +9,31 @@ export default function SpotifyCard(data: PlaybackStateType) {
   const {
     item: {
       name,
-      album: { artists, images },
+      album: {
+        artists,
+        images,
+        external_urls: { spotify },
+      },
     },
   } = data;
 
   const [{ name: artistName }] = artists;
   const [, albumCover] = images;
 
+  const handleGoToSpotify = async () => {
+    const supported = await Linking.canOpenURL(spotify);
+
+    if (supported) {
+      await Linking.openURL(spotify);
+    }
+  };
+
   return (
     <Card
       style={{
         backgroundColor: Colors.spotify,
       }}
+      onPress={handleGoToSpotify}
     >
       <View row spread top>
         <View row width="70%">

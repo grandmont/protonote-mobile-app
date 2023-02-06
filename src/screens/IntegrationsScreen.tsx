@@ -25,6 +25,15 @@ export default function IntegrationsScreen() {
     <ScreenLayout>
       <Header title={title} canGoBack />
 
+      {integrations.map((integration) => (
+        <View key={integration.id}>
+          <Text>
+            {integration.id}
+            {integration.externalId}
+          </Text>
+        </View>
+      ))}
+
       <SpotifyIntegration onSuccess={handleGoBack} />
 
       {/* {!hasIntegrations ? (
