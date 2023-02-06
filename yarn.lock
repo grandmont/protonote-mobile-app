@@ -2688,6 +2688,11 @@
   resolved "https://registry.yarnpkg.com/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
   integrity sha512-K5K+yml8LTo9bWJI/rECfIPrGgxdpeNbj+d53lwN4QjW1MCwlkhUms+gtdzigTeUyBr09+u8BwOIY3MXvHdcsA==
 
+"@types/spotify-api@^0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@types/spotify-api/-/spotify-api-0.0.20.tgz#04486807175f7acfba3540213b5a4ca2a8270bd7"
+  integrity sha512-HRBwiOthYAT0r/vUQlGlNTdXMnPg/CS3MzTuQKDy2PtalUDXhj0Ep9YZ4tXmL68K0j7FMcLFcYTzy7k7nVu5mg==
+
 "@types/tapable@^1", "@types/tapable@^1.0.5":
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.8.tgz#b94a4391c85666c7b73299fd3ad79d4faa435310"

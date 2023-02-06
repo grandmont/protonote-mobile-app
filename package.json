@@ -50,6 +50,7 @@
     "@graphql-codegen/typed-document-node": "^2.3.12",
     "@graphql-codegen/typescript": "^2.8.7",
     "@graphql-codegen/typescript-operations": "^2.5.12",
+    "@types/spotify-api": "^0.0.20",
     "ts-node": "^10.9.1"
   },
   "private": true

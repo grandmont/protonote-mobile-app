@@ -1,4 +1,5 @@
-import { View, Text, Button, Image } from "react-native-ui-lib";
+import { View, Text, Image } from "react-native-ui-lib";
+
 import CreateMemoButton from "../../elements/CreateMemoButton/CreateMemoButton";
 
 export default function NoMemoSection() {

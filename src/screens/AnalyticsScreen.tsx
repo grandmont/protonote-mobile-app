@@ -19,11 +19,11 @@ export default function AnalyticsScreen() {
           description="Get to know more about your memos"
         />
 
-        <View row top centerV>
+        {/* <View row top centerV>
           <Button onPress={() => null} hitSlop={5} padding-4 link>
             <Ionicons name="md-share-outline" size={BOTTOM_TAB_ICON_SIZE} />
           </Button>
-        </View>
+        </View> */}
       </View>
 
       <UsageInformation />
