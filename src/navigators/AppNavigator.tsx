@@ -14,6 +14,7 @@ import MemoScreen from "../screens/MemoScreen";
 import NotificationsScreen from "../screens/NotificationsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import IntegrationsScreen from "../screens/IntegrationsScreen";
+import AboutUsScreen from "../screens/AboutUsScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -85,6 +86,7 @@ export default function AppNavigator() {
 
       {/* Settings */}
       <Stack.Screen name="Integrations" component={IntegrationsScreen} />
+      <Stack.Screen name="AboutUs" component={AboutUsScreen} />
     </Stack.Navigator>
   );
 }

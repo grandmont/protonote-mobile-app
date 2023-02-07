@@ -5,7 +5,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import ScreenLayout from "../components/layout/ScreenLayout";
 import Header from "../components/elements/Header/Header";
 import ScreenSection from "../components/layout/ScreenSection";
-import Divider from "../components/elements/Divider/Divider";
+// import Divider from "../components/elements/Divider/Divider";
 import useAuth from "../hooks/useAuth";
 import { BOTTOM_TAB_ICON_SIZE } from "../config/constants";
 
@@ -28,28 +28,32 @@ export default function SettingsScreen() {
   const navigation = useNavigation();
   const { logout } = useAuth();
 
-  const handleGoToIntegrations = () => {
-    navigation.navigate("Integrations" as any);
+  const navigateTo = (screen: string) => () => {
+    navigation.navigate(screen as any);
   };
 
   return (
     <ScreenLayout dividerSize="regular">
       <Header title={title} canGoBack />
 
-      <ScreenSection title="Personal">
+      {/* <ScreenSection title="Personal">
         <SettingsItem title="Notifications" />
         <SettingsItem title="Appearance" marginT-12 />
         <SettingsItem title="Language" marginT-12 />
       </ScreenSection>
 
-      <Divider size="small" />
+      <Divider size="small" /> */}
 
       <ScreenSection title="General">
         <SettingsItem
-          title="Manage Third-party Integrations"
-          onPress={handleGoToIntegrations}
+          title="Connected apps"
+          onPress={navigateTo("Integrations")}
         />
-        <SettingsItem title="About us" marginT-12 />
+        <SettingsItem
+          title="About us"
+          onPress={navigateTo("AboutUs")}
+          marginT-12
+        />
       </ScreenSection>
 
       <View flex bottom centerH>
