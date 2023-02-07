@@ -2688,6 +2688,11 @@
   resolved "https://registry.yarnpkg.com/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
   integrity sha512-K5K+yml8LTo9bWJI/rECfIPrGgxdpeNbj+d53lwN4QjW1MCwlkhUms+gtdzigTeUyBr09+u8BwOIY3MXvHdcsA==
 
+"@types/spotify-api@^0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@types/spotify-api/-/spotify-api-0.0.20.tgz#04486807175f7acfba3540213b5a4ca2a8270bd7"
+  integrity sha512-HRBwiOthYAT0r/vUQlGlNTdXMnPg/CS3MzTuQKDy2PtalUDXhj0Ep9YZ4tXmL68K0j7FMcLFcYTzy7k7nVu5mg==
+
 "@types/tapable@^1", "@types/tapable@^1.0.5":
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.8.tgz#b94a4391c85666c7b73299fd3ad79d4faa435310"
@@ -5824,6 +5829,14 @@ expo-status-bar@~1.4.2:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.4.2.tgz#14f2b9a6dc7d550578421f07e0046f5fafc2b403"
   integrity sha512-ZWjO6D4ARGYfAd3SWDD3STNudHDhyBZDZjhhseqoEmsf7bS9ykny8KKOhlzJW24qIQNPhkgdvHhaw9fQwMJy3Q==
+
+expo-system-ui@~2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/expo-system-ui/-/expo-system-ui-2.0.1.tgz#5c15f3a6c309b2837c82c225d9e6f9aa2cc452ef"
+  integrity sha512-lspSKU71G2+6y3kI/p/sZUFSBvzd5HdnKuSX0J6b4yqOEAhMIA4JtmkU/0as1FY1Fnz+48fLs2ZL9gzbr7+njA==
+  dependencies:
+    "@react-native/normalize-color" "^2.0.0"
+    debug "^4.3.2"
 
 expo-web-browser@~12.0.0:
   version "12.0.0"
@@ -10452,10 +10465,10 @@ react-native-text-size@4.0.0-rc.1:
   resolved "https://registry.yarnpkg.com/react-native-text-size/-/react-native-text-size-4.0.0-rc.1.tgz#1e048d345dd6a5a8e1269e0585c1a5948c478da5"
   integrity sha512-CysqjU2jK6Yc+a+kEI222pUyTY2ywcU2HqbFqf1KHymW6OPTdvBBHqbEJKL0QiLhQaFYDbqicM+h990s9TP00g==
 
-react-native-ui-lib@^6.29.0:
-  version "6.29.0"
-  resolved "https://registry.yarnpkg.com/react-native-ui-lib/-/react-native-ui-lib-6.29.0.tgz#de842816c0ba7e5418f35b2a137f269779e638db"
-  integrity sha512-ivHGP4sMuVcDi+mio2G0fziBlZTI+h3XVuqV1Y2UPsDTuDJqDFSGPNEacAUzpu1CGGQdxB9a3/EdXy3adzVVdQ==
+react-native-ui-lib@^6.29.1:
+  version "6.29.1"
+  resolved "https://registry.yarnpkg.com/react-native-ui-lib/-/react-native-ui-lib-6.29.1.tgz#e18917ef7d0f4d12961c48dca5d9416ca80151df"
+  integrity sha512-I3n4kQajRNh9zeyeEGZ/i0xU/4vqDxtFK41H65PDIAgrGkp4khf6Nt+JjUxeHpXy82CEI6lcitDuo8xQCOSI0w==
   dependencies:
     babel-plugin-transform-inline-environment-variables "^0.0.2"
     color "^3.1.0"
@@ -11959,9 +11972,9 @@ timsort@^0.3.0:
   integrity sha512-qsdtZH+vMoCARQtyod4imc2nIJwg9Cc7lPRrw9CzF8ZKR0khdr8+2nX80PBhET3tcyTtJDxAffGh2rXH4tyU8A==
 
 tinycolor2@^1.4.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.5.2.tgz#7d30b4584d8b7d62b9a94dacc505614a6516a95f"
-  integrity sha512-h80m9GPFGbcLzZByXlNSEhp1gf8Dy+VX/2JCGUZsWLo7lV1mnE/XlxGYgRBoMLJh1lIDXP0EMC4RPTjlRaV+Bg==
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.6.0.tgz#f98007460169b0263b97072c5ae92484ce02d09e"
+  integrity sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==
 
 title-case@^3.0.3:
   version "3.0.3"

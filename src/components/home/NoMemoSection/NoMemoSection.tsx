@@ -1,9 +1,10 @@
-import { View, Text, Button, Image } from "react-native-ui-lib";
+import { View, Text, Image } from "react-native-ui-lib";
+
 import CreateMemoButton from "../../elements/CreateMemoButton/CreateMemoButton";
 
 export default function NoMemoSection() {
   return (
-    <View flex center>
+    <View flex centerH bottom paddingB-24>
       <Text h2>How was your day?</Text>
       <Image
         source={require("../../../../assets/bed.png")}

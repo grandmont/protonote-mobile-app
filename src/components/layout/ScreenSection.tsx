@@ -1,6 +1,6 @@
-import { Text, View } from "react-native-ui-lib";
+import { Text, View, ViewProps } from "react-native-ui-lib";
 
-interface ScreenSectionProps {
+interface ScreenSectionProps extends ViewProps {
   title: string;
   children?: React.ReactNode;
 }

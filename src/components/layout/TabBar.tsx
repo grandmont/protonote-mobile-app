@@ -1,6 +1,6 @@
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { StyleSheet } from "react-native";
-import { Card, View, TouchableOpacity } from "react-native-ui-lib";
+import { Card, View, TouchableOpacity, Colors } from "react-native-ui-lib";
 
 import { BOTTOM_TAB_ICON_SIZE } from "../../config/constants";
 
@@ -56,7 +56,7 @@ export default function TabBar({
               hitSlop={{ left: 10, right: 10 }}
               style={[
                 styles.tabBarButton,
-                { backgroundColor: isFocused ? "blue" : "white" },
+                { backgroundColor: isFocused ? Colors.primary : "white" },
                 // { backgroundColor: "grey" },
               ]}
             >

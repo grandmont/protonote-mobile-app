@@ -92,7 +92,7 @@ export default function CreateMemoScreen({ navigation, route }) {
   };
 
   return (
-    <ScreenLayout dividerSize="small">
+    <ScreenLayout dividerSize="regular">
       <Header title={title} canGoBack />
 
       <KeyboardAvoidingView keyboardVerticalOffset={96}>
@@ -103,7 +103,7 @@ export default function CreateMemoScreen({ navigation, route }) {
         />
       </KeyboardAvoidingView>
 
-      <View flex bottom>
+      <View flex bottom centerH>
         <Button
           label="Save"
           onPress={handleCreateMemo}

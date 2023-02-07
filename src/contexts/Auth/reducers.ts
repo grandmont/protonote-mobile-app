@@ -1,8 +1,8 @@
-import { AuthType, AuthContextActionsType } from ".";
+import { AuthType, AuthContextActionsType, UIType } from ".";
 import { User } from "../../graphql/generated";
 
 export const authReducer: React.Reducer<AuthType, AuthContextActionsType> = (
-  state,
+  auth,
   action
 ) => {
   switch (action.type) {
@@ -10,16 +10,32 @@ export const authReducer: React.Reducer<AuthType, AuthContextActionsType> = (
       return action.payload;
 
     default:
-      return state;
+      return auth;
   }
 };
 
-export const userReducer: React.Reducer<User, AuthContextActionsType> = (state, action) => {
+export const userReducer: React.Reducer<User, AuthContextActionsType> = (
+  userInfo,
+  action
+) => {
   switch (action.type) {
     case "CHANGE_USER":
       return action.payload;
 
     default:
-      return state;
+      return userInfo;
   }
-}
+};
+
+export const uiReducer: React.Reducer<UIType, AuthContextActionsType> = (
+  globalUI,
+  action
+) => {
+  switch (action.type) {
+    case "CHANGE_THEME":
+      return { ...globalUI, theme: action.payload };
+
+    default:
+      return globalUI;
+  }
+};

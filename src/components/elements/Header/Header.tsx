@@ -1,4 +1,4 @@
-import { View, Text, Button } from "react-native-ui-lib";
+import { View, Text, Button, Colors } from "react-native-ui-lib";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import Divider from "../Divider/Divider";
@@ -33,7 +33,7 @@ export default function Header({
           hitSlop={12}
           link
         >
-          <Ionicons name="md-chevron-back" color="blue" size={24} />
+          <Ionicons name="md-chevron-back" color={Colors.primary} size={24} />
         </Button>
       )}
 
@@ -52,7 +52,7 @@ export default function Header({
         {title}
       </Text>
       {description && <Text p>{description}</Text>}
-      <Divider size="small" />
+      <Divider size="tiny" />
     </View>
   );
 }

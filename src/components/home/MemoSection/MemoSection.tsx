@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { Card, View, Text } from "react-native-ui-lib";
+import { Card, View, Text, Button } from "react-native-ui-lib";
 
 import Divider from "../../elements/Divider/Divider";
 import { Proto } from "../../../graphql/generated";
@@ -20,21 +20,19 @@ export default function TodaySection({
 
   return (
     <ScreenSection title="Today's Memo">
-      <Card
-        padding-16
-        paddingT-12
-        // enableShadow={false}
-        // style={{
-        //   borderWidth: 1,
-        //   borderColor: "#ededed",
-        // }}
-        onPress={handleGoToMemo}
-      >
-        <View row spread centerV>
-          <Text text80M>{title}</Text>
-        </View>
+      <Card>
+        <Button link onPress={handleGoToMemo}>
+          <View padding-16 paddingT-12 paddingB-0 row spread centerV>
+            <Text text80M>{title}</Text>
+          </View>
+        </Button>
         <Divider size="tiny" showDividerLine />
-        <Text p>{description}</Text>
+
+        <View padding-16 paddingT-0>
+          <Text numberOfLines={7} p>
+            {description}
+          </Text>
+        </View>
       </Card>
     </ScreenSection>
   );

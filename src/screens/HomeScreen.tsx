@@ -6,6 +6,7 @@ import ScreenLayout from "../components/layout/ScreenLayout";
 
 // Components
 import Greetings from "../components/home/Greetings/Greetings";
+import RecentActivity from "../components/home/RecentActivity/RecentActivity";
 import NoMemoSection from "../components/home/NoMemoSection/NoMemoSection";
 import MemoSection from "../components/home/MemoSection/MemoSection";
 import { GetMemoByDateStringDocument } from "../graphql/generated";
@@ -22,13 +23,15 @@ export default function HomeScreen() {
 
   const getToday = data?.getMemoByDateString;
 
-  if (loading) return <LoaderScreen overlay />;
-
   return (
     <ScreenLayout>
       <Greetings />
 
+      <RecentActivity />
+
       {!getToday ? <NoMemoSection /> : <MemoSection {...getToday} />}
+
+      {loading && <LoaderScreen overlay />}
     </ScreenLayout>
   );
 }

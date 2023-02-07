@@ -1,5 +1,5 @@
 import { CalendarList, DateData } from "react-native-calendars";
-import { LoaderScreen, View } from "react-native-ui-lib";
+import { Colors, LoaderScreen, View } from "react-native-ui-lib";
 import { useQuery } from "@apollo/client";
 
 import { ProtosQueryDocument } from "../graphql/generated";
@@ -17,7 +17,7 @@ export default function CalendarScreen({ navigation }) {
     [todayDateString]: {
       customStyles: {
         text: {
-          color: "blue",
+          color: Colors.primary,
           fontWeight: "600",
         },
       },
@@ -39,7 +39,7 @@ export default function CalendarScreen({ navigation }) {
     const calendarOptions = {
       customStyles: {
         container: {
-          backgroundColor: "blue",
+          backgroundColor: Colors.primary,
           borderRadius: "100%",
         },
         text: {
