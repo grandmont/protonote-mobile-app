@@ -52,7 +52,7 @@ export default function Header({
         {title}
       </Text>
       {description && <Text p>{description}</Text>}
-      <Divider size="small" />
+      <Divider size="tiny" />
     </View>
   );
 }

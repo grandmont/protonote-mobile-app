@@ -30,6 +30,7 @@ export default function SpotifyCard(data: PlaybackStateType) {
 
   return (
     <Card
+      height={64}
       style={{
         backgroundColor: Colors.spotify,
       }}

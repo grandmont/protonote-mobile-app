@@ -18,10 +18,11 @@ export default function RecentActivity() {
   return (
     <ScreenSection title="Recent activity">
       {!playbackState && (
-        <Card padding-16>
+        <Card height={64} padding-16 center>
           <Text>There is no recent activity</Text>
         </Card>
       )}
+
       {playbackState && <SpotifyCard {...playbackState} />}
 
       <Divider size="tiny" />
