@@ -29,19 +29,21 @@ export default function Greetings() {
       <View row top centerV>
         <Button
           onPress={handleNotificationsPress}
-          hitSlop={1}
+          hitSlop={{ top: 10, bottom: 10, left: 4, right: 4 }}
           marginR-12
           padding-4
           link
+          style={{ zIndex: 1 }}
         >
           <Ionicons name="notifications-outline" size={BOTTOM_TAB_ICON_SIZE} />
         </Button>
         <Button
           onPress={handleSettingsPress}
-          hitSlop={1}
+          hitSlop={{ top: 10, bottom: 10, left: 4, right: 4 }}
           marginR-16
           padding-4
           link
+          style={{ zIndex: 1 }}
         >
           <Ionicons name="settings-outline" size={BOTTOM_TAB_ICON_SIZE} />
         </Button>
