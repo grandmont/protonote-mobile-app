@@ -1,8 +1,14 @@
 import { useQuery } from "@apollo/client";
-import { IntegrationsDocument } from "../graphql/generated";
+import {
+  Integration,
+  IntegrationProvider,
+  IntegrationsDocument,
+} from "../graphql/generated";
 import useAuth from "./useAuth";
 
-export type IntegrationType = "spotify";
+type IntegrationsMap = {
+  spotifyIntegration?: Integration;
+};
 
 export default function useIntegrations() {
   const { userInfo } = useAuth();
@@ -19,8 +25,23 @@ export default function useIntegrations() {
 
   const hasIntegrations = data && !!data.integrations.length;
 
+  const integrations: IntegrationsMap = (data ? data.integrations : []).reduce(
+    (acc, cur) => {
+      if (cur.provider === IntegrationProvider.Spotify)
+        return {
+          ...acc,
+          spotifyIntegration: cur,
+        };
+
+      return {
+        ...acc,
+      };
+    },
+    {}
+  );
+
   return {
     hasIntegrations,
-    integrations: data ? data.integrations : [],
+    integrations,
   };
 }

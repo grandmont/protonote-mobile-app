@@ -11,7 +11,7 @@ export default function ChartsSection() {
       <VictoryPie
         padding={0}
         height={250}
-        colorScale={["#303030", "#505050", "blue"]}
+        colorScale={["#303030", "blue"]}
         labels={() => null}
         data={pieData}
       />

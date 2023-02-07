@@ -3,14 +3,17 @@ import * as WebBrowser from "expo-web-browser";
 import { useAuthRequest } from "expo-auth-session";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation } from "@apollo/client";
+import { View, Text } from "react-native-ui-lib";
+import Entypo from "@expo/vector-icons/Entypo";
 
 import {
+  IntegrationProvider,
   IntegrationsDocument,
   RegisterIntegrationDocument,
   SwapSpotifyCodeDocument,
 } from "../../../../graphql/generated";
-import SpotifyButton from "../SpotifyButton/SpotifyButton";
 import { client } from "../../../../services/client";
+import SwitchItem from "../../../elements/SwitchItem/SwitchItem";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -23,10 +26,12 @@ const discovery = {
 };
 
 interface SpotifyIntegrationProps {
-  onSuccess: () => void;
+  hasSpotify: boolean;
+  onSuccess?: () => void;
 }
 
 export default function SpotifyIntegration({
+  hasSpotify,
   onSuccess,
 }: SpotifyIntegrationProps) {
   const [swapSpotifyCode] = useMutation(SwapSpotifyCodeDocument);
@@ -73,6 +78,7 @@ export default function SpotifyIntegration({
           variables: {
             input: {
               accessToken,
+              provider: IntegrationProvider.Spotify,
             },
           },
         });
@@ -89,7 +95,8 @@ export default function SpotifyIntegration({
         client.refetchQueries({
           include: [IntegrationsDocument],
         });
-        onSuccess();
+
+        onSuccess && onSuccess();
       };
 
       persistAccessToken();
@@ -97,10 +104,23 @@ export default function SpotifyIntegration({
   }, [response]);
 
   const registerSpotifyIntegration = async () => {
+    if (hasSpotify) return;
+
     await promptAsync();
   };
 
   return (
-    <SpotifyButton disabled={!request} onPress={registerSpotifyIntegration} />
+    <SwitchItem
+      disabled={!request}
+      value={hasSpotify}
+      onValueChange={registerSpotifyIntegration}
+    >
+      <View row centerV>
+        <Entypo name="spotify" size={36} />
+        <Text marginL-12 title>
+          Spotify
+        </Text>
+      </View>
+    </SwitchItem>
   );
 }
