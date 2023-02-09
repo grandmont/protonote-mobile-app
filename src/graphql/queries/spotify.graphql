@@ -1,0 +1,12 @@
+mutation SwapSpotifyCode($input: SpotifyInput!) {
+  swapSpotifyCode(input: $input) {
+    accessToken
+    refreshToken
+  }
+}
+
+mutation RefreshSpotifyAccessToken($input: SpotifyInput!) {
+  refreshSpotifyAccessToken(input: $input) {
+    accessToken
+  }
+}

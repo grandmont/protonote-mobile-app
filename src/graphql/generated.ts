@@ -1,3 +1,4 @@
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -18,6 +19,15 @@ export type AffectedRowsOutput = {
   count: Scalars['Int'];
 };
 
+export type AggregateIntegration = {
+  __typename?: 'AggregateIntegration';
+  _avg?: Maybe<IntegrationAvgAggregate>;
+  _count?: Maybe<IntegrationCountAggregate>;
+  _max?: Maybe<IntegrationMaxAggregate>;
+  _min?: Maybe<IntegrationMinAggregate>;
+  _sum?: Maybe<IntegrationSumAggregate>;
+};
+
 export type AggregateProto = {
   __typename?: 'AggregateProto';
   _avg?: Maybe<ProtoAvgAggregate>;
@@ -34,6 +44,17 @@ export type AggregateUser = {
   _max?: Maybe<UserMaxAggregate>;
   _min?: Maybe<UserMinAggregate>;
   _sum?: Maybe<UserSumAggregate>;
+};
+
+export type AuthInput = {
+  accessToken: Scalars['String'];
+};
+
+export type AuthResponse = {
+  __typename?: 'AuthResponse';
+  access_token: Scalars['String'];
+  status: Scalars['String'];
+  user: User;
 };
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -65,6 +86,40 @@ export type DateTimeWithAggregatesFilter = {
   notIn?: InputMaybe<Array<Scalars['DateTime']>>;
 };
 
+export type EnumIntegrationProviderNullableFilter = {
+  equals?: InputMaybe<IntegrationProvider>;
+  in?: InputMaybe<Array<IntegrationProvider>>;
+  not?: InputMaybe<NestedEnumIntegrationProviderNullableFilter>;
+  notIn?: InputMaybe<Array<IntegrationProvider>>;
+};
+
+export type EnumIntegrationProviderNullableWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntNullableFilter>;
+  _max?: InputMaybe<NestedEnumIntegrationProviderNullableFilter>;
+  _min?: InputMaybe<NestedEnumIntegrationProviderNullableFilter>;
+  equals?: InputMaybe<IntegrationProvider>;
+  in?: InputMaybe<Array<IntegrationProvider>>;
+  not?: InputMaybe<NestedEnumIntegrationProviderNullableWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<IntegrationProvider>>;
+};
+
+export type EnumIntegrationStatusNullableFilter = {
+  equals?: InputMaybe<IntegrationStatus>;
+  in?: InputMaybe<Array<IntegrationStatus>>;
+  not?: InputMaybe<NestedEnumIntegrationStatusNullableFilter>;
+  notIn?: InputMaybe<Array<IntegrationStatus>>;
+};
+
+export type EnumIntegrationStatusNullableWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntNullableFilter>;
+  _max?: InputMaybe<NestedEnumIntegrationStatusNullableFilter>;
+  _min?: InputMaybe<NestedEnumIntegrationStatusNullableFilter>;
+  equals?: InputMaybe<IntegrationStatus>;
+  in?: InputMaybe<Array<IntegrationStatus>>;
+  not?: InputMaybe<NestedEnumIntegrationStatusNullableWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<IntegrationStatus>>;
+};
+
 export type IntFilter = {
   equals?: InputMaybe<Scalars['Int']>;
   gt?: InputMaybe<Scalars['Int']>;
@@ -92,22 +147,376 @@ export type IntWithAggregatesFilter = {
   notIn?: InputMaybe<Array<Scalars['Int']>>;
 };
 
+export type Integration = {
+  __typename?: 'Integration';
+  createdAt: Scalars['DateTime'];
+  externalId: Scalars['String'];
+  id: Scalars['Int'];
+  provider?: Maybe<IntegrationProvider>;
+  status?: Maybe<IntegrationStatus>;
+  updatedAt: Scalars['DateTime'];
+  user: User;
+  userId: Scalars['Int'];
+};
+
+export type IntegrationAvgAggregate = {
+  __typename?: 'IntegrationAvgAggregate';
+  id?: Maybe<Scalars['Float']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+export type IntegrationAvgOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type IntegrationCountAggregate = {
+  __typename?: 'IntegrationCountAggregate';
+  _all: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  externalId: Scalars['Int'];
+  id: Scalars['Int'];
+  provider: Scalars['Int'];
+  status: Scalars['Int'];
+  updatedAt: Scalars['Int'];
+  userId: Scalars['Int'];
+};
+
+export type IntegrationCountOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  externalId?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  provider?: InputMaybe<SortOrder>;
+  status?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type IntegrationCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  externalId: Scalars['String'];
+  provider?: InputMaybe<IntegrationProvider>;
+  status?: InputMaybe<IntegrationStatus>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  user: UserCreateNestedOneWithoutIntegrationsInput;
+};
+
+export type IntegrationCreateManyInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  externalId: Scalars['String'];
+  id?: InputMaybe<Scalars['Int']>;
+  provider?: InputMaybe<IntegrationProvider>;
+  status?: InputMaybe<IntegrationStatus>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  userId: Scalars['Int'];
+};
+
+export type IntegrationCreateManyUserInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  externalId: Scalars['String'];
+  id?: InputMaybe<Scalars['Int']>;
+  provider?: InputMaybe<IntegrationProvider>;
+  status?: InputMaybe<IntegrationStatus>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type IntegrationCreateManyUserInputEnvelope = {
+  data: Array<IntegrationCreateManyUserInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type IntegrationCreateNestedManyWithoutUserInput = {
+  connect?: InputMaybe<Array<IntegrationWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<IntegrationCreateOrConnectWithoutUserInput>>;
+  create?: InputMaybe<Array<IntegrationCreateWithoutUserInput>>;
+  createMany?: InputMaybe<IntegrationCreateManyUserInputEnvelope>;
+};
+
+export type IntegrationCreateOrConnectWithoutUserInput = {
+  create: IntegrationCreateWithoutUserInput;
+  where: IntegrationWhereUniqueInput;
+};
+
+export type IntegrationCreateWithoutUserInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  externalId: Scalars['String'];
+  provider?: InputMaybe<IntegrationProvider>;
+  status?: InputMaybe<IntegrationStatus>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type IntegrationGroupBy = {
+  __typename?: 'IntegrationGroupBy';
+  _avg?: Maybe<IntegrationAvgAggregate>;
+  _count?: Maybe<IntegrationCountAggregate>;
+  _max?: Maybe<IntegrationMaxAggregate>;
+  _min?: Maybe<IntegrationMinAggregate>;
+  _sum?: Maybe<IntegrationSumAggregate>;
+  createdAt: Scalars['DateTime'];
+  externalId: Scalars['String'];
+  id: Scalars['Int'];
+  provider?: Maybe<IntegrationProvider>;
+  status?: Maybe<IntegrationStatus>;
+  updatedAt: Scalars['DateTime'];
+  userId: Scalars['Int'];
+};
+
+export type IntegrationListRelationFilter = {
+  every?: InputMaybe<IntegrationWhereInput>;
+  none?: InputMaybe<IntegrationWhereInput>;
+  some?: InputMaybe<IntegrationWhereInput>;
+};
+
+export type IntegrationMaxAggregate = {
+  __typename?: 'IntegrationMaxAggregate';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  externalId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+  provider?: Maybe<IntegrationProvider>;
+  status?: Maybe<IntegrationStatus>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  userId?: Maybe<Scalars['Int']>;
+};
+
+export type IntegrationMaxOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  externalId?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  provider?: InputMaybe<SortOrder>;
+  status?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type IntegrationMinAggregate = {
+  __typename?: 'IntegrationMinAggregate';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  externalId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+  provider?: Maybe<IntegrationProvider>;
+  status?: Maybe<IntegrationStatus>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  userId?: Maybe<Scalars['Int']>;
+};
+
+export type IntegrationMinOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  externalId?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  provider?: InputMaybe<SortOrder>;
+  status?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type IntegrationOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type IntegrationOrderByWithAggregationInput = {
+  _avg?: InputMaybe<IntegrationAvgOrderByAggregateInput>;
+  _count?: InputMaybe<IntegrationCountOrderByAggregateInput>;
+  _max?: InputMaybe<IntegrationMaxOrderByAggregateInput>;
+  _min?: InputMaybe<IntegrationMinOrderByAggregateInput>;
+  _sum?: InputMaybe<IntegrationSumOrderByAggregateInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  externalId?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  provider?: InputMaybe<SortOrder>;
+  status?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type IntegrationOrderByWithRelationInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  externalId?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  provider?: InputMaybe<SortOrder>;
+  status?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+  user?: InputMaybe<UserOrderByWithRelationInput>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export enum IntegrationProvider {
+  Spotify = 'SPOTIFY'
+}
+
+export enum IntegrationScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  ExternalId = 'externalId',
+  Id = 'id',
+  Provider = 'provider',
+  Status = 'status',
+  UpdatedAt = 'updatedAt',
+  UserId = 'userId'
+}
+
+export type IntegrationScalarWhereInput = {
+  AND?: InputMaybe<Array<IntegrationScalarWhereInput>>;
+  NOT?: InputMaybe<Array<IntegrationScalarWhereInput>>;
+  OR?: InputMaybe<Array<IntegrationScalarWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  externalId?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IntFilter>;
+  provider?: InputMaybe<EnumIntegrationProviderNullableFilter>;
+  status?: InputMaybe<EnumIntegrationStatusNullableFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  userId?: InputMaybe<IntFilter>;
+};
+
+export type IntegrationScalarWhereWithAggregatesInput = {
+  AND?: InputMaybe<Array<IntegrationScalarWhereWithAggregatesInput>>;
+  NOT?: InputMaybe<Array<IntegrationScalarWhereWithAggregatesInput>>;
+  OR?: InputMaybe<Array<IntegrationScalarWhereWithAggregatesInput>>;
+  createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  externalId?: InputMaybe<StringWithAggregatesFilter>;
+  id?: InputMaybe<IntWithAggregatesFilter>;
+  provider?: InputMaybe<EnumIntegrationProviderNullableWithAggregatesFilter>;
+  status?: InputMaybe<EnumIntegrationStatusNullableWithAggregatesFilter>;
+  updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  userId?: InputMaybe<IntWithAggregatesFilter>;
+};
+
+export enum IntegrationStatus {
+  Connected = 'CONNECTED',
+  Disconnected = 'DISCONNECTED'
+}
+
+export type IntegrationSumAggregate = {
+  __typename?: 'IntegrationSumAggregate';
+  id?: Maybe<Scalars['Int']>;
+  userId?: Maybe<Scalars['Int']>;
+};
+
+export type IntegrationSumOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type IntegrationUpdateInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  externalId?: InputMaybe<StringFieldUpdateOperationsInput>;
+  provider?: InputMaybe<NullableEnumIntegrationProviderFieldUpdateOperationsInput>;
+  status?: InputMaybe<NullableEnumIntegrationStatusFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutIntegrationsNestedInput>;
+};
+
+export type IntegrationUpdateManyMutationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  externalId?: InputMaybe<StringFieldUpdateOperationsInput>;
+  provider?: InputMaybe<NullableEnumIntegrationProviderFieldUpdateOperationsInput>;
+  status?: InputMaybe<NullableEnumIntegrationStatusFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type IntegrationUpdateManyWithWhereWithoutUserInput = {
+  data: IntegrationUpdateManyMutationInput;
+  where: IntegrationScalarWhereInput;
+};
+
+export type IntegrationUpdateManyWithoutUserNestedInput = {
+  connect?: InputMaybe<Array<IntegrationWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<IntegrationCreateOrConnectWithoutUserInput>>;
+  create?: InputMaybe<Array<IntegrationCreateWithoutUserInput>>;
+  createMany?: InputMaybe<IntegrationCreateManyUserInputEnvelope>;
+  delete?: InputMaybe<Array<IntegrationWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<IntegrationScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<IntegrationWhereUniqueInput>>;
+  set?: InputMaybe<Array<IntegrationWhereUniqueInput>>;
+  update?: InputMaybe<Array<IntegrationUpdateWithWhereUniqueWithoutUserInput>>;
+  updateMany?: InputMaybe<Array<IntegrationUpdateManyWithWhereWithoutUserInput>>;
+  upsert?: InputMaybe<Array<IntegrationUpsertWithWhereUniqueWithoutUserInput>>;
+};
+
+export type IntegrationUpdateWithWhereUniqueWithoutUserInput = {
+  data: IntegrationUpdateWithoutUserInput;
+  where: IntegrationWhereUniqueInput;
+};
+
+export type IntegrationUpdateWithoutUserInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  externalId?: InputMaybe<StringFieldUpdateOperationsInput>;
+  provider?: InputMaybe<NullableEnumIntegrationProviderFieldUpdateOperationsInput>;
+  status?: InputMaybe<NullableEnumIntegrationStatusFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type IntegrationUpsertWithWhereUniqueWithoutUserInput = {
+  create: IntegrationCreateWithoutUserInput;
+  update: IntegrationUpdateWithoutUserInput;
+  where: IntegrationWhereUniqueInput;
+};
+
+export type IntegrationWhereInput = {
+  AND?: InputMaybe<Array<IntegrationWhereInput>>;
+  NOT?: InputMaybe<Array<IntegrationWhereInput>>;
+  OR?: InputMaybe<Array<IntegrationWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  externalId?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IntFilter>;
+  provider?: InputMaybe<EnumIntegrationProviderNullableFilter>;
+  status?: InputMaybe<EnumIntegrationStatusNullableFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  user?: InputMaybe<UserRelationFilter>;
+  userId?: InputMaybe<IntFilter>;
+};
+
+export type IntegrationWhereUniqueInput = {
+  id?: InputMaybe<Scalars['Int']>;
+};
+
+export type IntegrationsInput = {
+  accessToken: Scalars['String'];
+  provider: IntegrationProvider;
+};
+
+export type IntegrationsResponse = {
+  __typename?: 'IntegrationsResponse';
+  integration: Integration;
+  status: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  authenticate: AuthResponse;
+  createManyIntegration: AffectedRowsOutput;
   createManyProto: AffectedRowsOutput;
   createManyUser: AffectedRowsOutput;
-  createProto: Proto;
-  createUser: User;
+  createOneIntegration: Integration;
+  createOneProto: Proto;
+  createOneUser: User;
+  deleteManyIntegration: AffectedRowsOutput;
   deleteManyProto: AffectedRowsOutput;
   deleteManyUser: AffectedRowsOutput;
-  deleteProto?: Maybe<Proto>;
-  deleteUser?: Maybe<User>;
+  deleteOneIntegration?: Maybe<Integration>;
+  deleteOneProto?: Maybe<Proto>;
+  deleteOneUser?: Maybe<User>;
+  refreshSpotifyAccessToken: SpotifyResponse;
+  registerIntegration: IntegrationsResponse;
+  swapSpotifyCode: SpotifyResponse;
+  updateManyIntegration: AffectedRowsOutput;
   updateManyProto: AffectedRowsOutput;
   updateManyUser: AffectedRowsOutput;
-  updateProto?: Maybe<Proto>;
-  updateUser?: Maybe<User>;
-  upsertProto: Proto;
-  upsertUser: User;
+  updateOneIntegration?: Maybe<Integration>;
+  updateOneProto?: Maybe<Proto>;
+  updateOneUser?: Maybe<User>;
+  upsertOneIntegration: Integration;
+  upsertOneProto: Proto;
+  upsertOneUser: User;
+};
+
+
+export type MutationAuthenticateArgs = {
+  input: AuthInput;
+};
+
+
+export type MutationCreateManyIntegrationArgs = {
+  data: Array<IntegrationCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -123,13 +532,23 @@ export type MutationCreateManyUserArgs = {
 };
 
 
-export type MutationCreateProtoArgs = {
+export type MutationCreateOneIntegrationArgs = {
+  data: IntegrationCreateInput;
+};
+
+
+export type MutationCreateOneProtoArgs = {
   data: ProtoCreateInput;
 };
 
 
-export type MutationCreateUserArgs = {
+export type MutationCreateOneUserArgs = {
   data: UserCreateInput;
+};
+
+
+export type MutationDeleteManyIntegrationArgs = {
+  where?: InputMaybe<IntegrationWhereInput>;
 };
 
 
@@ -143,13 +562,39 @@ export type MutationDeleteManyUserArgs = {
 };
 
 
-export type MutationDeleteProtoArgs = {
+export type MutationDeleteOneIntegrationArgs = {
+  where: IntegrationWhereUniqueInput;
+};
+
+
+export type MutationDeleteOneProtoArgs = {
   where: ProtoWhereUniqueInput;
 };
 
 
-export type MutationDeleteUserArgs = {
+export type MutationDeleteOneUserArgs = {
   where: UserWhereUniqueInput;
+};
+
+
+export type MutationRefreshSpotifyAccessTokenArgs = {
+  input: SpotifyInput;
+};
+
+
+export type MutationRegisterIntegrationArgs = {
+  input: IntegrationsInput;
+};
+
+
+export type MutationSwapSpotifyCodeArgs = {
+  input: SpotifyInput;
+};
+
+
+export type MutationUpdateManyIntegrationArgs = {
+  data: IntegrationUpdateManyMutationInput;
+  where?: InputMaybe<IntegrationWhereInput>;
 };
 
 
@@ -165,26 +610,39 @@ export type MutationUpdateManyUserArgs = {
 };
 
 
-export type MutationUpdateProtoArgs = {
+export type MutationUpdateOneIntegrationArgs = {
+  data: IntegrationUpdateInput;
+  where: IntegrationWhereUniqueInput;
+};
+
+
+export type MutationUpdateOneProtoArgs = {
   data: ProtoUpdateInput;
   where: ProtoWhereUniqueInput;
 };
 
 
-export type MutationUpdateUserArgs = {
+export type MutationUpdateOneUserArgs = {
   data: UserUpdateInput;
   where: UserWhereUniqueInput;
 };
 
 
-export type MutationUpsertProtoArgs = {
+export type MutationUpsertOneIntegrationArgs = {
+  create: IntegrationCreateInput;
+  update: IntegrationUpdateInput;
+  where: IntegrationWhereUniqueInput;
+};
+
+
+export type MutationUpsertOneProtoArgs = {
   create: ProtoCreateInput;
   update: ProtoUpdateInput;
   where: ProtoWhereUniqueInput;
 };
 
 
-export type MutationUpsertUserArgs = {
+export type MutationUpsertOneUserArgs = {
   create: UserCreateInput;
   update: UserUpdateInput;
   where: UserWhereUniqueInput;
@@ -213,6 +671,40 @@ export type NestedDateTimeWithAggregatesFilter = {
   lte?: InputMaybe<Scalars['DateTime']>;
   not?: InputMaybe<NestedDateTimeWithAggregatesFilter>;
   notIn?: InputMaybe<Array<Scalars['DateTime']>>;
+};
+
+export type NestedEnumIntegrationProviderNullableFilter = {
+  equals?: InputMaybe<IntegrationProvider>;
+  in?: InputMaybe<Array<IntegrationProvider>>;
+  not?: InputMaybe<NestedEnumIntegrationProviderNullableFilter>;
+  notIn?: InputMaybe<Array<IntegrationProvider>>;
+};
+
+export type NestedEnumIntegrationProviderNullableWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntNullableFilter>;
+  _max?: InputMaybe<NestedEnumIntegrationProviderNullableFilter>;
+  _min?: InputMaybe<NestedEnumIntegrationProviderNullableFilter>;
+  equals?: InputMaybe<IntegrationProvider>;
+  in?: InputMaybe<Array<IntegrationProvider>>;
+  not?: InputMaybe<NestedEnumIntegrationProviderNullableWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<IntegrationProvider>>;
+};
+
+export type NestedEnumIntegrationStatusNullableFilter = {
+  equals?: InputMaybe<IntegrationStatus>;
+  in?: InputMaybe<Array<IntegrationStatus>>;
+  not?: InputMaybe<NestedEnumIntegrationStatusNullableFilter>;
+  notIn?: InputMaybe<Array<IntegrationStatus>>;
+};
+
+export type NestedEnumIntegrationStatusNullableWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntNullableFilter>;
+  _max?: InputMaybe<NestedEnumIntegrationStatusNullableFilter>;
+  _min?: InputMaybe<NestedEnumIntegrationStatusNullableFilter>;
+  equals?: InputMaybe<IntegrationStatus>;
+  in?: InputMaybe<Array<IntegrationStatus>>;
+  not?: InputMaybe<NestedEnumIntegrationStatusNullableWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<IntegrationStatus>>;
 };
 
 export type NestedFloatFilter = {
@@ -326,6 +818,14 @@ export type NestedStringWithAggregatesFilter = {
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
+export type NullableEnumIntegrationProviderFieldUpdateOperationsInput = {
+  set?: InputMaybe<IntegrationProvider>;
+};
+
+export type NullableEnumIntegrationStatusFieldUpdateOperationsInput = {
+  set?: InputMaybe<IntegrationStatus>;
+};
+
 export type NullableStringFieldUpdateOperationsInput = {
   set?: InputMaybe<Scalars['String']>;
 };
@@ -333,6 +833,8 @@ export type NullableStringFieldUpdateOperationsInput = {
 export type Proto = {
   __typename?: 'Proto';
   createdAt: Scalars['DateTime'];
+  dateString?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
@@ -355,6 +857,8 @@ export type ProtoCountAggregate = {
   __typename?: 'ProtoCountAggregate';
   _all: Scalars['Int'];
   createdAt: Scalars['Int'];
+  dateString: Scalars['Int'];
+  description: Scalars['Int'];
   id: Scalars['Int'];
   title: Scalars['Int'];
   updatedAt: Scalars['Int'];
@@ -363,6 +867,8 @@ export type ProtoCountAggregate = {
 
 export type ProtoCountOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  dateString?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -371,6 +877,8 @@ export type ProtoCountOrderByAggregateInput = {
 
 export type ProtoCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  dateString?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   user: UserCreateNestedOneWithoutProtosInput;
@@ -378,6 +886,8 @@ export type ProtoCreateInput = {
 
 export type ProtoCreateManyInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  dateString?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -386,6 +896,8 @@ export type ProtoCreateManyInput = {
 
 export type ProtoCreateManyUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  dateString?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -410,6 +922,8 @@ export type ProtoCreateOrConnectWithoutUserInput = {
 
 export type ProtoCreateWithoutUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  dateString?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -422,6 +936,8 @@ export type ProtoGroupBy = {
   _min?: Maybe<ProtoMinAggregate>;
   _sum?: Maybe<ProtoSumAggregate>;
   createdAt: Scalars['DateTime'];
+  dateString?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
@@ -437,6 +953,8 @@ export type ProtoListRelationFilter = {
 export type ProtoMaxAggregate = {
   __typename?: 'ProtoMaxAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
+  dateString?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -445,6 +963,8 @@ export type ProtoMaxAggregate = {
 
 export type ProtoMaxOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  dateString?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -454,6 +974,8 @@ export type ProtoMaxOrderByAggregateInput = {
 export type ProtoMinAggregate = {
   __typename?: 'ProtoMinAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
+  dateString?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -462,6 +984,8 @@ export type ProtoMinAggregate = {
 
 export type ProtoMinOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  dateString?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -479,6 +1003,8 @@ export type ProtoOrderByWithAggregationInput = {
   _min?: InputMaybe<ProtoMinOrderByAggregateInput>;
   _sum?: InputMaybe<ProtoSumOrderByAggregateInput>;
   createdAt?: InputMaybe<SortOrder>;
+  dateString?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -487,6 +1013,8 @@ export type ProtoOrderByWithAggregationInput = {
 
 export type ProtoOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
+  dateString?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -496,6 +1024,8 @@ export type ProtoOrderByWithRelationInput = {
 
 export enum ProtoScalarFieldEnum {
   CreatedAt = 'createdAt',
+  DateString = 'dateString',
+  Description = 'description',
   Id = 'id',
   Title = 'title',
   UpdatedAt = 'updatedAt',
@@ -507,6 +1037,8 @@ export type ProtoScalarWhereInput = {
   NOT?: InputMaybe<Array<ProtoScalarWhereInput>>;
   OR?: InputMaybe<Array<ProtoScalarWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  dateString?: InputMaybe<StringNullableFilter>;
+  description?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<IntFilter>;
   title?: InputMaybe<StringNullableFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -518,6 +1050,8 @@ export type ProtoScalarWhereWithAggregatesInput = {
   NOT?: InputMaybe<Array<ProtoScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<ProtoScalarWhereWithAggregatesInput>>;
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  dateString?: InputMaybe<StringNullableWithAggregatesFilter>;
+  description?: InputMaybe<StringNullableWithAggregatesFilter>;
   id?: InputMaybe<IntWithAggregatesFilter>;
   title?: InputMaybe<StringNullableWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
@@ -537,13 +1071,17 @@ export type ProtoSumOrderByAggregateInput = {
 
 export type ProtoUpdateInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  dateString?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   title?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutProtosInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutProtosNestedInput>;
 };
 
 export type ProtoUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  dateString?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   title?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -553,7 +1091,7 @@ export type ProtoUpdateManyWithWhereWithoutUserInput = {
   where: ProtoScalarWhereInput;
 };
 
-export type ProtoUpdateManyWithoutUserInput = {
+export type ProtoUpdateManyWithoutUserNestedInput = {
   connect?: InputMaybe<Array<ProtoWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ProtoCreateOrConnectWithoutUserInput>>;
   create?: InputMaybe<Array<ProtoCreateWithoutUserInput>>;
@@ -574,6 +1112,8 @@ export type ProtoUpdateWithWhereUniqueWithoutUserInput = {
 
 export type ProtoUpdateWithoutUserInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  dateString?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   title?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -589,6 +1129,8 @@ export type ProtoWhereInput = {
   NOT?: InputMaybe<Array<ProtoWhereInput>>;
   OR?: InputMaybe<Array<ProtoWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  dateString?: InputMaybe<StringNullableFilter>;
+  description?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<IntFilter>;
   title?: InputMaybe<StringNullableFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -602,17 +1144,38 @@ export type ProtoWhereUniqueInput = {
 
 export type Query = {
   __typename?: 'Query';
+  aggregateIntegration: AggregateIntegration;
   aggregateProto: AggregateProto;
   aggregateUser: AggregateUser;
-  bestUser?: Maybe<User>;
+  findFirstIntegration?: Maybe<Integration>;
+  findFirstIntegrationOrThrow?: Maybe<Integration>;
   findFirstProto?: Maybe<Proto>;
+  findFirstProtoOrThrow?: Maybe<Proto>;
   findFirstUser?: Maybe<User>;
+  findFirstUserOrThrow?: Maybe<User>;
+  getIntegration?: Maybe<Integration>;
+  getMemoByDateString?: Maybe<Proto>;
+  getProto?: Maybe<Proto>;
+  getUser?: Maybe<User>;
+  groupByIntegration: Array<IntegrationGroupBy>;
   groupByProto: Array<ProtoGroupBy>;
   groupByUser: Array<UserGroupBy>;
+  integration?: Maybe<Integration>;
+  integrations: Array<Integration>;
   proto?: Maybe<Proto>;
   protos: Array<Proto>;
+  refreshAccessToken: AuthResponse;
   user?: Maybe<User>;
   users: Array<User>;
+};
+
+
+export type QueryAggregateIntegrationArgs = {
+  cursor?: InputMaybe<IntegrationWhereUniqueInput>;
+  orderBy?: InputMaybe<Array<IntegrationOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<IntegrationWhereInput>;
 };
 
 
@@ -634,7 +1197,37 @@ export type QueryAggregateUserArgs = {
 };
 
 
+export type QueryFindFirstIntegrationArgs = {
+  cursor?: InputMaybe<IntegrationWhereUniqueInput>;
+  distinct?: InputMaybe<Array<IntegrationScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<IntegrationOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<IntegrationWhereInput>;
+};
+
+
+export type QueryFindFirstIntegrationOrThrowArgs = {
+  cursor?: InputMaybe<IntegrationWhereUniqueInput>;
+  distinct?: InputMaybe<Array<IntegrationScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<IntegrationOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<IntegrationWhereInput>;
+};
+
+
 export type QueryFindFirstProtoArgs = {
+  cursor?: InputMaybe<ProtoWhereUniqueInput>;
+  distinct?: InputMaybe<Array<ProtoScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<ProtoOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ProtoWhereInput>;
+};
+
+
+export type QueryFindFirstProtoOrThrowArgs = {
   cursor?: InputMaybe<ProtoWhereUniqueInput>;
   distinct?: InputMaybe<Array<ProtoScalarFieldEnum>>;
   orderBy?: InputMaybe<Array<ProtoOrderByWithRelationInput>>;
@@ -651,6 +1244,46 @@ export type QueryFindFirstUserArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<UserWhereInput>;
+};
+
+
+export type QueryFindFirstUserOrThrowArgs = {
+  cursor?: InputMaybe<UserWhereUniqueInput>;
+  distinct?: InputMaybe<Array<UserScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<UserOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<UserWhereInput>;
+};
+
+
+export type QueryGetIntegrationArgs = {
+  where: IntegrationWhereUniqueInput;
+};
+
+
+export type QueryGetMemoByDateStringArgs = {
+  dateString: Scalars['String'];
+};
+
+
+export type QueryGetProtoArgs = {
+  where: ProtoWhereUniqueInput;
+};
+
+
+export type QueryGetUserArgs = {
+  where: UserWhereUniqueInput;
+};
+
+
+export type QueryGroupByIntegrationArgs = {
+  by: Array<IntegrationScalarFieldEnum>;
+  having?: InputMaybe<IntegrationScalarWhereWithAggregatesInput>;
+  orderBy?: InputMaybe<Array<IntegrationOrderByWithAggregationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<IntegrationWhereInput>;
 };
 
 
@@ -671,6 +1304,21 @@ export type QueryGroupByUserArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<UserWhereInput>;
+};
+
+
+export type QueryIntegrationArgs = {
+  where: IntegrationWhereUniqueInput;
+};
+
+
+export type QueryIntegrationsArgs = {
+  cursor?: InputMaybe<IntegrationWhereUniqueInput>;
+  distinct?: InputMaybe<Array<IntegrationScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<IntegrationOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<IntegrationWhereInput>;
 };
 
 
@@ -712,6 +1360,17 @@ export enum SortOrder {
   Asc = 'asc',
   Desc = 'desc'
 }
+
+export type SpotifyInput = {
+  code?: InputMaybe<Scalars['String']>;
+  refreshToken?: InputMaybe<Scalars['String']>;
+};
+
+export type SpotifyResponse = {
+  __typename?: 'SpotifyResponse';
+  accessToken: Scalars['String'];
+  refreshToken?: Maybe<Scalars['String']>;
+};
 
 export type StringFieldUpdateOperationsInput = {
   set?: InputMaybe<Scalars['String']>;
@@ -789,8 +1448,20 @@ export type User = {
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['Int'];
+  integrations: Array<Integration>;
+  name: Scalars['String'];
+  picture: Scalars['String'];
   protos: Array<Proto>;
-  username?: Maybe<Scalars['String']>;
+};
+
+
+export type UserIntegrationsArgs = {
+  cursor?: InputMaybe<IntegrationWhereUniqueInput>;
+  distinct?: InputMaybe<Array<IntegrationScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<IntegrationOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<IntegrationWhereInput>;
 };
 
 
@@ -814,6 +1485,7 @@ export type UserAvgOrderByAggregateInput = {
 
 export type UserCount = {
   __typename?: 'UserCount';
+  integrations: Scalars['Int'];
   protos: Scalars['Int'];
 };
 
@@ -823,28 +1495,39 @@ export type UserCountAggregate = {
   createdAt: Scalars['Int'];
   email: Scalars['Int'];
   id: Scalars['Int'];
-  username: Scalars['Int'];
+  name: Scalars['Int'];
+  picture: Scalars['Int'];
 };
 
 export type UserCountOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
-  username?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  picture?: InputMaybe<SortOrder>;
 };
 
 export type UserCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
+  integrations?: InputMaybe<IntegrationCreateNestedManyWithoutUserInput>;
+  name: Scalars['String'];
+  picture: Scalars['String'];
   protos?: InputMaybe<ProtoCreateNestedManyWithoutUserInput>;
-  username?: InputMaybe<Scalars['String']>;
 };
 
 export type UserCreateManyInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
   id?: InputMaybe<Scalars['Int']>;
-  username?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
+  picture: Scalars['String'];
+};
+
+export type UserCreateNestedOneWithoutIntegrationsInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutIntegrationsInput>;
+  create?: InputMaybe<UserCreateWithoutIntegrationsInput>;
 };
 
 export type UserCreateNestedOneWithoutProtosInput = {
@@ -853,15 +1536,30 @@ export type UserCreateNestedOneWithoutProtosInput = {
   create?: InputMaybe<UserCreateWithoutProtosInput>;
 };
 
+export type UserCreateOrConnectWithoutIntegrationsInput = {
+  create: UserCreateWithoutIntegrationsInput;
+  where: UserWhereUniqueInput;
+};
+
 export type UserCreateOrConnectWithoutProtosInput = {
   create: UserCreateWithoutProtosInput;
   where: UserWhereUniqueInput;
 };
 
+export type UserCreateWithoutIntegrationsInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  email: Scalars['String'];
+  name: Scalars['String'];
+  picture: Scalars['String'];
+  protos?: InputMaybe<ProtoCreateNestedManyWithoutUserInput>;
+};
+
 export type UserCreateWithoutProtosInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
-  username?: InputMaybe<Scalars['String']>;
+  integrations?: InputMaybe<IntegrationCreateNestedManyWithoutUserInput>;
+  name: Scalars['String'];
+  picture: Scalars['String'];
 };
 
 export type UserGroupBy = {
@@ -874,7 +1572,8 @@ export type UserGroupBy = {
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['Int'];
-  username?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  picture: Scalars['String'];
 };
 
 export type UserMaxAggregate = {
@@ -882,14 +1581,16 @@ export type UserMaxAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
-  username?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  picture?: Maybe<Scalars['String']>;
 };
 
 export type UserMaxOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
-  username?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  picture?: InputMaybe<SortOrder>;
 };
 
 export type UserMinAggregate = {
@@ -897,14 +1598,16 @@ export type UserMinAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
-  username?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  picture?: Maybe<Scalars['String']>;
 };
 
 export type UserMinOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
-  username?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  picture?: InputMaybe<SortOrder>;
 };
 
 export type UserOrderByWithAggregationInput = {
@@ -916,15 +1619,18 @@ export type UserOrderByWithAggregationInput = {
   createdAt?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
-  username?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  picture?: InputMaybe<SortOrder>;
 };
 
 export type UserOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
+  integrations?: InputMaybe<IntegrationOrderByRelationAggregateInput>;
+  name?: InputMaybe<SortOrder>;
+  picture?: InputMaybe<SortOrder>;
   protos?: InputMaybe<ProtoOrderByRelationAggregateInput>;
-  username?: InputMaybe<SortOrder>;
 };
 
 export type UserRelationFilter = {
@@ -936,7 +1642,8 @@ export enum UserScalarFieldEnum {
   CreatedAt = 'createdAt',
   Email = 'email',
   Id = 'id',
-  Username = 'username'
+  Name = 'name',
+  Picture = 'picture'
 }
 
 export type UserScalarWhereWithAggregatesInput = {
@@ -946,7 +1653,8 @@ export type UserScalarWhereWithAggregatesInput = {
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   email?: InputMaybe<StringWithAggregatesFilter>;
   id?: InputMaybe<IntWithAggregatesFilter>;
-  username?: InputMaybe<StringNullableWithAggregatesFilter>;
+  name?: InputMaybe<StringWithAggregatesFilter>;
+  picture?: InputMaybe<StringWithAggregatesFilter>;
 };
 
 export type UserSumAggregate = {
@@ -961,17 +1669,28 @@ export type UserSumOrderByAggregateInput = {
 export type UserUpdateInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
-  protos?: InputMaybe<ProtoUpdateManyWithoutUserInput>;
-  username?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  integrations?: InputMaybe<IntegrationUpdateManyWithoutUserNestedInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  picture?: InputMaybe<StringFieldUpdateOperationsInput>;
+  protos?: InputMaybe<ProtoUpdateManyWithoutUserNestedInput>;
 };
 
 export type UserUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
-  username?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  picture?: InputMaybe<StringFieldUpdateOperationsInput>;
 };
 
-export type UserUpdateOneRequiredWithoutProtosInput = {
+export type UserUpdateOneRequiredWithoutIntegrationsNestedInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutIntegrationsInput>;
+  create?: InputMaybe<UserCreateWithoutIntegrationsInput>;
+  update?: InputMaybe<UserUpdateWithoutIntegrationsInput>;
+  upsert?: InputMaybe<UserUpsertWithoutIntegrationsInput>;
+};
+
+export type UserUpdateOneRequiredWithoutProtosNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutProtosInput>;
   create?: InputMaybe<UserCreateWithoutProtosInput>;
@@ -979,10 +1698,25 @@ export type UserUpdateOneRequiredWithoutProtosInput = {
   upsert?: InputMaybe<UserUpsertWithoutProtosInput>;
 };
 
+export type UserUpdateWithoutIntegrationsInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  picture?: InputMaybe<StringFieldUpdateOperationsInput>;
+  protos?: InputMaybe<ProtoUpdateManyWithoutUserNestedInput>;
+};
+
 export type UserUpdateWithoutProtosInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
-  username?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  integrations?: InputMaybe<IntegrationUpdateManyWithoutUserNestedInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  picture?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type UserUpsertWithoutIntegrationsInput = {
+  create: UserCreateWithoutIntegrationsInput;
+  update: UserUpdateWithoutIntegrationsInput;
 };
 
 export type UserUpsertWithoutProtosInput = {
@@ -997,12 +1731,88 @@ export type UserWhereInput = {
   createdAt?: InputMaybe<DateTimeFilter>;
   email?: InputMaybe<StringFilter>;
   id?: InputMaybe<IntFilter>;
+  integrations?: InputMaybe<IntegrationListRelationFilter>;
+  name?: InputMaybe<StringFilter>;
+  picture?: InputMaybe<StringFilter>;
   protos?: InputMaybe<ProtoListRelationFilter>;
-  username?: InputMaybe<StringNullableFilter>;
 };
 
 export type UserWhereUniqueInput = {
   email?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
-  username?: InputMaybe<Scalars['String']>;
 };
+
+export type AuthenticateMutationVariables = Exact<{
+  input: AuthInput;
+}>;
+
+
+export type AuthenticateMutation = { __typename?: 'Mutation', authenticate: { __typename?: 'AuthResponse', status: string, access_token: string, user: { __typename?: 'User', id: number, email: string, name: string, picture: string } } };
+
+export type CreateProtoMutationMutationVariables = Exact<{
+  data: ProtoCreateInput;
+}>;
+
+
+export type CreateProtoMutationMutation = { __typename?: 'Mutation', createOneProto: { __typename?: 'Proto', id: number, title?: string | null } };
+
+export type RegisterIntegrationMutationVariables = Exact<{
+  input: IntegrationsInput;
+}>;
+
+
+export type RegisterIntegrationMutation = { __typename?: 'Mutation', registerIntegration: { __typename?: 'IntegrationsResponse', integration: { __typename?: 'Integration', id: number, externalId: string, createdAt: any, updatedAt: any } } };
+
+export type UpdateProtoMutationMutationVariables = Exact<{
+  data: ProtoUpdateInput;
+  where: ProtoWhereUniqueInput;
+}>;
+
+
+export type UpdateProtoMutationMutation = { __typename?: 'Mutation', updateOneProto?: { __typename?: 'Proto', id: number, title?: string | null, description?: string | null, dateString?: string | null, createdAt: any, updatedAt: any, userId: number } | null };
+
+export type GetMemoByDateStringQueryVariables = Exact<{
+  dateString: Scalars['String'];
+}>;
+
+
+export type GetMemoByDateStringQuery = { __typename?: 'Query', getMemoByDateString?: { __typename?: 'Proto', id: number, title?: string | null, description?: string | null, dateString?: string | null, createdAt: any, updatedAt: any } | null };
+
+export type IntegrationsQueryVariables = Exact<{
+  where?: InputMaybe<IntegrationWhereInput>;
+}>;
+
+
+export type IntegrationsQuery = { __typename?: 'Query', integrations: Array<{ __typename?: 'Integration', id: number, externalId: string, provider?: IntegrationProvider | null, status?: IntegrationStatus | null }> };
+
+export type ProtosQueryQueryVariables = Exact<{
+  where?: InputMaybe<ProtoWhereInput>;
+}>;
+
+
+export type ProtosQueryQuery = { __typename?: 'Query', protos: Array<{ __typename?: 'Proto', id: number, title?: string | null, description?: string | null, dateString?: string | null, createdAt: any, updatedAt: any }> };
+
+export type SwapSpotifyCodeMutationVariables = Exact<{
+  input: SpotifyInput;
+}>;
+
+
+export type SwapSpotifyCodeMutation = { __typename?: 'Mutation', swapSpotifyCode: { __typename?: 'SpotifyResponse', accessToken: string, refreshToken?: string | null } };
+
+export type RefreshSpotifyAccessTokenMutationVariables = Exact<{
+  input: SpotifyInput;
+}>;
+
+
+export type RefreshSpotifyAccessTokenMutation = { __typename?: 'Mutation', refreshSpotifyAccessToken: { __typename?: 'SpotifyResponse', accessToken: string } };
+
+
+export const AuthenticateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Authenticate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AuthInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"authenticate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"access_token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}}]}}]}}]}}]} as unknown as DocumentNode<AuthenticateMutation, AuthenticateMutationVariables>;
+export const CreateProtoMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateProtoMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createOneProto"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<CreateProtoMutationMutation, CreateProtoMutationMutationVariables>;
+export const RegisterIntegrationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RegisterIntegration"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IntegrationsInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"registerIntegration"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"integration"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"externalId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<RegisterIntegrationMutation, RegisterIntegrationMutationVariables>;
+export const UpdateProtoMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateProtoMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoUpdateInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOneProto"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"dateString"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}}]}}]} as unknown as DocumentNode<UpdateProtoMutationMutation, UpdateProtoMutationMutationVariables>;
+export const GetMemoByDateStringDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMemoByDateString"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"dateString"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getMemoByDateString"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"dateString"},"value":{"kind":"Variable","name":{"kind":"Name","value":"dateString"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"dateString"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<GetMemoByDateStringQuery, GetMemoByDateStringQueryVariables>;
+export const IntegrationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Integrations"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"IntegrationWhereInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"integrations"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"externalId"}},{"kind":"Field","name":{"kind":"Name","value":"provider"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<IntegrationsQuery, IntegrationsQueryVariables>;
+export const ProtosQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProtosQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoWhereInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"protos"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"dateString"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<ProtosQueryQuery, ProtosQueryQueryVariables>;
+export const SwapSpotifyCodeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SwapSpotifyCode"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SpotifyInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"swapSpotifyCode"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"refreshToken"}}]}}]}}]} as unknown as DocumentNode<SwapSpotifyCodeMutation, SwapSpotifyCodeMutationVariables>;
+export const RefreshSpotifyAccessTokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RefreshSpotifyAccessToken"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SpotifyInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"refreshSpotifyAccessToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<RefreshSpotifyAccessTokenMutation, RefreshSpotifyAccessTokenMutationVariables>;

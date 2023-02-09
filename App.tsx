@@ -1,18 +1,18 @@
 import "react-native-gesture-handler";
 import { useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import { ApolloProvider } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistCache } from "apollo3-cache-persist";
+import { LogBox } from "react-native";
 
+import "./src/styles";
 import { cache, client } from "./src/services/client";
+import AuthProvider from "./src/contexts/Auth";
+import RootNavigator from "./src/navigators/RootNavigator";
 
-import HomeScreen from "./src/views/HomeScreen";
-import ProfileScreen from "./src/views/ProfileScreen";
-
-const Stack = createStackNavigator();
+LogBox.ignoreLogs([
+  "Sending `onAnimatedValueUpdate` with no listeners registered.",
+]);
 
 export default function App() {
   const [loadingCache, setLoadingCache] = useState(true);
@@ -30,21 +30,9 @@ export default function App() {
 
   return (
     <ApolloProvider client={client}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ title: "Home" }}
-          />
-          <Stack.Screen
-            name="Profile"
-            component={ProfileScreen}
-            options={{ title: "Profile" }}
-          />
-        </Stack.Navigator>
-        <StatusBar style="light" />
-      </NavigationContainer>
+      <AuthProvider>
+        <RootNavigator />
+      </AuthProvider>
     </ApolloProvider>
   );
 }

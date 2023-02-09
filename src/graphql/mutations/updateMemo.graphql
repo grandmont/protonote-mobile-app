@@ -1,0 +1,11 @@
+mutation UpdateProtoMutation($data: ProtoUpdateInput!, $where: ProtoWhereUniqueInput!) {
+  updateOneProto(data: $data, where: $where) {
+    id
+    title
+    description
+    dateString
+    createdAt
+    updatedAt
+    userId
+  }
+}

@@ -1,0 +1,6 @@
+mutation CreateProtoMutation($data: ProtoCreateInput!) {
+  createOneProto(data: $data) {
+    id,
+    title
+  }
+}
