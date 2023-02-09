@@ -11,7 +11,7 @@ export default function RecentActivity() {
 
   // Mount
   useEffect(() => {
-    console.log("this runs once");
+    console.log("recent activity");
     fetchPlaybackState();
   }, []);
 

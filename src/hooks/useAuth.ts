@@ -43,7 +43,7 @@ export default function useAuth() {
       const persistAuth = async () => {
         const { accessToken } = response.authentication;
 
-        console.log("accessToken:", accessToken)
+        console.log("accessToken:", accessToken);
 
         const { data } = await authenticateMutation({
           variables: {
@@ -65,7 +65,7 @@ export default function useAuth() {
 
         setAuth(access_token);
         setUserInfo(user as User);
-        setIsLoading(false)
+        setIsLoading(false);
       };
 
       persistAuth();
@@ -90,8 +90,12 @@ export default function useAuth() {
   }, []);
 
   const clearStorage = async () => {
-    await AsyncStorage.removeItem("auth");
-    await AsyncStorage.removeItem("user");
+    await AsyncStorage.multiRemove([
+      "auth",
+      "user",
+      "spotify:accessToken",
+      "spotify:refreshToken",
+    ]);
     setAuth(null);
     setUserInfo(null);
   };

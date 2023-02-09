@@ -139,7 +139,7 @@ export default function useSpotify(): SpotifyHookReturnInterface {
   };
 
   const fetchPlaybackState = async () => {
-    // console.log("fetchPlaybackState");
+    console.log("fetchPlaybackState");
     const data = await getPlaybackState();
 
     if (!data) return;

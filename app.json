@@ -25,6 +25,7 @@
     "android": {
       "package": "com.protonote.protonote",
       "versionCode": 2,
+      "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

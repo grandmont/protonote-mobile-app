@@ -6,7 +6,6 @@ import Header from "../components/elements/Header/Header";
 import ScreenLayout from "../components/layout/ScreenLayout";
 import UsageInformation from "../components/analytics/UsageInformation/UsageInformation";
 import ChartsSection from "../components/analytics/ChartsSection/ChartsSection";
-import WorkInProgress from "../components/elements/WorkInProgress/WorkInProgress";
 
 export default function AnalyticsScreen() {
   return (
@@ -23,8 +22,6 @@ export default function AnalyticsScreen() {
 
       <ChartsSection />
       <Fade bottom />
-
-      <WorkInProgress />
     </ScreenLayout>
   );
 }

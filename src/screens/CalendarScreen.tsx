@@ -53,8 +53,10 @@ export default function CalendarScreen({ navigation }) {
     },
   });
 
+  const memos = data ? data.protos : [];
+
   // Reduce array into an object with dates as key
-  const markedDates = data.protos.reduce((acc, { dateString }) => {
+  const markedDates = memos.reduce((acc, { dateString }) => {
     const calendarOptions = {
       hasMemo: true,
     };
