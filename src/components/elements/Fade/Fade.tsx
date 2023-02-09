@@ -24,6 +24,7 @@ export default function Fade({ top, bottom }: FadeProps) {
         position: "absolute",
         width: "100%",
         height: 96,
+        marginHorizontal: 18,
         ...styleOptions,
       }}
       pointerEvents="none"
