@@ -401,7 +401,7 @@ export type IntegrationUpdateInput = {
   provider?: InputMaybe<NullableEnumIntegrationProviderFieldUpdateOperationsInput>;
   status?: InputMaybe<NullableEnumIntegrationStatusFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutIntegrationsInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutIntegrationsNestedInput>;
 };
 
 export type IntegrationUpdateManyMutationInput = {
@@ -417,7 +417,7 @@ export type IntegrationUpdateManyWithWhereWithoutUserInput = {
   where: IntegrationScalarWhereInput;
 };
 
-export type IntegrationUpdateManyWithoutUserInput = {
+export type IntegrationUpdateManyWithoutUserNestedInput = {
   connect?: InputMaybe<Array<IntegrationWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<IntegrationCreateOrConnectWithoutUserInput>>;
   create?: InputMaybe<Array<IntegrationCreateWithoutUserInput>>;
@@ -482,40 +482,35 @@ export type IntegrationsResponse = {
 export type Mutation = {
   __typename?: 'Mutation';
   authenticate: AuthResponse;
-  createIntegration: Integration;
   createManyIntegration: AffectedRowsOutput;
   createManyProto: AffectedRowsOutput;
   createManyUser: AffectedRowsOutput;
-  createProto: Proto;
-  createUser: User;
-  deleteIntegration?: Maybe<Integration>;
+  createOneIntegration: Integration;
+  createOneProto: Proto;
+  createOneUser: User;
   deleteManyIntegration: AffectedRowsOutput;
   deleteManyProto: AffectedRowsOutput;
   deleteManyUser: AffectedRowsOutput;
-  deleteProto?: Maybe<Proto>;
-  deleteUser?: Maybe<User>;
+  deleteOneIntegration?: Maybe<Integration>;
+  deleteOneProto?: Maybe<Proto>;
+  deleteOneUser?: Maybe<User>;
   refreshSpotifyAccessToken: SpotifyResponse;
   registerIntegration: IntegrationsResponse;
   swapSpotifyCode: SpotifyResponse;
-  updateIntegration?: Maybe<Integration>;
   updateManyIntegration: AffectedRowsOutput;
   updateManyProto: AffectedRowsOutput;
   updateManyUser: AffectedRowsOutput;
-  updateProto?: Maybe<Proto>;
-  updateUser?: Maybe<User>;
-  upsertIntegration: Integration;
-  upsertProto: Proto;
-  upsertUser: User;
+  updateOneIntegration?: Maybe<Integration>;
+  updateOneProto?: Maybe<Proto>;
+  updateOneUser?: Maybe<User>;
+  upsertOneIntegration: Integration;
+  upsertOneProto: Proto;
+  upsertOneUser: User;
 };
 
 
 export type MutationAuthenticateArgs = {
   input: AuthInput;
-};
-
-
-export type MutationCreateIntegrationArgs = {
-  data: IntegrationCreateInput;
 };
 
 
@@ -537,18 +532,18 @@ export type MutationCreateManyUserArgs = {
 };
 
 
-export type MutationCreateProtoArgs = {
+export type MutationCreateOneIntegrationArgs = {
+  data: IntegrationCreateInput;
+};
+
+
+export type MutationCreateOneProtoArgs = {
   data: ProtoCreateInput;
 };
 
 
-export type MutationCreateUserArgs = {
+export type MutationCreateOneUserArgs = {
   data: UserCreateInput;
-};
-
-
-export type MutationDeleteIntegrationArgs = {
-  where: IntegrationWhereUniqueInput;
 };
 
 
@@ -567,12 +562,17 @@ export type MutationDeleteManyUserArgs = {
 };
 
 
-export type MutationDeleteProtoArgs = {
+export type MutationDeleteOneIntegrationArgs = {
+  where: IntegrationWhereUniqueInput;
+};
+
+
+export type MutationDeleteOneProtoArgs = {
   where: ProtoWhereUniqueInput;
 };
 
 
-export type MutationDeleteUserArgs = {
+export type MutationDeleteOneUserArgs = {
   where: UserWhereUniqueInput;
 };
 
@@ -589,12 +589,6 @@ export type MutationRegisterIntegrationArgs = {
 
 export type MutationSwapSpotifyCodeArgs = {
   input: SpotifyInput;
-};
-
-
-export type MutationUpdateIntegrationArgs = {
-  data: IntegrationUpdateInput;
-  where: IntegrationWhereUniqueInput;
 };
 
 
@@ -616,33 +610,39 @@ export type MutationUpdateManyUserArgs = {
 };
 
 
-export type MutationUpdateProtoArgs = {
+export type MutationUpdateOneIntegrationArgs = {
+  data: IntegrationUpdateInput;
+  where: IntegrationWhereUniqueInput;
+};
+
+
+export type MutationUpdateOneProtoArgs = {
   data: ProtoUpdateInput;
   where: ProtoWhereUniqueInput;
 };
 
 
-export type MutationUpdateUserArgs = {
+export type MutationUpdateOneUserArgs = {
   data: UserUpdateInput;
   where: UserWhereUniqueInput;
 };
 
 
-export type MutationUpsertIntegrationArgs = {
+export type MutationUpsertOneIntegrationArgs = {
   create: IntegrationCreateInput;
   update: IntegrationUpdateInput;
   where: IntegrationWhereUniqueInput;
 };
 
 
-export type MutationUpsertProtoArgs = {
+export type MutationUpsertOneProtoArgs = {
   create: ProtoCreateInput;
   update: ProtoUpdateInput;
   where: ProtoWhereUniqueInput;
 };
 
 
-export type MutationUpsertUserArgs = {
+export type MutationUpsertOneUserArgs = {
   create: UserCreateInput;
   update: UserUpdateInput;
   where: UserWhereUniqueInput;
@@ -1075,7 +1075,7 @@ export type ProtoUpdateInput = {
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   title?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutProtosInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutProtosNestedInput>;
 };
 
 export type ProtoUpdateManyMutationInput = {
@@ -1091,7 +1091,7 @@ export type ProtoUpdateManyWithWhereWithoutUserInput = {
   where: ProtoScalarWhereInput;
 };
 
-export type ProtoUpdateManyWithoutUserInput = {
+export type ProtoUpdateManyWithoutUserNestedInput = {
   connect?: InputMaybe<Array<ProtoWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ProtoCreateOrConnectWithoutUserInput>>;
   create?: InputMaybe<Array<ProtoCreateWithoutUserInput>>;
@@ -1148,9 +1148,15 @@ export type Query = {
   aggregateProto: AggregateProto;
   aggregateUser: AggregateUser;
   findFirstIntegration?: Maybe<Integration>;
+  findFirstIntegrationOrThrow?: Maybe<Integration>;
   findFirstProto?: Maybe<Proto>;
+  findFirstProtoOrThrow?: Maybe<Proto>;
   findFirstUser?: Maybe<User>;
+  findFirstUserOrThrow?: Maybe<User>;
+  getIntegration?: Maybe<Integration>;
   getMemoByDateString?: Maybe<Proto>;
+  getProto?: Maybe<Proto>;
+  getUser?: Maybe<User>;
   groupByIntegration: Array<IntegrationGroupBy>;
   groupByProto: Array<ProtoGroupBy>;
   groupByUser: Array<UserGroupBy>;
@@ -1201,7 +1207,27 @@ export type QueryFindFirstIntegrationArgs = {
 };
 
 
+export type QueryFindFirstIntegrationOrThrowArgs = {
+  cursor?: InputMaybe<IntegrationWhereUniqueInput>;
+  distinct?: InputMaybe<Array<IntegrationScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<IntegrationOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<IntegrationWhereInput>;
+};
+
+
 export type QueryFindFirstProtoArgs = {
+  cursor?: InputMaybe<ProtoWhereUniqueInput>;
+  distinct?: InputMaybe<Array<ProtoScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<ProtoOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ProtoWhereInput>;
+};
+
+
+export type QueryFindFirstProtoOrThrowArgs = {
   cursor?: InputMaybe<ProtoWhereUniqueInput>;
   distinct?: InputMaybe<Array<ProtoScalarFieldEnum>>;
   orderBy?: InputMaybe<Array<ProtoOrderByWithRelationInput>>;
@@ -1221,8 +1247,33 @@ export type QueryFindFirstUserArgs = {
 };
 
 
+export type QueryFindFirstUserOrThrowArgs = {
+  cursor?: InputMaybe<UserWhereUniqueInput>;
+  distinct?: InputMaybe<Array<UserScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<UserOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<UserWhereInput>;
+};
+
+
+export type QueryGetIntegrationArgs = {
+  where: IntegrationWhereUniqueInput;
+};
+
+
 export type QueryGetMemoByDateStringArgs = {
   dateString: Scalars['String'];
+};
+
+
+export type QueryGetProtoArgs = {
+  where: ProtoWhereUniqueInput;
+};
+
+
+export type QueryGetUserArgs = {
+  where: UserWhereUniqueInput;
 };
 
 
@@ -1618,10 +1669,10 @@ export type UserSumOrderByAggregateInput = {
 export type UserUpdateInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
-  integrations?: InputMaybe<IntegrationUpdateManyWithoutUserInput>;
+  integrations?: InputMaybe<IntegrationUpdateManyWithoutUserNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   picture?: InputMaybe<StringFieldUpdateOperationsInput>;
-  protos?: InputMaybe<ProtoUpdateManyWithoutUserInput>;
+  protos?: InputMaybe<ProtoUpdateManyWithoutUserNestedInput>;
 };
 
 export type UserUpdateManyMutationInput = {
@@ -1631,7 +1682,7 @@ export type UserUpdateManyMutationInput = {
   picture?: InputMaybe<StringFieldUpdateOperationsInput>;
 };
 
-export type UserUpdateOneRequiredWithoutIntegrationsInput = {
+export type UserUpdateOneRequiredWithoutIntegrationsNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutIntegrationsInput>;
   create?: InputMaybe<UserCreateWithoutIntegrationsInput>;
@@ -1639,7 +1690,7 @@ export type UserUpdateOneRequiredWithoutIntegrationsInput = {
   upsert?: InputMaybe<UserUpsertWithoutIntegrationsInput>;
 };
 
-export type UserUpdateOneRequiredWithoutProtosInput = {
+export type UserUpdateOneRequiredWithoutProtosNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutProtosInput>;
   create?: InputMaybe<UserCreateWithoutProtosInput>;
@@ -1652,13 +1703,13 @@ export type UserUpdateWithoutIntegrationsInput = {
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   picture?: InputMaybe<StringFieldUpdateOperationsInput>;
-  protos?: InputMaybe<ProtoUpdateManyWithoutUserInput>;
+  protos?: InputMaybe<ProtoUpdateManyWithoutUserNestedInput>;
 };
 
 export type UserUpdateWithoutProtosInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
-  integrations?: InputMaybe<IntegrationUpdateManyWithoutUserInput>;
+  integrations?: InputMaybe<IntegrationUpdateManyWithoutUserNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   picture?: InputMaybe<StringFieldUpdateOperationsInput>;
 };
@@ -1703,7 +1754,7 @@ export type CreateProtoMutationMutationVariables = Exact<{
 }>;
 
 
-export type CreateProtoMutationMutation = { __typename?: 'Mutation', createProto: { __typename?: 'Proto', id: number, title?: string | null } };
+export type CreateProtoMutationMutation = { __typename?: 'Mutation', createOneProto: { __typename?: 'Proto', id: number, title?: string | null } };
 
 export type RegisterIntegrationMutationVariables = Exact<{
   input: IntegrationsInput;
@@ -1718,7 +1769,7 @@ export type UpdateProtoMutationMutationVariables = Exact<{
 }>;
 
 
-export type UpdateProtoMutationMutation = { __typename?: 'Mutation', updateProto?: { __typename?: 'Proto', id: number, title?: string | null, description?: string | null, dateString?: string | null, createdAt: any, updatedAt: any, userId: number } | null };
+export type UpdateProtoMutationMutation = { __typename?: 'Mutation', updateOneProto?: { __typename?: 'Proto', id: number, title?: string | null, description?: string | null, dateString?: string | null, createdAt: any, updatedAt: any, userId: number } | null };
 
 export type GetMemoByDateStringQueryVariables = Exact<{
   dateString: Scalars['String'];
@@ -1757,9 +1808,9 @@ export type RefreshSpotifyAccessTokenMutation = { __typename?: 'Mutation', refre
 
 
 export const AuthenticateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Authenticate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AuthInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"authenticate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"access_token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}}]}}]}}]}}]} as unknown as DocumentNode<AuthenticateMutation, AuthenticateMutationVariables>;
-export const CreateProtoMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateProtoMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createProto"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<CreateProtoMutationMutation, CreateProtoMutationMutationVariables>;
+export const CreateProtoMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateProtoMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createOneProto"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<CreateProtoMutationMutation, CreateProtoMutationMutationVariables>;
 export const RegisterIntegrationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RegisterIntegration"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IntegrationsInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"registerIntegration"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"integration"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"externalId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<RegisterIntegrationMutation, RegisterIntegrationMutationVariables>;
-export const UpdateProtoMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateProtoMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoUpdateInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateProto"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"dateString"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}}]}}]} as unknown as DocumentNode<UpdateProtoMutationMutation, UpdateProtoMutationMutationVariables>;
+export const UpdateProtoMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateProtoMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoUpdateInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOneProto"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"dateString"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}}]}}]} as unknown as DocumentNode<UpdateProtoMutationMutation, UpdateProtoMutationMutationVariables>;
 export const GetMemoByDateStringDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMemoByDateString"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"dateString"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getMemoByDateString"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"dateString"},"value":{"kind":"Variable","name":{"kind":"Name","value":"dateString"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"dateString"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<GetMemoByDateStringQuery, GetMemoByDateStringQueryVariables>;
 export const IntegrationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Integrations"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"IntegrationWhereInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"integrations"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"externalId"}},{"kind":"Field","name":{"kind":"Name","value":"provider"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<IntegrationsQuery, IntegrationsQueryVariables>;
 export const ProtosQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProtosQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoWhereInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"protos"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"dateString"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<ProtosQueryQuery, ProtosQueryQueryVariables>;

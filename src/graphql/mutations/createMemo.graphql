@@ -1,5 +1,5 @@
 mutation CreateProtoMutation($data: ProtoCreateInput!) {
-  createProto(data: $data) {
+  createOneProto(data: $data) {
     id,
     title
   }

@@ -1,12 +1,13 @@
 import { View, Text, Button, Colors } from "react-native-ui-lib";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import Feather from "@expo/vector-icons/Feather";
 
 import Divider from "../Divider/Divider";
 import { BOTTOM_TAB_ICON_SIZE } from "../../../config/constants";
 import { useNavigation } from "@react-navigation/native";
 
 interface HeaderProps {
-  title: string;
+  title?: string;
   description?: string;
   canGoBack?: boolean;
   onEdit?: () => void;
@@ -44,13 +45,18 @@ export default function Header({
           hitSlop={12}
           link
         >
-          <Ionicons name="md-create-outline" size={BOTTOM_TAB_ICON_SIZE} />
+          <Feather name="edit" size={BOTTOM_TAB_ICON_SIZE} />
         </Button>
       )}
 
-      <Text h2 center={canGoBack}>
-        {title}
-      </Text>
+      <View height={28}>
+        {title && (
+          <Text h2 center={canGoBack}>
+            {title}
+          </Text>
+        )}
+      </View>
+
       {description && <Text p>{description}</Text>}
       <Divider size="tiny" />
     </View>

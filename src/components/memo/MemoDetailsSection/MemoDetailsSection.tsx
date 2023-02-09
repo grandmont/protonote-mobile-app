@@ -6,6 +6,7 @@ import Divider from "../../elements/Divider/Divider";
 import { BOTTOM_TAB_ICON_SIZE } from "../../../config/constants";
 import { Proto } from "../../../graphql/generated";
 import ScreenSection from "../../layout/ScreenSection";
+import { ScrollView } from "react-native";
 
 interface MemoDetailsSectionProps extends Partial<Proto> {}
 
@@ -14,7 +15,10 @@ export default function MemoDetailsSection({
 }: MemoDetailsSectionProps) {
   return (
     <ScreenSection title="Description">
-      <Text p>{description}</Text>
+      <ScrollView>
+        <Text p>{description}</Text>
+        <Divider size="huge" />
+      </ScrollView>
     </ScreenSection>
   );
 }

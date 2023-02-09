@@ -11,7 +11,7 @@ export default function KeyboardAvoidingView({
     <RNKeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={keyboardVerticalOffset}
-      style={{ flex: 1 }}
+      style={{ flex: 1, backgroundColor: "transparent" }}
     >
       {children}
     </RNKeyboardAvoidingView>

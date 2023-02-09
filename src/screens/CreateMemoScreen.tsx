@@ -1,6 +1,13 @@
 import { useId, useState } from "react";
 import { useMutation } from "@apollo/client";
-import { Button, View, LoaderScreen, Incubator } from "react-native-ui-lib";
+import {
+  Button,
+  View,
+  LoaderScreen,
+  Incubator,
+  Text,
+} from "react-native-ui-lib";
+import Ionicons from "@expo/vector-icons/Ionicons";
 const { Toast } = Incubator;
 
 import {
@@ -19,6 +26,7 @@ import Header from "../components/elements/Header/Header";
 import KeyboardAccessoryView from "../components/layout/KeyboardAccessoryView";
 import KeyboardAvoidingView from "../components/layout/KeyboardAvoidingView";
 import { getTodayDateString, getWrittenDateString } from "../utils/parsers";
+import { BOTTOM_TAB_ICON_SIZE } from "../config/constants";
 
 export default function CreateMemoScreen({ navigation, route }) {
   const nativeId = useId();
@@ -92,25 +100,31 @@ export default function CreateMemoScreen({ navigation, route }) {
   };
 
   return (
-    <ScreenLayout dividerSize="regular">
-      <Header title={title} canGoBack />
+    <ScreenLayout dividerSize="invisible">
+      {/* <Header title={title} canGoBack /> */}
 
-      <KeyboardAvoidingView keyboardVerticalOffset={96}>
+      <View row spread top>
+        <Header canGoBack />
+
+        <View row top centerV>
+          <Button
+            label="Save"
+            onPress={handleCreateMemo}
+            disabled={isLoading}
+            hitSlop={5}
+            padding-4
+            link
+          />
+        </View>
+      </View>
+
+      <KeyboardAvoidingView keyboardVerticalOffset={24}>
         <MemoEditor
           defaultValue={editData?.description}
           onChange={handleChangeMemoEditor}
           inputAccessoryViewID={nativeId}
         />
       </KeyboardAvoidingView>
-
-      <View flex bottom centerH>
-        <Button
-          label="Save"
-          onPress={handleCreateMemo}
-          disabled={isLoading}
-          marginT-24
-        />
-      </View>
 
       <KeyboardAccessoryView nativeId={nativeId} />
 
