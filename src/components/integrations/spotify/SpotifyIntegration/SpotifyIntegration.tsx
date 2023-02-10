@@ -1,6 +1,8 @@
 import { useEffect } from "react";
+import Constants from "expo-constants";
+import { Platform } from "react-native";
 import * as WebBrowser from "expo-web-browser";
-import { useAuthRequest } from "expo-auth-session";
+import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation } from "@apollo/client";
 import { View, Text } from "react-native-ui-lib";
@@ -14,6 +16,9 @@ import {
 } from "../../../../graphql/generated";
 import { client } from "../../../../services/client";
 import SwitchItem from "../../../elements/SwitchItem/SwitchItem";
+
+const SCHEME = Constants.manifest.scheme;
+const useProxy = Constants.appOwnership === "expo" && Platform.OS !== "web";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -38,6 +43,13 @@ export default function SpotifyIntegration({
 
   const [registerIntegration] = useMutation(RegisterIntegrationDocument);
 
+  const redirectUri = useProxy
+    ? "exp://localhost:19000/--/"
+    : makeRedirectUri({
+        // For usage in bare and standalone
+        native: `${SCHEME}://redirect`,
+      });
+
   const [request, response, promptAsync] = useAuthRequest(
     {
       clientId: CLIENT_ID,
@@ -48,7 +60,7 @@ export default function SpotifyIntegration({
         "user-read-playback-state",
       ],
       usePKCE: false,
-      redirectUri: "exp://localhost:19000/--/",
+      redirectUri,
     },
     discovery
   );
@@ -59,8 +71,10 @@ export default function SpotifyIntegration({
         const { code } = response.params;
 
         const swapResponse = await swapSpotifyCode({
-          variables: { input: { code } },
+          variables: { input: { code, redirectUri } },
         });
+
+        console.log("swapResponse", swapResponse);
 
         if (!swapResponse || swapResponse.errors) {
           console.log("swapResponse error");

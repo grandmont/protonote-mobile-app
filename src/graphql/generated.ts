@@ -1363,6 +1363,7 @@ export enum SortOrder {
 
 export type SpotifyInput = {
   code?: InputMaybe<Scalars['String']>;
+  redirectUri?: InputMaybe<Scalars['String']>;
   refreshToken?: InputMaybe<Scalars['String']>;
 };
 
