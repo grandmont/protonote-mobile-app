@@ -2,7 +2,7 @@
   "expo": {
     "name": "protonote-mobile-app",
     "slug": "protonote-mobile-app",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -20,7 +20,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.protonote.protonote"
+      "bundleIdentifier": "com.protonote.protonote",
+      "buildNumber": "2"
     },
     "android": {
       "package": "com.protonote.protonote",
