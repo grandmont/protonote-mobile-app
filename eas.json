@@ -4,7 +4,6 @@
   },
   "build": {
     "development": {
-      "autoIncrement": true,
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
@@ -12,14 +11,12 @@
       }
     },
     "preview": {
-      "autoIncrement": true,
       "distribution": "internal",
       "ios": {
         "resourceClass": "m1-medium"
       }
     },
     "production": {
-      "autoIncrement": true,
       "ios": {
         "resourceClass": "m1-medium"
       }
