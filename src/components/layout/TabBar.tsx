@@ -56,7 +56,7 @@ export default function TabBar({
               hitSlop={{ left: 10, right: 10 }}
               style={[
                 styles.tabBarButton,
-                { backgroundColor: isFocused ? Colors.primary : "white" },
+                { backgroundColor: isFocused ? Colors.secondary : "white" },
                 // { backgroundColor: "grey" },
               ]}
             >

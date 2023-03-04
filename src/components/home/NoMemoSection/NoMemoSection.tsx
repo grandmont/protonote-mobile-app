@@ -1,4 +1,5 @@
-import { View, Text, Image } from "react-native-ui-lib";
+import { View, Text } from "react-native-ui-lib";
+import LottieView from "lottie-react-native";
 
 import CreateMemoButton from "../../elements/CreateMemoButton/CreateMemoButton";
 
@@ -6,13 +7,16 @@ export default function NoMemoSection() {
   return (
     <View flex center bottom paddingB-24>
       <Text h2>How was your day?</Text>
-      <Image
-        source={require("../../../../assets/bed.png")}
+
+      <LottieView
+        autoPlay
         style={{
-          width: 300,
-          height: "50%",
+          width: "100%",
+          height: 300,
         }}
+        source={require("../../../../assets/PRODUCT/Animation 07/drawkit-grape-animation-7-LOOP.json")}
       />
+
       <Text p marginB-24 center>
         Add today's memo and keep{"\n"}tracking your progress!
       </Text>

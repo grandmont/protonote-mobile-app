@@ -22,7 +22,7 @@ export default function CalendarDay(props: DayProps & CalendarDayProps) {
   const todayStyle = isToday && {
     container: {},
     text: {
-      color: Colors.primary,
+      color: Colors.link,
       fontWeight: "bold",
     },
   };
@@ -30,7 +30,7 @@ export default function CalendarDay(props: DayProps & CalendarDayProps) {
   const markedStyle = isMarked && {
     container: {
       borderBottomWidth: 4,
-      borderColor: Colors.primary,
+      borderColor: Colors.link,
     },
     text: {},
   };

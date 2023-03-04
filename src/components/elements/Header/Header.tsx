@@ -34,7 +34,7 @@ export default function Header({
           hitSlop={12}
           link
         >
-          <Ionicons name="md-chevron-back" color={Colors.primary} size={24} />
+          <Ionicons name="md-chevron-back" color={Colors.link} size={24} />
         </Button>
       )}
 

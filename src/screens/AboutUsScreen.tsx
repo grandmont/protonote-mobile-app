@@ -1,4 +1,4 @@
-import { Text, View } from "react-native-ui-lib";
+import { Image, Text, View } from "react-native-ui-lib";
 import { A } from "@expo/html-elements";
 
 import ScreenLayout from "../components/layout/ScreenLayout";
@@ -12,19 +12,24 @@ export default function AboutUsScreen() {
       <Header title={title} canGoBack />
 
       <View flex center>
-        <Text text30BO marginB-12>
-          beememo
+        <Image
+          source={require("../../assets/icon.png")}
+          style={{
+            width: 144,
+            height: 144,
+            borderRadius: 25,
+          }}
+        />
+        <Text text30BO marginV-12>
+          Beememo
         </Text>
-        <Text
-          center
-          marginB-12
-        >{`Some information about the app\nLorem ipsum dolor`}</Text>
 
+        <Text marginB-12>version 1.0.6</Text>
+
+        <Text center marginB-12>{`© 2023 Grandmont. All rights reserved`}</Text>
         <A style={{ color: "blue" }} href="https://grandmont.io">
           grandmont.io
         </A>
-
-        <Text marginT-12>version 1.0.0</Text>
       </View>
     </ScreenLayout>
   );

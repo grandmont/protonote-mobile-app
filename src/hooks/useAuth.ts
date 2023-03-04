@@ -17,7 +17,7 @@ const EXPO_CLIENT_ID =
   "227660563070-bppokg502t6sphrb9go3omjpahdjp3du.apps.googleusercontent.com";
 
 export default function useAuth() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { state, setAuth, setUserInfo } = useContext(AuthContext);
 
@@ -84,6 +84,7 @@ export default function useAuth() {
 
       setAuth(accessToken);
       setUserInfo(JSON.parse(user));
+      setIsLoading(false);
     };
 
     getStorageValues();
@@ -107,6 +108,7 @@ export default function useAuth() {
 
   const logout = async () => {
     clearStorage();
+    setIsLoading(false);
   };
 
   return {

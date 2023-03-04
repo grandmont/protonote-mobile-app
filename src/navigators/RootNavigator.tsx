@@ -10,7 +10,12 @@ import AppNavigator from "./AppNavigator";
 const Root = createStackNavigator();
 
 export default function RootNavigator() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isLoading } = useAuth();
+
+  if (isLoading) {
+    // Splash screen
+    return null;
+  }
 
   return (
     <NavigationContainer>
