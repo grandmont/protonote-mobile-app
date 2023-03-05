@@ -94,8 +94,8 @@ export default function useAuth() {
     await AsyncStorage.multiRemove([
       "auth",
       "user",
-      "spotify:accessToken",
-      "spotify:refreshToken",
+      // "spotify:accessToken",
+      // "spotify:refreshToken",
     ]);
     setAuth(null);
     setUserInfo(null);
