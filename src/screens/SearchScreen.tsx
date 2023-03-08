@@ -2,41 +2,56 @@ import { useState, useEffect, useDeferredValue, useId } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { LoaderScreen, View } from "react-native-ui-lib";
 
+import useAuth from "../hooks/useAuth";
 import ScreenLayout from "../components/layout/ScreenLayout";
 import SearchBar from "../components/search/SearchBar/SearchBar";
 import KeyboardAccessoryView from "../components/layout/KeyboardAccessoryView";
 import MemoList from "../components/search/MemoList/MemoList";
 import Fade from "../components/elements/Fade/Fade";
-import { ProtosQueryDocument, QueryMode } from "../graphql/generated";
+import {
+  ProtosQueryDocument,
+  ProtoWhereInput,
+  QueryMode,
+} from "../graphql/generated";
 import KeyboardAvoidingView from "../components/layout/KeyboardAvoidingView";
 
 export default function SearchScreen() {
   const nativeId = useId();
 
   const [searchPhrase, setSearchPhrase] = useState("");
-
   const deferredSearchPhrase = useDeferredValue(searchPhrase);
-  const [, { data, loading, refetch }] = useLazyQuery(ProtosQueryDocument);
+  const { userInfo } = useAuth();
+
+  const filterOptions = {
+    contains: deferredSearchPhrase,
+    mode: QueryMode.Insensitive,
+  };
+
+  const variables = {
+    where: {
+      userId: {
+        equals: userInfo?.id,
+      },
+      OR: [
+        {
+          title: filterOptions,
+        },
+        {
+          description: filterOptions,
+        },
+      ],
+    } as ProtoWhereInput,
+  };
+
+  const [, { data, loading, refetch }] = useLazyQuery(ProtosQueryDocument, {
+    variables,
+  });
 
   useEffect(() => {
-    const filterOptions = {
-      contains: deferredSearchPhrase,
-      mode: QueryMode.Insensitive,
-    };
+    if (!userInfo?.id) return;
 
-    refetch({
-      where: {
-        OR: [
-          {
-            title: filterOptions,
-          },
-          {
-            description: filterOptions,
-          },
-        ],
-      },
-    });
-  }, [deferredSearchPhrase]);
+    refetch(variables);
+  }, [deferredSearchPhrase, userInfo]);
 
   return (
     <ScreenLayout>

@@ -7,6 +7,7 @@ mutation Authenticate($input: AuthInput!) {
        email
        name
        picture
+       provider
      }
   }
 }

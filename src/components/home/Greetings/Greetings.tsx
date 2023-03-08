@@ -19,8 +19,9 @@ export default function Greetings() {
     navigation.navigate("Settings" as any);
   };
 
-  const title = `Hey, ${userInfo?.name}!`;
+  const title = userInfo?.name ? `Hey, ${userInfo?.name}!` : "Hello!";
   const description = `Good ${getTimeRangeGreetings()}`;
+  const avatar = userInfo?.picture;
 
   return (
     <View row spread top>
@@ -40,20 +41,21 @@ export default function Greetings() {
         <Button
           onPress={handleSettingsPress}
           hitSlop={{ top: 10, bottom: 10, left: 4, right: 4 }}
-          marginR-16
           padding-4
           link
-          style={{ zIndex: 1 }}
+          style={{ marginRight: avatar ? 16 : 0, zIndex: 1 }}
         >
           <Ionicons name="settings-outline" size={BOTTOM_TAB_ICON_SIZE} />
         </Button>
 
-        <Avatar
-          size={36}
-          source={{
-            uri: userInfo?.picture,
-          }}
-        />
+        {avatar && (
+          <Avatar
+            size={36}
+            source={{
+              uri: avatar,
+            }}
+          />
+        )}
       </View>
     </View>
   );

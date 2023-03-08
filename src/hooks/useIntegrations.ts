@@ -17,7 +17,7 @@ export default function useIntegrations() {
     variables: {
       where: {
         userId: {
-          equals: userInfo.id,
+          equals: userInfo?.id,
         },
       },
     },

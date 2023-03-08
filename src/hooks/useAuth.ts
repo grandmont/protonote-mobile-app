@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import Constants from "expo-constants";
+import * as AppleAuthentication from "expo-apple-authentication";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation } from "@apollo/client";
 
 import { AuthContext } from "../contexts/Auth";
-import { AuthenticateDocument, User } from "../graphql/generated";
+import { AuthenticateDocument, AuthProvider, User } from "../graphql/generated";
 
 const IS_EXPO_GO = Constants.appOwnership === "expo";
 
@@ -31,7 +32,35 @@ export default function useAuth() {
     expoClientId: EXPO_CLIENT_ID,
   });
 
-  // Save response to storage
+  const persistAuth = async (accessToken: string, provider: AuthProvider) => {
+    console.log("accessToken:", accessToken);
+
+    const { data, errors } = await authenticateMutation({
+      variables: {
+        input: {
+          accessToken,
+          user: accessToken,
+          provider,
+        },
+      },
+    });
+
+    if (!data) {
+      // Deal with API error
+      console.log(errors);
+      return;
+    }
+
+    const { access_token, user } = data.authenticate;
+
+    await AsyncStorage.setItem("auth", access_token);
+    await AsyncStorage.setItem("user", JSON.stringify(user));
+
+    setAuth(access_token);
+    setUserInfo(user as User);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
     if (!response) return;
 
@@ -40,35 +69,7 @@ export default function useAuth() {
     }
 
     if (response.type === "success") {
-      const persistAuth = async () => {
-        const { accessToken } = response.authentication;
-
-        console.log("accessToken:", accessToken);
-
-        const { data } = await authenticateMutation({
-          variables: {
-            input: {
-              accessToken,
-            },
-          },
-        });
-
-        if (!data) {
-          // Deal with API error
-          return;
-        }
-
-        const { access_token, user } = data.authenticate;
-
-        await AsyncStorage.setItem("auth", access_token);
-        await AsyncStorage.setItem("user", JSON.stringify(user));
-
-        setAuth(access_token);
-        setUserInfo(user as User);
-        setIsLoading(false);
-      };
-
-      persistAuth();
+      persistAuth(response.authentication.accessToken, AuthProvider.Google);
     }
   }, [response]);
 
@@ -91,19 +92,46 @@ export default function useAuth() {
   }, []);
 
   const clearStorage = async () => {
-    await AsyncStorage.multiRemove([
-      "auth",
-      "user",
-      // "spotify:accessToken",
-      // "spotify:refreshToken",
-    ]);
+    await AsyncStorage.multiRemove(["auth", "user"]);
     setAuth(null);
     setUserInfo(null);
   };
 
-  const login = async () => {
-    setIsLoading(true);
+  const signInGoogle = async () => {
     await promptAsync({ useProxy: IS_EXPO_GO, showInRecents: true });
+  };
+
+  const signInApple = async () => {
+    try {
+      const credential = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ],
+      });
+
+      console.log(credential);
+      persistAuth(credential.user, AuthProvider.Apple);
+      // signed in
+    } catch (e) {
+      setIsLoading(false);
+      if (e.code === "ERR_REQUEST_CANCELED") {
+        // handle that the user canceled the sign-in flow
+      } else {
+        // handle other errors
+      }
+    }
+  };
+
+  const login = async (provider: AuthProvider) => {
+    setIsLoading(true);
+
+    const signInWithProvider = {
+      [AuthProvider.Google]: signInGoogle,
+      [AuthProvider.Apple]: signInApple,
+    }[provider];
+
+    return await signInWithProvider();
   };
 
   const logout = async () => {
