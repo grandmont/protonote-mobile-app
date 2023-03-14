@@ -1,4 +1,4 @@
-schema: https://protonote-api-production.up.railway.app/graphql
+schema: https://2335-2804-431-e7de-ef48-523f-e091-f834-2381.sa.ngrok.io/graphql
 documents: "./src/graphql/**/*.graphql"
 generates:
   ./src/graphql/generated.ts:

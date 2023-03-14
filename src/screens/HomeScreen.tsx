@@ -6,11 +6,12 @@ import ScreenLayout from "../components/layout/ScreenLayout";
 
 // Components
 import Greetings from "../components/home/Greetings/Greetings";
-// import RecentActivity from "../components/home/RecentActivity/RecentActivity";
 import NoMemoSection from "../components/home/NoMemoSection/NoMemoSection";
 import MemoSection from "../components/home/MemoSection/MemoSection";
 import { GetMemoByDateStringDocument } from "../graphql/generated";
 import { getTodayDateString } from "../utils/parsers";
+import useSpotify from "../hooks/useSpotify";
+import { useEffect } from "react";
 
 export default function HomeScreen() {
   const todayDateString = getTodayDateString();
@@ -21,13 +22,17 @@ export default function HomeScreen() {
     },
   });
 
+  const { saveSpotifyTracks } = useSpotify();
+
   const getToday = data?.getMemoByDateString;
+
+  useEffect(() => {
+    saveSpotifyTracks();
+  }, []);
 
   return (
     <ScreenLayout>
       <Greetings />
-
-      {/* <RecentActivity /> */}
 
       {!getToday ? <NoMemoSection /> : <MemoSection {...getToday} />}
 

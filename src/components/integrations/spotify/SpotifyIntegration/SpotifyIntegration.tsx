@@ -58,6 +58,7 @@ export default function SpotifyIntegration({
         "user-read-email",
         "playlist-modify-public",
         "user-read-playback-state",
+        "user-read-recently-played",
       ],
       usePKCE: false,
       redirectUri,
