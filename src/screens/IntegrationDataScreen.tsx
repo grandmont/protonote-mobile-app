@@ -26,8 +26,6 @@ export default function IntegrationDataScreen({ route }) {
 
   const integrationData = data ? data?.findManyIntegrationData : [];
 
-  console.log(integrationData.length);
-
   return (
     <ScreenLayout divider={false}>
       <Header title={title} canGoBack />
