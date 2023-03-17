@@ -3,12 +3,11 @@ import { LoaderScreen } from "react-native-ui-lib";
 import { useNavigation } from "@react-navigation/native";
 
 import ScreenLayout from "../components/layout/ScreenLayout";
-import { ProtosQueryDocument } from "../graphql/generated";
+import { Proto, ProtosDocument } from "../graphql/generated";
 import useAuth from "../hooks/useAuth";
 import { getWrittenDateString } from "../utils/parsers";
 import Header from "../components/elements/Header/Header";
 import MemoDetailsSection from "../components/memo/MemoDetailsSection/MemoDetailsSection";
-import NoMemoDetailsSection from "../components/memo/NoMemoDetailsSection/NoMemoDetailsSection";
 
 export default function MemoScreen({ route }) {
   const navigation = useNavigation();
@@ -18,7 +17,7 @@ export default function MemoScreen({ route }) {
     date: { dateString },
   } = route.params;
 
-  const { data, loading } = useQuery(ProtosQueryDocument, {
+  const { data, loading } = useQuery(ProtosDocument, {
     variables: {
       where: {
         userId: {
@@ -28,6 +27,7 @@ export default function MemoScreen({ route }) {
           equals: dateString,
         },
       },
+      integrationsTake: 3,
     },
   });
 
@@ -45,17 +45,14 @@ export default function MemoScreen({ route }) {
     });
 
   return (
-    <ScreenLayout>
+    <ScreenLayout divider={false}>
       <Header title={title} canGoBack onEdit={handleEdit} />
 
-      {!loading &&
-        (memo ? (
-          <MemoDetailsSection {...memo} />
-        ) : (
-          <NoMemoDetailsSection dateString={dateString} />
-        ))}
-
-      {loading && <LoaderScreen overlay />}
+      {loading ? (
+        <LoaderScreen overlay />
+      ) : (
+        <MemoDetailsSection dateString={dateString} {...(memo as Proto)} />
+      )}
     </ScreenLayout>
   );
 }

@@ -10,7 +10,7 @@ type MemoDataType = {
 } & Partial<Proto>;
 
 interface MemoListProps {
-  data: Partial<MemoDataType>[];
+  data?: MemoDataType[];
 }
 
 interface MemoListItemProps extends MemoDataType {}

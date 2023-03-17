@@ -9,7 +9,8 @@ import KeyboardAccessoryView from "../components/layout/KeyboardAccessoryView";
 import MemoList from "../components/search/MemoList/MemoList";
 import Fade from "../components/elements/Fade/Fade";
 import {
-  ProtosQueryDocument,
+  Proto,
+  ProtosDocument,
   ProtoWhereInput,
   QueryMode,
 } from "../graphql/generated";
@@ -43,7 +44,7 @@ export default function SearchScreen() {
     } as ProtoWhereInput,
   };
 
-  const [, { data, loading, refetch }] = useLazyQuery(ProtosQueryDocument, {
+  const [, { data, loading, refetch }] = useLazyQuery(ProtosDocument, {
     variables,
   });
 
@@ -63,7 +64,7 @@ export default function SearchScreen() {
             inputAccessoryViewID={nativeId}
           />
 
-          <MemoList data={data?.protos} />
+          <MemoList data={data?.protos as Proto[]} />
 
           <KeyboardAccessoryView nativeId={nativeId} />
 

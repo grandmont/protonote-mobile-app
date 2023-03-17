@@ -2,20 +2,17 @@ import { Linking } from "react-native";
 import { Card, View, Colors, Image, Text } from "react-native-ui-lib";
 import Entypo from "@expo/vector-icons/Entypo";
 
-import { PlaybackStateType } from "../../../../hooks/useSpotify";
 import { BOTTOM_TAB_ICON_SIZE } from "../../../../config/constants";
+import { SpotifyItem } from "../../../../graphql/generated";
 
-export default function SpotifyCard(data: PlaybackStateType) {
+interface SpotifyCardProps extends SpotifyItem {}
+
+export default function SpotifyCard(props: SpotifyCardProps) {
   const {
-    item: {
-      name,
-      album: {
-        artists,
-        images,
-        external_urls: { spotify },
-      },
-    },
-  } = data;
+    name,
+    album: { artists, images },
+    external_urls: { spotify },
+  } = props;
 
   const [{ name: artistName }] = artists;
   const [, albumCover] = images;

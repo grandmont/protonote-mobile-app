@@ -1,4 +1,4 @@
-query ProtosQuery($where: ProtoWhereInput) {
+query Protos($where: ProtoWhereInput, $integrationsTake: Int = 0) {
   protos(where: $where) {
     id
     title
@@ -6,5 +6,15 @@ query ProtosQuery($where: ProtoWhereInput) {
     dateString
     createdAt
     updatedAt
+
+    integrations(take: $integrationsTake) {
+      integrationData {
+        id
+        data
+      }
+    }
+    _count {
+      integrations
+    }
   }
 }

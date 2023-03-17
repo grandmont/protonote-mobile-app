@@ -15,7 +15,7 @@ const { Dialog } = Incubator;
 import {
   GetMemoByDateStringDocument,
   Proto,
-  ProtosQueryDocument,
+  ProtosDocument,
 } from "../graphql/generated";
 import useAuth from "../hooks/useAuth";
 import { getTodayDateString } from "../utils/parsers";
@@ -43,7 +43,7 @@ export default function CalendarScreen({ navigation }) {
 
   const [getMemoByDate] = useLazyQuery(GetMemoByDateStringDocument);
 
-  const { data, loading } = useQuery(ProtosQueryDocument, {
+  const { data, loading } = useQuery(ProtosDocument, {
     variables: {
       where: {
         userId: {

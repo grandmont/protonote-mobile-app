@@ -1,24 +1,48 @@
-import { useNavigation } from "@react-navigation/native";
-import { Card, View, Text, Button } from "react-native-ui-lib";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { ScrollView } from "react-native";
+import { Text, View } from "react-native-ui-lib";
 
 import Divider from "../../elements/Divider/Divider";
-import { BOTTOM_TAB_ICON_SIZE } from "../../../config/constants";
 import { Proto } from "../../../graphql/generated";
 import ScreenSection from "../../layout/ScreenSection";
-import { ScrollView } from "react-native";
+import SpotifyMemo from "../../integrations/spotify/SpotifyMemo/SpotifyMemo";
+import CreateMemoButton from "../../elements/CreateMemoButton/CreateMemoButton";
 
 interface MemoDetailsSectionProps extends Partial<Proto> {}
 
 export default function MemoDetailsSection({
+  id,
   description,
+  dateString,
+  integrations = [],
+  _count,
 }: MemoDetailsSectionProps) {
   return (
-    <ScreenSection title="Description">
-      <ScrollView>
-        <Text p>{description}</Text>
-        <Divider size="huge" />
-      </ScrollView>
-    </ScreenSection>
+    <ScrollView style={{ flex: 1, height: "100%" }}>
+      {description ? (
+        <ScreenSection title="Description">
+          <Text p>{description}</Text>
+        </ScreenSection>
+      ) : (
+        <View flex center>
+          <Text marginB-24>No memo found for this day</Text>
+
+          <CreateMemoButton
+            label="Add memo"
+            dateString={dateString}
+            editData={id && { id, description }}
+          />
+        </View>
+      )}
+
+      <Divider size="small" />
+
+      {integrations.length > 0 && (
+        <SpotifyMemo
+          protoId={id}
+          integrations={integrations}
+          count={_count.integrations}
+        />
+      )}
+    </ScrollView>
   );
 }

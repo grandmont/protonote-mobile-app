@@ -7,15 +7,12 @@ import { useMutation } from "@apollo/client";
 
 import { AuthContext } from "../contexts/Auth";
 import { AuthenticateDocument, AuthProvider, User } from "../graphql/generated";
-
-const IS_EXPO_GO = Constants.appOwnership === "expo";
-
-const IOS_CLIENT_ID =
-  "227660563070-h19lq8ol7al1ce7dushbagjegmjrl5uo.apps.googleusercontent.com";
-const ANDROID_CLIENT_ID =
-  "227660563070-4qpakk8mclftj2vjlkie32c22tvog4nn.apps.googleusercontent.com";
-const EXPO_CLIENT_ID =
-  "227660563070-bppokg502t6sphrb9go3omjpahdjp3du.apps.googleusercontent.com";
+import {
+  IS_EXPO_GO,
+  IOS_CLIENT_ID,
+  ANDROID_CLIENT_ID,
+  EXPO_CLIENT_ID,
+} from "../config/constants";
 
 export default function useAuth() {
   const [isLoading, setIsLoading] = useState(true);

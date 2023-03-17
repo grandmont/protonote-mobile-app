@@ -22,9 +22,9 @@ export default function HomeScreen() {
     },
   });
 
-  const { saveSpotifyTracks } = useSpotify();
-
   const getToday = data?.getMemoByDateString;
+
+  const { saveSpotifyTracks } = useSpotify();
 
   useEffect(() => {
     saveSpotifyTracks();
@@ -34,7 +34,11 @@ export default function HomeScreen() {
     <ScreenLayout>
       <Greetings />
 
-      {!getToday ? <NoMemoSection /> : <MemoSection {...getToday} />}
+      {!getToday?.description ? (
+        <NoMemoSection />
+      ) : (
+        <MemoSection {...getToday} />
+      )}
 
       {loading && <LoaderScreen overlay />}
     </ScreenLayout>

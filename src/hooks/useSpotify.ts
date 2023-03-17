@@ -5,6 +5,7 @@ import {
   RefreshSpotifyAccessTokenDocument,
   SaveRecentlyPlayedTracksDocument,
 } from "../graphql/generated";
+import { getTodayDateString } from "../utils/parsers";
 
 interface SpotifyHookReturnInterface {
   refreshAccessToken: () => Promise<void>;
@@ -50,6 +51,8 @@ export default function useSpotify(): SpotifyHookReturnInterface {
   };
 
   const saveSpotifyTracks = async () => {
+    const dateString = getTodayDateString();
+
     const accessToken = await AsyncStorage.getItem("spotify:accessToken");
     const refreshToken = await AsyncStorage.getItem("spotify:refreshToken");
 
@@ -59,10 +62,12 @@ export default function useSpotify(): SpotifyHookReturnInterface {
           input: {
             accessToken,
             refreshToken,
+            dateString,
           },
         },
       });
     } catch (error) {
+      console.log(error.message);
       console.error(error);
     }
   };

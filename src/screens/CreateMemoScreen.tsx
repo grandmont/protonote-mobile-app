@@ -1,20 +1,13 @@
 import { useId, useState } from "react";
 import { useMutation } from "@apollo/client";
-import {
-  Button,
-  View,
-  LoaderScreen,
-  Incubator,
-  Text,
-} from "react-native-ui-lib";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Button, View, LoaderScreen, Incubator } from "react-native-ui-lib";
 const { Toast } = Incubator;
 
 import {
   CreateProtoMutationDocument,
   CreateProtoMutationMutation,
   GetMemoByDateStringDocument,
-  ProtosQueryDocument,
+  ProtosDocument,
   UpdateProtoMutationDocument,
   UpdateProtoMutationMutation,
 } from "../graphql/generated";
@@ -26,7 +19,6 @@ import Header from "../components/elements/Header/Header";
 import KeyboardAccessoryView from "../components/layout/KeyboardAccessoryView";
 import KeyboardAvoidingView from "../components/layout/KeyboardAvoidingView";
 import { getTodayDateString, getWrittenDateString } from "../utils/parsers";
-import { BOTTOM_TAB_ICON_SIZE } from "../config/constants";
 
 export default function CreateMemoScreen({ navigation, route }) {
   const nativeId = useId();
@@ -83,7 +75,7 @@ export default function CreateMemoScreen({ navigation, route }) {
       await createOrUpdateMemoMutation({ variables });
 
       client.refetchQueries({
-        include: [GetMemoByDateStringDocument, ProtosQueryDocument],
+        include: [GetMemoByDateStringDocument, ProtosDocument],
       });
 
       navigation.goBack();
@@ -101,8 +93,6 @@ export default function CreateMemoScreen({ navigation, route }) {
 
   return (
     <ScreenLayout dividerSize="invisible">
-      {/* <Header title={title} canGoBack /> */}
-
       <View row spread top>
         <Header canGoBack />
 

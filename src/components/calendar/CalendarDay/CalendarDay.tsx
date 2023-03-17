@@ -27,13 +27,14 @@ export default function CalendarDay(props: DayProps & CalendarDayProps) {
     },
   };
 
-  const markedStyle = isMarked && {
-    container: {
-      borderBottomWidth: 4,
-      borderColor: Colors.link,
-    },
-    text: {},
-  };
+  const markedStyle = !isToday &&
+    isMarked && {
+      container: {
+        borderBottomWidth: 4,
+        borderColor: Colors.link,
+      },
+      text: {},
+    };
 
   const disabledStyle = isDisabled && {
     container: {},
