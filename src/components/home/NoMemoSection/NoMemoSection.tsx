@@ -14,7 +14,7 @@ export default function NoMemoSection() {
           width: "100%",
           height: 300,
         }}
-        source={require("../../../../assets/PRODUCT/Animation 07/drawkit-grape-animation-7-LOOP.json")}
+        source={require("../../../../assets/animations/Animation 07/drawkit-grape-animation-7-LOOP.json")}
       />
 
       <Text p marginB-24 center>

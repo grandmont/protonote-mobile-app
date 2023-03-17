@@ -17,6 +17,7 @@ import IntegrationsScreen from "../screens/IntegrationsScreen";
 import AboutUsScreen from "../screens/AboutUsScreen";
 import IntegrationDataScreen from "../screens/IntegrationDataScreen";
 import AccountScreen from "../screens/AccountScreen";
+import DeleteAccountScreen from "../screens/DeleteAccountScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -87,6 +88,7 @@ export default function AppNavigator() {
       <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen name="Account" component={AccountScreen} />
       <Stack.Screen name="IntegrationData" component={IntegrationDataScreen} />
+      <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
 
       {/* Settings */}
       <Stack.Screen name="Integrations" component={IntegrationsScreen} />

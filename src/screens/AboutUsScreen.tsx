@@ -24,7 +24,7 @@ export default function AboutUsScreen() {
           Beememo
         </Text>
 
-        <Text marginB-12>version 1.1.0</Text>
+        <Text marginB-12>version 1.1.1</Text>
 
         <Text center marginB-12>
           © 2023 Grandmont. All rights reserved

@@ -1,0 +1,14 @@
+query GetUserStatistics($where: UserWhereUniqueInput!) {
+  user(where: $where) {
+    id
+    protos {
+      _count {
+        integrations
+      }
+    }
+    _count {
+      protos
+      integrations
+    }
+  }
+}

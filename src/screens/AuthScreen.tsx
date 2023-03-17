@@ -23,7 +23,7 @@ export default function AuthScreen() {
           style={{
             width: "100%",
           }}
-          source={require("../../assets/PRODUCT/Animation 10/drawkit-grape-animation-10-LOOP.json")}
+          source={require("../../assets/animations/Animation 10/drawkit-grape-animation-10-LOOP.json")}
         />
 
         <View marginT-48>

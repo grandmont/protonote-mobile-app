@@ -11,6 +11,7 @@ export default function SettingsScreen() {
   const title = "Settings";
 
   const navigation = useNavigation();
+
   const { logout } = useAuth();
 
   const navigateTo = (screen: string) => () => {

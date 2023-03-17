@@ -22,7 +22,7 @@ export default function NotificationsScreen() {
             width: "100%",
             height: 300,
           }}
-          source={require("../../assets/PRODUCT/Animation 06/drawkit-grape-animation-6-LOOP.json")}
+          source={require("../../assets/animations/Animation 06/drawkit-grape-animation-6-LOOP.json")}
         />
 
         <Text

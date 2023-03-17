@@ -5,6 +5,7 @@ import ScreenLayout from "../components/layout/ScreenLayout";
 import Header from "../components/elements/Header/Header";
 import SettingsItem from "../components/elements/SettingsItem/SettingsItem";
 import DialogCard from "../components/elements/DialogCard/DialogCard";
+import { useNavigation } from "@react-navigation/native";
 const { Dialog } = Incubator;
 
 export default function AccountScreen() {
@@ -12,12 +13,19 @@ export default function AccountScreen() {
 
   const [isDialogVisible, setIsDialogVisible] = useState(false);
 
-  const handleDeleteAccount = () => {
+  const navigation = useNavigation();
+
+  const handleShowDialog = () => {
     setIsDialogVisible(true);
   };
 
   const handleCancel = () => {
     setIsDialogVisible(false);
+  };
+
+  const handleGoToDeleteAccount = () => {
+    setIsDialogVisible(false);
+    navigation.navigate("DeleteAccount" as any);
   };
 
   return (
@@ -26,7 +34,7 @@ export default function AccountScreen() {
 
       <SettingsItem
         title="Delete account"
-        onPress={handleDeleteAccount}
+        onPress={handleShowDialog}
         mode="danger"
         hasNext={false}
       />
@@ -44,10 +52,13 @@ export default function AccountScreen() {
           description={
             <View marginT-12>
               <Text center marginB-12>
-                Are you sure you want to delete your account?
+                Are you sure you want to delete{`\n`}your account?
               </Text>
               <Text marginB-12 center>
                 You are going to lose all your memos!
+              </Text>
+              <Text text80BO marginB-12 center>
+                This action is irreversible!
               </Text>
 
               <ActionBar
@@ -60,7 +71,11 @@ export default function AccountScreen() {
                     color: "white",
                     link: false,
                   },
-                  { label: "Delete", onPress: () => console.log("delete") },
+                  {
+                    label: "Delete",
+                    onPress: handleGoToDeleteAccount,
+                    color: "red",
+                  },
                 ]}
               />
             </View>
