@@ -1,26 +1,16 @@
 import { useState } from "react";
-import {
-  Colors,
-  Text,
-  LoaderScreen,
-  Incubator,
-  View,
-  Card,
-} from "react-native-ui-lib";
+import { Colors, LoaderScreen, Incubator, View } from "react-native-ui-lib";
 import { CalendarList } from "react-native-calendars";
 import type { MarkedDates, DateData } from "react-native-calendars/src/types";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 const { Dialog } = Incubator;
 
-import {
-  GetMemoByDateStringDocument,
-  Proto,
-  ProtosDocument,
-} from "../graphql/generated";
+import { Proto, ProtosDocument } from "../graphql/generated";
 import useAuth from "../hooks/useAuth";
 import { getTodayDateString } from "../utils/parsers";
 import Fade from "../components/elements/Fade/Fade";
 import CalendarDay from "../components/calendar/CalendarDay/CalendarDay";
+import DialogCard from "../components/elements/DialogCard/DialogCard";
 
 export default function CalendarScreen({ navigation }) {
   const { userInfo } = useAuth();
@@ -40,8 +30,6 @@ export default function CalendarScreen({ navigation }) {
       },
     },
   };
-
-  const [getMemoByDate] = useLazyQuery(GetMemoByDateStringDocument);
 
   const { data, loading } = useQuery(ProtosDocument, {
     variables: {
@@ -71,16 +59,15 @@ export default function CalendarScreen({ navigation }) {
     navigation.navigate("Memo", { date });
   };
 
-  const handleLongPress = async ({ dateString }: DateData) => {
+  const handleLongPress = async (date: DateData) => {
+    const memo = data.protos.find(
+      ({ dateString }) => dateString === date.dateString
+    );
+
+    if (!memo) return;
+
     setIsDialogVisible(true);
-
-    const data = await getMemoByDate({
-      variables: {
-        dateString,
-      },
-    });
-
-    setDialogData(data.data.getMemoByDateString as Proto);
+    setDialogData(memo as Proto);
   };
 
   if (loading) return <LoaderScreen overlay />;
@@ -90,8 +77,6 @@ export default function CalendarScreen({ navigation }) {
       <View bg-white>
         <View marginT-48 paddingB-48>
           <CalendarList
-            onDayPress={handleDayPress}
-            onDayLongPress={handleLongPress}
             maxDate={todayDateString}
             pastScrollRange={12}
             futureScrollRange={0}
@@ -117,21 +102,15 @@ export default function CalendarScreen({ navigation }) {
         onDismiss={() => setIsDialogVisible(false)}
         containerStyle={{
           top: "40%",
-          width: "70%",
+          width: "80%",
         }}
       >
-        <Card padding-16 center>
-          {dialogData ? (
-            <>
-              <Text title>{dialogData.title}</Text>
-              <Text marginV-12 numberOfLines={7}>
-                {dialogData.description}
-              </Text>
-            </>
-          ) : (
-            <LoaderScreen />
-          )}
-        </Card>
+        {dialogData && (
+          <DialogCard
+            title={dialogData.title}
+            description={dialogData.description}
+          />
+        )}
       </Dialog>
     </>
   );

@@ -17,8 +17,7 @@ export default function ScreenLayout({
   ...props
 }: ScreenLayoutProps) {
   const style = {
-    paddingTop:
-      Constants.statusBarHeight + (Platform.OS === "android" ? 12 : 18),
+    paddingTop: Constants.statusBarHeight + (Platform.OS === "ios" ? 18 : 0),
   };
 
   return (

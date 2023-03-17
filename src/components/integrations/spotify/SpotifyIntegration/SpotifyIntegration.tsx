@@ -131,7 +131,7 @@ export default function SpotifyIntegration({
       onValueChange={registerSpotifyIntegration}
     >
       <View row centerV>
-        <Entypo name="spotify" size={36} />
+        <Entypo name="spotify" size={24} />
         <Text marginL-12 title>
           Spotify
         </Text>
