@@ -1,22 +1,20 @@
+import { useEffect } from "react";
 import { LoaderScreen } from "react-native-ui-lib";
 import { useQuery } from "@apollo/client";
 
-// Layout
 import ScreenLayout from "../components/layout/ScreenLayout";
-
-// Components
 import Greetings from "../components/home/Greetings/Greetings";
-import NoMemoSection from "../components/home/NoMemoSection/NoMemoSection";
 import MemoSection from "../components/home/MemoSection/MemoSection";
 import { GetMemoByDateStringDocument } from "../graphql/generated";
 import { getTodayDateString } from "../utils/parsers";
 import useSpotify from "../hooks/useSpotify";
-import { useEffect } from "react";
 import useIntegrations from "../hooks/useIntegrations";
 
 export default function HomeScreen() {
   const todayDateString = getTodayDateString();
+
   const { integrations } = useIntegrations();
+
   const { data, loading } = useQuery(GetMemoByDateStringDocument, {
     variables: {
       dateString: todayDateString,
@@ -40,11 +38,7 @@ export default function HomeScreen() {
     <ScreenLayout>
       <Greetings />
 
-      {/* {!getToday?.description ? (
-        <NoMemoSection />
-      ) : ( */}
       <MemoSection {...getToday} />
-      {/* )} */}
 
       {loading && <LoaderScreen overlay />}
     </ScreenLayout>

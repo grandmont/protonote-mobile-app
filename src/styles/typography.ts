@@ -22,6 +22,6 @@ Typography.loadTypographies({
   google: {
     fontSize: 14,
     fontWeight: "600",
-    lineHeight: 0,
+    lineHeight: 16,
   },
 });

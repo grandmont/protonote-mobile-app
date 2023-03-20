@@ -1,6 +1,8 @@
 import { Image, Text, View } from "react-native-ui-lib";
 import { A } from "@expo/html-elements";
 
+import Constants from "expo-constants";
+
 import ScreenLayout from "../components/layout/ScreenLayout";
 import Header from "../components/elements/Header/Header";
 
@@ -24,7 +26,7 @@ export default function AboutUsScreen() {
           Beememo
         </Text>
 
-        <Text marginB-12>version 1.1.2</Text>
+        <Text marginB-12>version {Constants.manifest.version}</Text>
 
         <Text center marginB-12>
           © 2023 Grandmont. All rights reserved

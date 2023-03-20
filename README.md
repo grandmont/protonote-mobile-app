@@ -14,6 +14,8 @@
 
 > Add refresh token to the integration model (if the user logs in a different device, it's not gonna find the token)
 
+> Check if there are integrations before requesting spotify data in the API `saveSpotifyTracks`
+
 # Done
 
 > Create method in the server that fetches the recently played tracks from the user periodically

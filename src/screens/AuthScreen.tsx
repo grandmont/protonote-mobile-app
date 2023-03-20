@@ -6,9 +6,12 @@ import ScreenLayout from "../components/layout/ScreenLayout";
 import GoogleSignInButton from "../components/integrations/google/GoogleSignInButton/GoogleSignInButton";
 import AppleSignInButton from "../components/integrations/apple/AppleSignInButton/AppleSignInButton";
 import { AuthProvider } from "../graphql/generated";
+import usePlatform from "../hooks/usePlatform";
 
 export default function AuthScreen() {
   const { login, isLoading } = useAuth();
+
+  const { isIOS } = usePlatform();
 
   return (
     <ScreenLayout>
@@ -33,9 +36,11 @@ export default function AuthScreen() {
           />
         </View>
 
-        <View marginT-12>
-          <AppleSignInButton onPress={() => login(AuthProvider.Apple)} />
-        </View>
+        {isIOS && (
+          <View marginT-12>
+            <AppleSignInButton onPress={() => login(AuthProvider.Apple)} />
+          </View>
+        )}
       </View>
 
       {isLoading && <LoaderScreen overlay />}

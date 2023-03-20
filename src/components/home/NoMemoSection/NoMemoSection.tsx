@@ -20,6 +20,7 @@ export default function NoMemoSection({ editData }) {
       <Text p marginB-24 center>
         Add today's memo and keep{"\n"}tracking your progress!
       </Text>
+
       <CreateMemoButton label="Let's do it" editData={editData} />
     </View>
   );
