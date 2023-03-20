@@ -3,7 +3,7 @@ import LottieView from "lottie-react-native";
 
 import CreateMemoButton from "../../elements/CreateMemoButton/CreateMemoButton";
 
-export default function NoMemoSection() {
+export default function NoMemoSection({ editData }) {
   return (
     <View flex center bottom paddingB-24>
       <Text h2>How was your day?</Text>
@@ -20,7 +20,7 @@ export default function NoMemoSection() {
       <Text p marginB-24 center>
         Add today's memo and keep{"\n"}tracking your progress!
       </Text>
-      <CreateMemoButton label="Let's do it" />
+      <CreateMemoButton label="Let's do it" editData={editData} />
     </View>
   );
 }

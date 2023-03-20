@@ -40,11 +40,11 @@ export default function HomeScreen() {
     <ScreenLayout>
       <Greetings />
 
-      {!getToday?.description ? (
+      {/* {!getToday?.description ? (
         <NoMemoSection />
-      ) : (
-        <MemoSection {...getToday} />
-      )}
+      ) : ( */}
+      <MemoSection {...getToday} />
+      {/* )} */}
 
       {loading && <LoaderScreen overlay />}
     </ScreenLayout>

@@ -33,9 +33,11 @@ export default function CreateMemoScreen({ navigation, route }) {
 
   const { userInfo } = useAuth();
 
+  const hasData = editData?.id;
+
   const [createOrUpdateMemoMutation] = useMutation<
     CreateProtoMutationMutation | UpdateProtoMutationMutation
-  >(!editData ? CreateProtoMutationDocument : UpdateProtoMutationDocument);
+  >(!hasData ? CreateProtoMutationDocument : UpdateProtoMutationDocument);
 
   const parsedDateString = dateString || getTodayDateString();
   const title = getWrittenDateString(parsedDateString);
@@ -69,7 +71,7 @@ export default function CreateMemoScreen({ navigation, route }) {
       },
     };
 
-    const variables = !editData ? createMemoData : updateMemoData;
+    const variables = !hasData ? createMemoData : updateMemoData;
 
     try {
       await createOrUpdateMemoMutation({ variables });

@@ -37,7 +37,7 @@ export default function MemoScreen({ route }) {
 
   const handleEdit =
     !loading &&
-    !!memo &&
+    !!memo?.description &&
     (() => {
       navigation.navigate("CreateMemo" as any, {
         date: { dateString, editData: memo },

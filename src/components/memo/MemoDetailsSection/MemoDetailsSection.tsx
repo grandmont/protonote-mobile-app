@@ -23,7 +23,7 @@ export default function MemoDetailsSection({
           <Text p>{description}</Text>
         </ScreenSection>
       ) : (
-        <View flex center>
+        <View flex center marginT-24>
           <Text marginB-24>No memo found for this day</Text>
 
           <CreateMemoButton

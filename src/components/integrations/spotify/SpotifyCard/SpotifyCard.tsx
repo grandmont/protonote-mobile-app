@@ -36,7 +36,7 @@ export default function SpotifyCard(props: SpotifyCardProps) {
       <View row spread top>
         <View row width="70%">
           <Image
-            source={albumCover}
+            source={{ uri: albumCover.url }}
             style={{
               width: 64,
               height: 64,
