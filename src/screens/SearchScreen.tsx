@@ -1,4 +1,4 @@
-import { useState, useEffect, useDeferredValue, useId } from "react";
+import { useState, useEffect, useId } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { LoaderScreen, View } from "react-native-ui-lib";
 
@@ -15,16 +15,21 @@ import {
   QueryMode,
 } from "../graphql/generated";
 import KeyboardAvoidingView from "../components/layout/KeyboardAvoidingView";
+import useDebounce from "../hooks/useDebounce";
+import EmptyMemoList from "../components/search/EmptyMemoList/EmptyMemoList";
 
 export default function SearchScreen() {
   const nativeId = useId();
 
-  const [searchPhrase, setSearchPhrase] = useState("");
-  const deferredSearchPhrase = useDeferredValue(searchPhrase);
   const { userInfo } = useAuth();
 
+  const [searchPhrase, setSearchPhrase] = useState("");
+  const [isSearchLoading, setIsSearchLoading] = useState(false);
+
+  const debouncedValue = useDebounce(searchPhrase, 1000);
+
   const filterOptions = {
-    contains: deferredSearchPhrase,
+    contains: debouncedValue,
     mode: QueryMode.Insensitive,
   };
 
@@ -44,31 +49,47 @@ export default function SearchScreen() {
     } as ProtoWhereInput,
   };
 
-  const [, { data, loading, refetch }] = useLazyQuery(ProtosDocument, {
-    variables,
-  });
+  const [, { data, loading: isDataLoading, refetch }] = useLazyQuery(
+    ProtosDocument,
+    {
+      variables,
+      notifyOnNetworkStatusChange: true,
+    }
+  );
 
   useEffect(() => {
     if (!userInfo?.id) return;
 
+    setIsSearchLoading(false);
+
     refetch(variables);
-  }, [deferredSearchPhrase, userInfo]);
+  }, [debouncedValue, userInfo]);
+
+  const handleSearchChange = (value: string) => {
+    setIsSearchLoading(true);
+
+    setSearchPhrase(value);
+  };
+
+  const protos = (data ? data?.protos : []) as Proto[];
+
+  const hasProtos = protos.length > 0;
 
   return (
     <ScreenLayout>
       <KeyboardAvoidingView>
-        <View centerH marginB-48>
+        <View centerH marginB-48 height="100%">
           <SearchBar
             searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            onChange={handleSearchChange}
             inputAccessoryViewID={nativeId}
           />
 
-          <MemoList data={data?.protos as Proto[]} />
+          {hasProtos ? <MemoList data={protos} /> : <EmptyMemoList />}
 
           <KeyboardAccessoryView nativeId={nativeId} />
 
-          {loading && <LoaderScreen overlay />}
+          {(isSearchLoading || isDataLoading) && <LoaderScreen overlay />}
         </View>
       </KeyboardAvoidingView>
       <Fade bottom />
