@@ -1,7 +1,6 @@
-import { useLazyQuery } from "@apollo/client";
 import { DateData } from "react-native-calendars";
 import { DayProps } from "react-native-calendars/src/calendar/day";
-import { View, Button, Text, Colors, Dialog } from "react-native-ui-lib";
+import { View, Button, Text, Colors } from "react-native-ui-lib";
 
 interface CalendarDayProps {
   date?: DateData;
@@ -77,7 +76,6 @@ export default function CalendarDay(props: DayProps & CalendarDayProps) {
           >
             {date.day}
           </Text>
-          {/* <Text>{state}</Text> */}
         </Button>
       </View>
     </>

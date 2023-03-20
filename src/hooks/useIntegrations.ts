@@ -1,10 +1,11 @@
 import { useQuery } from "@apollo/client";
+
 import {
   Integration,
   IntegrationProvider,
   IntegrationsDocument,
-} from "../graphql/generated";
-import useAuth from "./useAuth";
+} from "@graphql/generated";
+import useAuth from "@hooks/useAuth";
 
 type IntegrationsMap = {
   spotifyIntegration?: Integration;

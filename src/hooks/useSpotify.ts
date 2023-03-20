@@ -4,8 +4,8 @@ import { useMutation } from "@apollo/client";
 import {
   RefreshSpotifyAccessTokenDocument,
   SaveRecentlyPlayedTracksDocument,
-} from "../graphql/generated";
-import { getTodayDateString } from "../utils/parsers";
+} from "@graphql/generated";
+import { getTodayDateString } from "@utils/parsers";
 
 interface SpotifyHookReturnInterface {
   refreshAccessToken: () => Promise<void>;

@@ -2,7 +2,7 @@ import { View } from "react-native-ui-lib";
 import { TextInput } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import { BOTTOM_TAB_ICON_SIZE } from "../../../config/constants";
+import { BOTTOM_TAB_ICON_SIZE } from "@config/constants";
 
 const SearchBar = ({ searchPhrase, onChange, inputAccessoryViewID }) => {
   return (

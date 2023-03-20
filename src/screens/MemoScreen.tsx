@@ -2,12 +2,12 @@ import { useQuery } from "@apollo/client";
 import { LoaderScreen } from "react-native-ui-lib";
 import { useNavigation } from "@react-navigation/native";
 
-import ScreenLayout from "../components/layout/ScreenLayout";
-import { Proto, ProtosDocument } from "../graphql/generated";
-import useAuth from "../hooks/useAuth";
-import { getWrittenDateString } from "../utils/parsers";
-import Header from "../components/elements/Header/Header";
-import MemoDetailsSection from "../components/memo/MemoDetailsSection/MemoDetailsSection";
+import ScreenLayout from "@components/layout/ScreenLayout";
+import useAuth from "@hooks/useAuth";
+import Header from "@components/elements/Header/Header";
+import MemoDetailsSection from "@components/memo/MemoDetailsSection/MemoDetailsSection";
+import { Proto, ProtosDocument } from "@graphql/generated";
+import { getWrittenDateString } from "@utils/parsers";
 
 export default function MemoScreen({ route }) {
   const navigation = useNavigation();
@@ -39,7 +39,7 @@ export default function MemoScreen({ route }) {
     !loading &&
     !!memo?.description &&
     (() => {
-      navigation.navigate("CreateMemo" as any, {
+      navigation.navigate("CreateMemo", {
         date: { dateString, editData: memo },
       });
     });

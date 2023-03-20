@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Incubator } from "react-native-ui-lib";
 const { Toast } = Incubator;
 
-import ScreenLayout from "../components/layout/ScreenLayout";
-import Header from "../components/elements/Header/Header";
-import SpotifyIntegration from "../components/integrations/spotify/SpotifyIntegration/SpotifyIntegration";
-import useIntegrations from "../hooks/useIntegrations";
+import useIntegrations from "@hooks/useIntegrations";
+import ScreenLayout from "@components/layout/ScreenLayout";
+import Header from "@components/elements/Header/Header";
+import SpotifyIntegration from "@components/integrations/spotify/SpotifyIntegration/SpotifyIntegration";
 
 export default function IntegrationsScreen() {
   const title = "Integrations";

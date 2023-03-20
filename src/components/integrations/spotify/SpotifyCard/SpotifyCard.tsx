@@ -2,8 +2,8 @@ import { Linking } from "react-native";
 import { Card, View, Colors, Image, Text } from "react-native-ui-lib";
 import Entypo from "@expo/vector-icons/Entypo";
 
-import { BOTTOM_TAB_ICON_SIZE } from "../../../../config/constants";
-import { SpotifyItem } from "../../../../graphql/generated";
+import { BOTTOM_TAB_ICON_SIZE } from "@config/constants";
+import { SpotifyItem } from "@graphql/generated";
 
 interface SpotifyCardProps extends SpotifyItem {}
 

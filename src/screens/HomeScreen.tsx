@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import { LoaderScreen } from "react-native-ui-lib";
 import { useQuery } from "@apollo/client";
 
-import ScreenLayout from "../components/layout/ScreenLayout";
-import Greetings from "../components/home/Greetings/Greetings";
-import MemoSection from "../components/home/MemoSection/MemoSection";
-import { GetMemoByDateStringDocument } from "../graphql/generated";
-import { getTodayDateString } from "../utils/parsers";
-import useSpotify from "../hooks/useSpotify";
-import useIntegrations from "../hooks/useIntegrations";
+import useSpotify from "@hooks/useSpotify";
+import useIntegrations from "@hooks/useIntegrations";
+import ScreenLayout from "@components/layout/ScreenLayout";
+import Greetings from "@components/home/Greetings/Greetings";
+import MemoSection from "@components/home/MemoSection/MemoSection";
+import { GetMemoByDateStringDocument } from "@graphql/generated";
+import { getTodayDateString } from "@utils/parsers";
 
 export default function HomeScreen() {
   const todayDateString = getTodayDateString();

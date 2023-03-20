@@ -2,21 +2,21 @@ import { useState, useEffect, useId } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { LoaderScreen, View } from "react-native-ui-lib";
 
-import useAuth from "../hooks/useAuth";
-import ScreenLayout from "../components/layout/ScreenLayout";
-import SearchBar from "../components/search/SearchBar/SearchBar";
-import KeyboardAccessoryView from "../components/layout/KeyboardAccessoryView";
-import MemoList from "../components/search/MemoList/MemoList";
-import Fade from "../components/elements/Fade/Fade";
+import useAuth from "@hooks/useAuth";
+import ScreenLayout from "@components/layout/ScreenLayout";
+import SearchBar from "@components/search/SearchBar/SearchBar";
+import KeyboardAccessoryView from "@components/layout/KeyboardAccessoryView";
+import MemoList from "@components/search/MemoList/MemoList";
+import Fade from "@components/elements/Fade/Fade";
 import {
   Proto,
   ProtosDocument,
   ProtoWhereInput,
   QueryMode,
-} from "../graphql/generated";
-import KeyboardAvoidingView from "../components/layout/KeyboardAvoidingView";
-import useDebounce from "../hooks/useDebounce";
-import EmptyMemoList from "../components/search/EmptyMemoList/EmptyMemoList";
+} from "@graphql/generated";
+import KeyboardAvoidingView from "@components/layout/KeyboardAvoidingView";
+import useDebounce from "@hooks/useDebounce";
+import EmptyMemoList from "@components/search/EmptyMemoList/EmptyMemoList";
 
 export default function SearchScreen() {
   const nativeId = useId();

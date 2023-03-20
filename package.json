@@ -57,6 +57,7 @@
     "@graphql-codegen/typescript": "^2.8.7",
     "@graphql-codegen/typescript-operations": "^2.5.12",
     "@types/spotify-api": "^0.0.20",
+    "babel-plugin-module-resolver": "^5.0.0",
     "ts-node": "^10.9.1"
   },
   "private": true

@@ -1,8 +1,8 @@
 import Constants from "expo-constants";
 import { View, ViewProps } from "react-native-ui-lib";
 
-import Divider, { DividerSizeType } from "../elements/Divider/Divider";
-import usePlatform from "../../hooks/usePlatform";
+import Divider, { DividerSizeType } from "@components/elements/Divider/Divider";
+import usePlatform from "@hooks/usePlatform";
 
 interface ScreenLayoutProps extends ViewProps {
   children: React.ReactNode;

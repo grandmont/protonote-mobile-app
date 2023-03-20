@@ -1,5 +1,5 @@
-import { AuthType, AuthContextActionsType, UIType } from ".";
-import { User } from "../../graphql/generated";
+import type { AuthType, AuthContextActionsType, UIType } from ".";
+import type { User } from "@graphql/generated";
 
 export const authReducer: React.Reducer<AuthType, AuthContextActionsType> = (
   auth,

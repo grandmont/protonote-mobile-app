@@ -1,8 +1,8 @@
 import { Text, View } from "react-native-ui-lib";
 import LottieView from "lottie-react-native";
 
-import ScreenLayout from "../components/layout/ScreenLayout";
-import Header from "../components/elements/Header/Header";
+import ScreenLayout from "@components/layout/ScreenLayout";
+import Header from "@components/elements/Header/Header";
 
 export default function NotificationsScreen() {
   const title = "Notifications";

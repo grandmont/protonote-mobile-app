@@ -3,8 +3,8 @@ import { A } from "@expo/html-elements";
 
 import Constants from "expo-constants";
 
-import ScreenLayout from "../components/layout/ScreenLayout";
-import Header from "../components/elements/Header/Header";
+import ScreenLayout from "@components/layout/ScreenLayout";
+import Header from "@components/elements/Header/Header";
 
 export default function AboutUsScreen() {
   const title = "About us";

@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { useMutation, useQuery } from "@apollo/client";
+import LottieView from "lottie-react-native";
 import {
   Button,
   View,
@@ -6,17 +9,14 @@ import {
   Incubator,
 } from "react-native-ui-lib";
 const { Toast } = Incubator;
-import LottieView from "lottie-react-native";
 
-import ScreenLayout from "../components/layout/ScreenLayout";
-import Header from "../components/elements/Header/Header";
-import { useMutation, useQuery } from "@apollo/client";
+import useAuth from "@hooks/useAuth";
+import ScreenLayout from "@components/layout/ScreenLayout";
+import Header from "@components/elements/Header/Header";
 import {
   DeleteAccountDocument,
   GetUserStatisticsDocument,
-} from "../graphql/generated";
-import useAuth from "../hooks/useAuth";
-import { useState } from "react";
+} from "@graphql/generated";
 
 export default function DeleteAccountScreen() {
   const title = "Delete account";

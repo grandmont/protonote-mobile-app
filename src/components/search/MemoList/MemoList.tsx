@@ -2,8 +2,8 @@ import { FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Card, Text, View } from "react-native-ui-lib";
 
-import { Proto } from "../../../graphql/generated";
-import Divider from "../../elements/Divider/Divider";
+import Divider from "@components/elements/Divider/Divider";
+import { Proto } from "@graphql/generated";
 
 type MemoDataType = {
   spacing?: boolean;
@@ -23,7 +23,7 @@ const MemoListItem = ({
   const navigation = useNavigation();
 
   const handleGoToMemo = () => {
-    navigation.navigate("Memo" as any, { date: { dateString } });
+    navigation.navigate("Memo", { date: { dateString } });
   };
 
   return (

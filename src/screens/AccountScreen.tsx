@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Text, Incubator, View, ActionBar } from "react-native-ui-lib";
-
-import ScreenLayout from "../components/layout/ScreenLayout";
-import Header from "../components/elements/Header/Header";
-import SettingsItem from "../components/elements/SettingsItem/SettingsItem";
-import DialogCard from "../components/elements/DialogCard/DialogCard";
 import { useNavigation } from "@react-navigation/native";
+import { Text, Incubator, View, ActionBar } from "react-native-ui-lib";
 const { Dialog } = Incubator;
+
+import ScreenLayout from "@components/layout/ScreenLayout";
+import Header from "@components/elements/Header/Header";
+import SettingsItem from "@components/elements/SettingsItem/SettingsItem";
+import DialogCard from "@components/elements/DialogCard/DialogCard";
 
 export default function AccountScreen() {
   const title = "Account";
@@ -25,7 +25,7 @@ export default function AccountScreen() {
 
   const handleGoToDeleteAccount = () => {
     setIsDialogVisible(false);
-    navigation.navigate("DeleteAccount" as any);
+    navigation.navigate("DeleteAccount");
   };
 
   return (

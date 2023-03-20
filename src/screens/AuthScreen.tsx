@@ -1,12 +1,12 @@
 import { LoaderScreen, Text, View } from "react-native-ui-lib";
 import LottieView from "lottie-react-native";
 
-import useAuth from "../hooks/useAuth";
-import ScreenLayout from "../components/layout/ScreenLayout";
-import GoogleSignInButton from "../components/integrations/google/GoogleSignInButton/GoogleSignInButton";
-import AppleSignInButton from "../components/integrations/apple/AppleSignInButton/AppleSignInButton";
-import { AuthProvider } from "../graphql/generated";
-import usePlatform from "../hooks/usePlatform";
+import useAuth from "@hooks/useAuth";
+import usePlatform from "@hooks/usePlatform";
+import ScreenLayout from "@components/layout/ScreenLayout";
+import GoogleSignInButton from "@components/integrations/google/GoogleSignInButton/GoogleSignInButton";
+import AppleSignInButton from "@components/integrations/apple/AppleSignInButton/AppleSignInButton";
+import { AuthProvider } from "@graphql/generated";
 
 export default function AuthScreen() {
   const { login, isLoading } = useAuth();

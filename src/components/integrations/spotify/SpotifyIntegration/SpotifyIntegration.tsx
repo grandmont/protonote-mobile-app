@@ -13,9 +13,9 @@ import {
   IntegrationsDocument,
   RegisterIntegrationDocument,
   SwapSpotifyCodeDocument,
-} from "../../../../graphql/generated";
-import { client } from "../../../../services/client";
-import SwitchItem from "../../../elements/SwitchItem/SwitchItem";
+} from "@graphql/generated";
+import { client } from "@services/client";
+import SwitchItem from "@components/elements/SwitchItem/SwitchItem";
 
 const SCHEME = Constants.manifest.scheme;
 const useProxy = Constants.appOwnership === "expo" && Platform.OS !== "web";

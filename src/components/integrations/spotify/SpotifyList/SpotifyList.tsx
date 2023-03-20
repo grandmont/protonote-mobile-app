@@ -1,9 +1,9 @@
 import { FlatList } from "react-native";
 import { View } from "react-native-ui-lib";
 
-import { IntegrationData, SpotifyItem } from "../../../../graphql/generated";
-import SpotifyCard from "../SpotifyCard/SpotifyCard";
-import Divider from "../../../elements/Divider/Divider";
+import SpotifyCard from "@components/integrations/spotify/SpotifyCard/SpotifyCard";
+import Divider from "@components/elements/Divider/Divider";
+import { IntegrationData, SpotifyItem } from "@graphql/generated";
 
 type ListItemType = {
   spacing?: boolean;

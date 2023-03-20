@@ -2,21 +2,21 @@ import { View, Avatar, Button } from "react-native-ui-lib";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 
-import useAuth from "../../../hooks/useAuth";
-import Header from "../../elements/Header/Header";
-import { getTimeRangeGreetings } from "../../../utils/parsers";
-import { BOTTOM_TAB_ICON_SIZE } from "../../../config/constants";
+import useAuth from "@hooks/useAuth";
+import Header from "@components/elements/Header/Header";
+import { getTimeRangeGreetings } from "@utils/parsers";
+import { BOTTOM_TAB_ICON_SIZE } from "@config/constants";
 
 export default function Greetings() {
   const navigation = useNavigation();
   const { userInfo } = useAuth();
 
   const handleNotificationsPress = () => {
-    navigation.navigate("Notifications" as any);
+    navigation.navigate("Notifications");
   };
 
   const handleSettingsPress = () => {
-    navigation.navigate("Settings" as any);
+    navigation.navigate("Settings");
   };
 
   const title = userInfo?.name ? `Hey, ${userInfo?.name}!` : "Hello!";

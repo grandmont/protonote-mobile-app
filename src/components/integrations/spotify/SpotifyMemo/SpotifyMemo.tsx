@@ -2,13 +2,13 @@ import { useNavigation } from "@react-navigation/native";
 import { Button, Text, View } from "react-native-ui-lib";
 import Entypo from "@expo/vector-icons/Entypo";
 
+import ScreenSection from "@components/layout/ScreenSection";
+import SpotifyCard from "@components/integrations/spotify/SpotifyCard/SpotifyCard";
 import {
   IntegrationData,
   IntegrationDataOnProtos,
   SpotifyItem,
-} from "../../../../graphql/generated";
-import ScreenSection from "../../../layout/ScreenSection";
-import SpotifyCard from "../SpotifyCard/SpotifyCard";
+} from "@graphql/generated";
 
 interface SpotifyMemoProps {
   protoId: number;
@@ -28,7 +28,7 @@ export default function SpotifyMemo({
   };
 
   const handleViewIntegrationData = () => {
-    navigation.navigate("IntegrationData" as any, {
+    navigation.navigate("IntegrationData", {
       title: "Spotify",
       protoId,
     });

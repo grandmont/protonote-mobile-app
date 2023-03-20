@@ -1,11 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import { View, Button } from "react-native-ui-lib";
 
-import ScreenLayout from "../components/layout/ScreenLayout";
-import Header from "../components/elements/Header/Header";
-import ScreenSection from "../components/layout/ScreenSection";
-import useAuth from "../hooks/useAuth";
-import SettingsItem from "../components/elements/SettingsItem/SettingsItem";
+import ScreenLayout from "@components/layout/ScreenLayout";
+import Header from "@components/elements/Header/Header";
+import ScreenSection from "@components/layout/ScreenSection";
+import useAuth from "@hooks/useAuth";
+import SettingsItem from "@components/elements/SettingsItem/SettingsItem";
 
 export default function SettingsScreen() {
   const title = "Settings";

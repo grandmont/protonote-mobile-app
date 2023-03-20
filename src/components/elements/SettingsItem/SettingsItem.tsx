@@ -1,7 +1,7 @@
 import { View, Card, Text, CardProps } from "react-native-ui-lib";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import { BOTTOM_TAB_ICON_SIZE } from "../../../config/constants";
+import { BOTTOM_TAB_ICON_SIZE } from "@config/constants";
 
 interface SettingsItemProps extends CardProps {
   title?: string | React.ReactNode;

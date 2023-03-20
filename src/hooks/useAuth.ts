@@ -1,18 +1,17 @@
 import { useContext, useEffect, useState } from "react";
-import Constants from "expo-constants";
 import * as AppleAuthentication from "expo-apple-authentication";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation } from "@apollo/client";
 
-import { AuthContext } from "../contexts/Auth";
-import { AuthenticateDocument, AuthProvider, User } from "../graphql/generated";
+import { AuthContext } from "@contexts/Auth";
+import { AuthenticateDocument, AuthProvider, User } from "@graphql/generated";
 import {
   IS_EXPO_GO,
   IOS_CLIENT_ID,
   ANDROID_CLIENT_ID,
   EXPO_CLIENT_ID,
-} from "../config/constants";
+} from "@config/constants";
 
 export default function useAuth() {
   const [isLoading, setIsLoading] = useState(true);

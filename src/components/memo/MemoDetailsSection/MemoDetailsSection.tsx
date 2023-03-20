@@ -1,11 +1,11 @@
 import { ScrollView } from "react-native";
 import { Text, View } from "react-native-ui-lib";
 
-import Divider from "../../elements/Divider/Divider";
-import { Proto } from "../../../graphql/generated";
-import ScreenSection from "../../layout/ScreenSection";
-import SpotifyMemo from "../../integrations/spotify/SpotifyMemo/SpotifyMemo";
-import CreateMemoButton from "../../elements/CreateMemoButton/CreateMemoButton";
+import Divider from "@components/elements/Divider/Divider";
+import ScreenSection from "@components/layout/ScreenSection";
+import SpotifyMemo from "@components/integrations/spotify/SpotifyMemo/SpotifyMemo";
+import CreateMemoButton from "@components/elements/CreateMemoButton/CreateMemoButton";
+import { Proto } from "@graphql/generated";
 
 interface MemoDetailsSectionProps extends Partial<Proto> {}
 

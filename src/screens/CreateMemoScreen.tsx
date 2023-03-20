@@ -3,6 +3,13 @@ import { useMutation } from "@apollo/client";
 import { Button, View, LoaderScreen, Incubator } from "react-native-ui-lib";
 const { Toast } = Incubator;
 
+import MemoEditor from "@components/memo/MemoEditor/MemoEditor";
+import ScreenLayout from "@components/layout/ScreenLayout";
+import useAuth from "@hooks/useAuth";
+import { client } from "@services/client";
+import Header from "@components/elements/Header/Header";
+import KeyboardAccessoryView from "@components/layout/KeyboardAccessoryView";
+import KeyboardAvoidingView from "@components/layout/KeyboardAvoidingView";
 import {
   CreateProtoMutationDocument,
   CreateProtoMutationMutation,
@@ -10,15 +17,8 @@ import {
   ProtosDocument,
   UpdateProtoMutationDocument,
   UpdateProtoMutationMutation,
-} from "../graphql/generated";
-import MemoEditor from "../components/memo/MemoEditor/MemoEditor";
-import ScreenLayout from "../components/layout/ScreenLayout";
-import useAuth from "../hooks/useAuth";
-import { client } from "../services/client";
-import Header from "../components/elements/Header/Header";
-import KeyboardAccessoryView from "../components/layout/KeyboardAccessoryView";
-import KeyboardAvoidingView from "../components/layout/KeyboardAvoidingView";
-import { getTodayDateString, getWrittenDateString } from "../utils/parsers";
+} from "@graphql/generated";
+import { getTodayDateString, getWrittenDateString } from "@utils/parsers";
 
 export default function CreateMemoScreen({ navigation, route }) {
   const nativeId = useId();

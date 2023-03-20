@@ -5,10 +5,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistCache } from "apollo3-cache-persist";
 import { LogBox } from "react-native";
 
-import "./src/styles";
-import { cache, client } from "./src/services/client";
-import AuthProvider from "./src/contexts/Auth";
-import RootNavigator from "./src/navigators/RootNavigator";
+import "@styles";
+import { cache, client } from "@services/client";
+import AuthProvider from "@contexts/Auth";
+import RootNavigator from "@navigators/RootNavigator";
 
 LogBox.ignoreLogs([
   "Sending `onAnimatedValueUpdate` with no listeners registered.",

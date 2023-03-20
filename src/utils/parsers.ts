@@ -1,5 +1,6 @@
 import moment from "moment";
-import { DATE_FORMAT } from "../config/constants";
+
+import { DATE_FORMAT } from "@config/constants";
 
 export const getTimeRangeGreetings = () => {
   const hour = moment().hour();

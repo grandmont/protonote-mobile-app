@@ -1,7 +1,7 @@
 import { View, Text } from "react-native-ui-lib";
 import LottieView from "lottie-react-native";
 
-import CreateMemoButton from "../../elements/CreateMemoButton/CreateMemoButton";
+import CreateMemoButton from "@components/elements/CreateMemoButton/CreateMemoButton";
 
 export default function NoMemoSection({ editData }) {
   return (

@@ -5,12 +5,12 @@ import type { MarkedDates, DateData } from "react-native-calendars/src/types";
 import { useQuery } from "@apollo/client";
 const { Dialog } = Incubator;
 
-import { Proto, ProtosDocument } from "../graphql/generated";
-import useAuth from "../hooks/useAuth";
-import { getTodayDateString } from "../utils/parsers";
-import Fade from "../components/elements/Fade/Fade";
-import CalendarDay from "../components/calendar/CalendarDay/CalendarDay";
-import DialogCard from "../components/elements/DialogCard/DialogCard";
+import useAuth from "@hooks/useAuth";
+import Fade from "@components/elements/Fade/Fade";
+import CalendarDay from "@components/calendar/CalendarDay/CalendarDay";
+import DialogCard from "@components/elements/DialogCard/DialogCard";
+import { Proto, ProtosDocument } from "@graphql/generated";
+import { getTodayDateString } from "@utils/parsers";
 
 export default function CalendarScreen({ navigation }) {
   const { userInfo } = useAuth();

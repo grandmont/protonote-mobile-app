@@ -1,5 +1,6 @@
 import { KeyboardAvoidingView as RNKeyboardAvoidingView } from "react-native";
-import usePlatform from "../../hooks/usePlatform";
+
+import usePlatform from "@hooks/usePlatform";
 
 export default function KeyboardAvoidingView({
   children,

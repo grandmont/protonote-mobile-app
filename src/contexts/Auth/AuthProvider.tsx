@@ -9,7 +9,7 @@ import type {
   ThemeType,
 } from ".";
 import { authReducer, uiReducer, userReducer } from "./reducers";
-import { User } from "../../graphql/generated";
+import { User } from "@graphql/generated";
 
 const mainReducer = (
   // State

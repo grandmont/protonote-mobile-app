@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "react-native-ui-lib";
-import { Proto } from "../../../graphql/generated";
+
+import { Proto } from "@graphql/generated";
 
 interface CreateMemoButtonProps {
   label: string;
@@ -16,7 +17,7 @@ export default function CreateMemoButton({
   const navigation = useNavigation();
 
   const handleCreateMemo = () => {
-    navigation.navigate("CreateMemo" as any, {
+    navigation.navigate("CreateMemo", {
       date: { dateString, editData },
     });
   };
