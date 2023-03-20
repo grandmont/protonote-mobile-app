@@ -20,7 +20,7 @@ import {
 } from "@graphql/generated";
 import { getTodayDateString, getWrittenDateString } from "@utils/parsers";
 
-const MEMO_DELAY = 1000;
+const MEMO_DELAY = 500;
 
 export default function CreateMemoScreen({ navigation, route }) {
   const nativeId = useId();

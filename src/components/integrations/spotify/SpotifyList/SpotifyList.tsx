@@ -1,5 +1,4 @@
-import { FlatList } from "react-native";
-import { View } from "react-native-ui-lib";
+import { FlashList } from "@shopify/flash-list";
 
 import SpotifyCard from "@components/integrations/spotify/SpotifyCard/SpotifyCard";
 import Divider from "@components/elements/Divider/Divider";
@@ -14,32 +13,38 @@ interface SpotifyListProps {
 }
 
 export default function SpotifyList({ data }: SpotifyListProps) {
-  const renderItem = ({ item }: { item: ListItemType }) => {
+  const renderItem = ({
+    item,
+    index,
+  }: {
+    item: ListItemType;
+    index: number;
+  }) => {
     if (item.spacing) {
       return <Divider size="huge" />;
     }
 
+    const isLast = index === data.length - 1;
+
     const parsedData = JSON.parse(item.data).track as SpotifyItem;
 
     return (
-      <View marginB-12>
-        <SpotifyCard {...parsedData} />
-      </View>
+      <>
+        <SpotifyCard mode="light" {...parsedData} />
+        {!isLast && <Divider size="tiny" showDividerLine />}
+      </>
     );
   };
 
   const spacing: ListItemType = { id: 0, spacing: true };
 
   return (
-    <FlatList
+    <FlashList
       data={[...data, spacing]}
       renderItem={renderItem}
+      estimatedItemSize={data.length}
       keyExtractor={(item) => String(item.id)}
       showsVerticalScrollIndicator={false}
-      style={{
-        height: "100%",
-        flexGrow: 0,
-      }}
     />
   );
 }
