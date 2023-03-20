@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { Card, View, Text, Button } from "react-native-ui-lib";
+import { Card, View, Text } from "react-native-ui-lib";
 
 import Divider from "@components/elements/Divider/Divider";
 import ScreenSection from "@components/layout/ScreenSection";
@@ -31,12 +31,11 @@ export default function TodaySection({
         <NoMemoSection editData={editData} />
       ) : (
         <ScreenSection title="Today's Memo">
-          <Card>
-            <Button link onPress={handleGoToMemo}>
-              <View padding-16 paddingT-12 paddingB-0 row spread centerV>
-                <Text text80M>{title}</Text>
-              </View>
-            </Button>
+          <Card onPress={handleGoToMemo}>
+            <View padding-16 paddingT-12 paddingB-0 row spread centerV>
+              <Text text80M>{title}</Text>
+            </View>
+
             <Divider size="tiny" showDividerLine />
 
             <View padding-16 paddingT-0>

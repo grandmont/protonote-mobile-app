@@ -18,6 +18,8 @@ import KeyboardAvoidingView from "@components/layout/KeyboardAvoidingView";
 import useDebounce from "@hooks/useDebounce";
 import EmptyMemoList from "@components/search/EmptyMemoList/EmptyMemoList";
 
+const SEARCH_DELAY = 1000;
+
 export default function SearchScreen() {
   const nativeId = useId();
 
@@ -26,7 +28,7 @@ export default function SearchScreen() {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [isSearchLoading, setIsSearchLoading] = useState(false);
 
-  const debouncedValue = useDebounce(searchPhrase, 1000);
+  const debouncedValue = useDebounce(searchPhrase, SEARCH_DELAY);
 
   const filterOptions = {
     contains: debouncedValue,

@@ -1,24 +1,26 @@
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { useMutation } from "@apollo/client";
-import { Button, View, LoaderScreen, Incubator } from "react-native-ui-lib";
+import { View, Incubator } from "react-native-ui-lib";
 const { Toast } = Incubator;
 
+import useAuth from "@hooks/useAuth";
+import useDebounce from "@hooks/useDebounce";
 import MemoEditor from "@components/memo/MemoEditor/MemoEditor";
 import ScreenLayout from "@components/layout/ScreenLayout";
-import useAuth from "@hooks/useAuth";
 import { client } from "@services/client";
 import Header from "@components/elements/Header/Header";
+import SaveMemoAction from "@components/memo/SaveMemoAction/SaveMemoAction";
 import KeyboardAccessoryView from "@components/layout/KeyboardAccessoryView";
 import KeyboardAvoidingView from "@components/layout/KeyboardAvoidingView";
 import {
   CreateProtoMutationDocument,
-  CreateProtoMutationMutation,
+  UpdateProtoMutationDocument,
   GetMemoByDateStringDocument,
   ProtosDocument,
-  UpdateProtoMutationDocument,
-  UpdateProtoMutationMutation,
 } from "@graphql/generated";
 import { getTodayDateString, getWrittenDateString } from "@utils/parsers";
+
+const MEMO_DELAY = 1000;
 
 export default function CreateMemoScreen({ navigation, route }) {
   const nativeId = useId();
@@ -27,22 +29,24 @@ export default function CreateMemoScreen({ navigation, route }) {
     date: { dateString, editData },
   } = route.params;
 
+  const [memoId, setMemoId] = useState(editData?.id);
   const [memoData, setMemoData] = useState({ description: null });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const debouncedMemo = useDebounce(memoData, MEMO_DELAY);
+
   const { userInfo } = useAuth();
 
-  const hasData = editData?.id;
+  const shouldCreate = !memoId;
 
-  const [createOrUpdateMemoMutation] = useMutation<
-    CreateProtoMutationMutation | UpdateProtoMutationMutation
-  >(!hasData ? CreateProtoMutationDocument : UpdateProtoMutationDocument);
+  const [createMemo] = useMutation(CreateProtoMutationDocument);
+  const [updateMemo] = useMutation(UpdateProtoMutationDocument);
 
   const parsedDateString = dateString || getTodayDateString();
   const title = getWrittenDateString(parsedDateString);
 
-  const handleCreateMemo = async () => {
+  const handleSaveMemo = async () => {
     if (!memoData?.description) return;
 
     setIsLoading(true);
@@ -67,20 +71,22 @@ export default function CreateMemoScreen({ navigation, route }) {
         },
       },
       where: {
-        id: editData?.id,
+        id: memoId,
       },
     };
 
-    const variables = !hasData ? createMemoData : updateMemoData;
-
     try {
-      await createOrUpdateMemoMutation({ variables });
+      if (shouldCreate) {
+        const { data } = await createMemo({ variables: createMemoData });
+
+        setMemoId(data.createOneProto.id);
+      } else {
+        await updateMemo({ variables: updateMemoData });
+      }
 
       client.refetchQueries({
         include: [GetMemoByDateStringDocument, ProtosDocument],
       });
-
-      navigation.goBack();
     } catch (error) {
       console.error(error);
       setError(error);
@@ -89,8 +95,19 @@ export default function CreateMemoScreen({ navigation, route }) {
     }
   };
 
+  useEffect(() => {
+    if (!debouncedMemo?.description) return;
+
+    handleSaveMemo();
+  }, [debouncedMemo]);
+
   const handleChangeMemoEditor = (description: string) => {
+    setIsLoading(true);
     setMemoData((prevState) => ({ ...prevState, description }));
+  };
+
+  const handleClose = () => {
+    navigation.goBack();
   };
 
   return (
@@ -98,16 +115,11 @@ export default function CreateMemoScreen({ navigation, route }) {
       <View row spread top>
         <Header canGoBack />
 
-        <View row top centerV>
-          <Button
-            label="Save"
-            onPress={handleCreateMemo}
-            disabled={isLoading}
-            hitSlop={5}
-            padding-4
-            link
-          />
-        </View>
+        <SaveMemoAction
+          onPress={handleClose}
+          disabled={isLoading}
+          loading={isLoading}
+        />
       </View>
 
       <KeyboardAvoidingView keyboardVerticalOffset={24}>
@@ -128,8 +140,6 @@ export default function CreateMemoScreen({ navigation, route }) {
         autoDismiss={5000}
         onDismiss={() => setError(null)}
       />
-
-      {isLoading && <LoaderScreen overlay />}
     </ScreenLayout>
   );
 }
