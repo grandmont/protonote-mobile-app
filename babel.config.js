@@ -21,6 +21,7 @@ module.exports = function (api) {
           alias: {
             "@components": "./src/components",
             "@config": "./src/config",
+            "@database": "./src/database",
             "@contexts": "./src/contexts",
             "@graphql": "./src/graphql",
             "@hooks": "./src/hooks",
@@ -34,6 +35,7 @@ module.exports = function (api) {
           },
         },
       ],
+      'babel-plugin-transform-typescript-metadata',
     ],
   };
 };

@@ -18,7 +18,6 @@
 
 > Save memo as you write, and make it offline (remove save button) (Partial)
 
-
 # Done
 
 > Create method in the server that fetches the recently played tracks from the user periodically

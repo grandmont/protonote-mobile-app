@@ -1,26 +1,19 @@
 import { useEffect, useId, useState } from "react";
-import { useMutation } from "@apollo/client";
 import { View, Incubator } from "react-native-ui-lib";
 const { Toast } = Incubator;
 
-import useAuth from "@hooks/useAuth";
 import useDebounce from "@hooks/useDebounce";
 import MemoEditor from "@components/memo/MemoEditor/MemoEditor";
 import ScreenLayout from "@components/layout/ScreenLayout";
-import { client } from "@services/client";
 import Header from "@components/elements/Header/Header";
 import SaveMemoAction from "@components/memo/SaveMemoAction/SaveMemoAction";
 import KeyboardAccessoryView from "@components/layout/KeyboardAccessoryView";
 import KeyboardAvoidingView from "@components/layout/KeyboardAvoidingView";
-import {
-  CreateProtoMutationDocument,
-  UpdateProtoMutationDocument,
-  GetMemoByDateStringDocument,
-  ProtosDocument,
-} from "@graphql/generated";
 import { getTodayDateString, getWrittenDateString } from "@utils/parsers";
+import { upsertLocalProto } from "@database/services/ProtoService";
+import { ProtoModel } from "@database/models/ProtoModel";
 
-const MEMO_DELAY = 500;
+const MEMO_DELAY = 200;
 
 export default function CreateMemoScreen({ navigation, route }) {
   const nativeId = useId();
@@ -29,64 +22,26 @@ export default function CreateMemoScreen({ navigation, route }) {
     date: { dateString, editData },
   } = route.params;
 
-  const [memoId, setMemoId] = useState(editData?.id);
   const [memoData, setMemoData] = useState({ description: null });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const debouncedMemo = useDebounce(memoData, MEMO_DELAY);
 
-  const { userInfo } = useAuth();
-
-  const shouldCreate = !memoId;
-
-  const [createMemo] = useMutation(CreateProtoMutationDocument);
-  const [updateMemo] = useMutation(UpdateProtoMutationDocument);
-
   const parsedDateString = dateString || getTodayDateString();
   const title = getWrittenDateString(parsedDateString);
 
-  const handleSaveMemo = async () => {
-    if (!memoData?.description) return;
-
+  const handleSaveLocalMemo = async () => {
     setIsLoading(true);
 
-    const createMemoData = {
-      data: {
-        ...memoData,
-        title,
-        dateString: parsedDateString,
-        user: {
-          connect: {
-            id: userInfo.id,
-          },
-        },
-      },
-    };
-
-    const updateMemoData = {
-      data: {
-        description: {
-          set: memoData.description,
-        },
-      },
-      where: {
-        id: memoId,
-      },
-    };
+    const localProto = {
+      title,
+      description: memoData.description,
+      dateString: parsedDateString,
+    } as ProtoModel;
 
     try {
-      if (shouldCreate) {
-        const { data } = await createMemo({ variables: createMemoData });
-
-        setMemoId(data.createOneProto.id);
-      } else {
-        await updateMemo({ variables: updateMemoData });
-      }
-
-      client.refetchQueries({
-        include: [GetMemoByDateStringDocument, ProtosDocument],
-      });
+      await upsertLocalProto(localProto);
     } catch (error) {
       console.error(error);
       setError(error);
@@ -95,10 +50,12 @@ export default function CreateMemoScreen({ navigation, route }) {
     }
   };
 
+  // Debounce
   useEffect(() => {
     if (!debouncedMemo?.description) return;
 
-    handleSaveMemo();
+    // handleSaveMemo();
+    handleSaveLocalMemo();
   }, [debouncedMemo]);
 
   const handleChangeMemoEditor = (description: string) => {

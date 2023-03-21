@@ -1,4 +1,5 @@
 import "react-native-gesture-handler";
+import "reflect-metadata";
 import { useState, useEffect } from "react";
 import { ApolloProvider } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -7,6 +8,7 @@ import { LogBox } from "react-native";
 
 import "@styles";
 import { cache, client } from "@services/client";
+import { db } from "@services/database";
 import AuthProvider from "@contexts/Auth";
 import RootNavigator from "@navigators/RootNavigator";
 
@@ -17,11 +19,21 @@ LogBox.ignoreLogs([
 export default function App() {
   const [loadingCache, setLoadingCache] = useState(true);
 
-  useEffect(() => {
+  const init = async () => {
+    if (!db.isInitialized) {
+      console.log("initializing database");
+      await db.initialize();
+      // await db.synchronize(true);
+    }
+
     persistCache({
       cache,
       storage: AsyncStorage,
     }).then(() => setLoadingCache(false));
+  };
+
+  useEffect(() => {
+    init();
   }, []);
 
   if (loadingCache) {

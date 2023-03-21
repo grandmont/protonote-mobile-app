@@ -1,44 +1,64 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { LoaderScreen } from "react-native-ui-lib";
-import { useQuery } from "@apollo/client";
 
-import useSpotify from "@hooks/useSpotify";
+import useAuth from "@hooks/useAuth";
 import useIntegrations from "@hooks/useIntegrations";
+import useLocalQuery from "@hooks/useLocalQuery";
+import useSpotify from "@hooks/useSpotify";
 import ScreenLayout from "@components/layout/ScreenLayout";
 import Greetings from "@components/home/Greetings/Greetings";
 import MemoSection from "@components/home/MemoSection/MemoSection";
-import { GetMemoByDateStringDocument } from "@graphql/generated";
 import { getTodayDateString } from "@utils/parsers";
+import { useFocusEffect } from "@react-navigation/native";
+import useAPISync from "@hooks/useAPISync";
 
 export default function HomeScreen() {
   const todayDateString = getTodayDateString();
 
   const { integrations } = useIntegrations();
 
-  const { data, loading } = useQuery(GetMemoByDateStringDocument, {
-    variables: {
+  const { userInfo } = useAuth();
+
+  const { syncAPI } = useAPISync();
+
+  const {
+    data: [today],
+    loading,
+    refetch,
+  } = useLocalQuery("proto", {
+    where: {
       dateString: todayDateString,
     },
   });
 
-  const getToday = data?.getMemoByDateString;
-
   const { saveSpotifyTracks } = useSpotify();
 
-  useEffect(() => {
+  const syncData = async () => {
     const { spotifyIntegration } = integrations;
 
-    const hasSpotify = !!spotifyIntegration;
+    if (!!spotifyIntegration) {
+      await saveSpotifyTracks();
+    }
 
-    // Don't call spotify if there's no integration with the logged user
-    hasSpotify && saveSpotifyTracks();
+    await syncAPI({ id: userInfo?.id });
+  };
+
+  useEffect(() => {
+    syncData();
   }, []);
+
+  // Need to move this to reuse the logic
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [])
+  );
 
   return (
     <ScreenLayout>
       <Greetings />
 
-      <MemoSection {...getToday} />
+      {!loading && <MemoSection {...today} />}
 
       {loading && <LoaderScreen overlay />}
     </ScreenLayout>

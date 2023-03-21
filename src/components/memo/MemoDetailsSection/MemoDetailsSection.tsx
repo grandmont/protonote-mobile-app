@@ -1,5 +1,5 @@
 import { ScrollView } from "react-native";
-import { Text, View } from "react-native-ui-lib";
+import { LoaderScreen, Text, View } from "react-native-ui-lib";
 
 import Divider from "@components/elements/Divider/Divider";
 import ScreenSection from "@components/layout/ScreenSection";
@@ -7,7 +7,10 @@ import SpotifyMemo from "@components/integrations/spotify/SpotifyMemo/SpotifyMem
 import CreateMemoButton from "@components/elements/CreateMemoButton/CreateMemoButton";
 import { Proto } from "@graphql/generated";
 
-interface MemoDetailsSectionProps extends Partial<Proto> {}
+interface MemoDetailsSectionProps extends Partial<Proto> {
+  protoId: number;
+  localLoading?: boolean;
+}
 
 export default function MemoDetailsSection({
   id,
@@ -15,22 +18,33 @@ export default function MemoDetailsSection({
   dateString,
   integrations = [],
   _count,
+
+  protoId,
+  localLoading,
 }: MemoDetailsSectionProps) {
   return (
     <ScrollView style={{ flex: 1, height: "100%" }}>
-      {description ? (
-        <ScreenSection title="Description">
-          <Text p>{description}</Text>
-        </ScreenSection>
-      ) : (
-        <View flex center marginT-24>
-          <Text marginB-24>No memo found for this day</Text>
+      {!localLoading ? (
+        <>
+          {description ? (
+            <ScreenSection title="Description" style={{ minHeight: 96 }}>
+              <Text p>{description}</Text>
+            </ScreenSection>
+          ) : (
+            <View flex center height={96}>
+              <Text marginB-24>No memo found for this day</Text>
 
-          <CreateMemoButton
-            label="Add memo"
-            dateString={dateString}
-            editData={id && { id, description }}
-          />
+              <CreateMemoButton
+                label="Add memo"
+                dateString={dateString}
+                editData={id && { id, description }}
+              />
+            </View>
+          )}
+        </>
+      ) : (
+        <View flex center height={96}>
+          <LoaderScreen />
         </View>
       )}
 
@@ -38,7 +52,7 @@ export default function MemoDetailsSection({
 
       {integrations.length > 0 && (
         <SpotifyMemo
-          protoId={id}
+          protoId={protoId}
           integrations={integrations}
           count={_count.integrations}
         />

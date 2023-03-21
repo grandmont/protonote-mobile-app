@@ -4,8 +4,11 @@ import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation } from "@apollo/client";
 
+import useAPISync from "@hooks/useAPISync";
 import { AuthContext } from "@contexts/Auth";
 import { AuthenticateDocument, AuthProvider, User } from "@graphql/generated";
+import { db } from "@services/database";
+import { ProtoModel } from "@database/models/ProtoModel";
 import {
   IS_EXPO_GO,
   IOS_CLIENT_ID,
@@ -22,6 +25,8 @@ export default function useAuth() {
 
   const [authenticateMutation] = useMutation(AuthenticateDocument);
 
+  const { storeUserData } = useAPISync();
+
   const [, response, promptAsync] = Google.useAuthRequest({
     androidClientId: ANDROID_CLIENT_ID,
     iosClientId: IOS_CLIENT_ID,
@@ -29,8 +34,6 @@ export default function useAuth() {
   });
 
   const persistAuth = async (accessToken: string, provider: AuthProvider) => {
-    console.log("accessToken:", accessToken);
-
     const { data, errors } = await authenticateMutation({
       variables: {
         input: {
@@ -51,6 +54,8 @@ export default function useAuth() {
 
     await AsyncStorage.setItem("auth", access_token);
     await AsyncStorage.setItem("user", JSON.stringify(user));
+
+    await storeUserData(user);
 
     setAuth(access_token);
     setUserInfo(user as User);
@@ -91,6 +96,7 @@ export default function useAuth() {
     await AsyncStorage.multiRemove(["auth", "user"]);
     setAuth(null);
     setUserInfo(null);
+    await db.manager.clear(ProtoModel);
   };
 
   const signInGoogle = async () => {
@@ -106,7 +112,6 @@ export default function useAuth() {
         ],
       });
 
-      console.log(credential);
       persistAuth(credential.user, AuthProvider.Apple);
       // signed in
     } catch (e) {

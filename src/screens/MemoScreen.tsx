@@ -1,23 +1,35 @@
 import { useQuery } from "@apollo/client";
-import { LoaderScreen } from "react-native-ui-lib";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 import ScreenLayout from "@components/layout/ScreenLayout";
 import useAuth from "@hooks/useAuth";
 import Header from "@components/elements/Header/Header";
 import MemoDetailsSection from "@components/memo/MemoDetailsSection/MemoDetailsSection";
-import { Proto, ProtosDocument } from "@graphql/generated";
+import { ProtosDocument } from "@graphql/generated";
 import { getWrittenDateString } from "@utils/parsers";
+import { useCallback } from "react";
+import useLocalQuery from "@hooks/useLocalQuery";
 
 export default function MemoScreen({ route }) {
-  const navigation = useNavigation();
-  const { userInfo } = useAuth();
-
   const {
     date: { dateString },
   } = route.params;
 
-  const { data, loading } = useQuery(ProtosDocument, {
+  const navigation = useNavigation();
+
+  const { userInfo } = useAuth();
+
+  const {
+    data: localData,
+    loading: localLoading,
+    refetch,
+  } = useLocalQuery("proto", {
+    where: {
+      dateString,
+    },
+  });
+
+  const { data } = useQuery(ProtosDocument, {
     variables: {
       where: {
         userId: {
@@ -35,24 +47,40 @@ export default function MemoScreen({ route }) {
 
   const [memo] = data ? data?.protos : [];
 
+  const [localMemo] = localData;
+
+  const finalMemo = {
+    ...localMemo,
+    ...(memo && {
+      protoId: memo.id,
+      integrations: memo.integrations,
+      _count: memo._count,
+    }),
+  };
+
   const handleEdit =
-    !loading &&
-    !!memo?.description &&
+    !!localMemo?.description &&
     (() => {
       navigation.navigate("CreateMemo", {
-        date: { dateString, editData: memo },
+        date: { dateString, editData: localMemo },
       });
     });
+
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [])
+  );
 
   return (
     <ScreenLayout divider={false}>
       <Header title={title} canGoBack onEdit={handleEdit} />
 
-      {loading ? (
-        <LoaderScreen overlay />
-      ) : (
-        <MemoDetailsSection dateString={dateString} {...(memo as Proto)} />
-      )}
+      <MemoDetailsSection
+        dateString={dateString}
+        localLoading={localLoading}
+        {...(finalMemo as any)}
+      />
     </ScreenLayout>
   );
 }

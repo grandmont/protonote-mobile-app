@@ -38,7 +38,7 @@ export default function SpotifyMemo({
     <ScreenSection
       title={
         <View row centerV marginB-8>
-          <Entypo name="spotify" size={18} />
+          <Entypo name="spotify" size={16} />
           <Text title marginL-6>
             Spotify
           </Text>
