@@ -41,6 +41,7 @@
     "plugins": ["expo-apple-authentication"]
   },
   "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-xxxxxxxx~xxxxxxxx",
     "ios_app_id": "ca-app-pub-4452701921985328~5920127625"
   }
 }

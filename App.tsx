@@ -1,10 +1,11 @@
 import "react-native-gesture-handler";
 import "reflect-metadata";
 import { useState, useEffect } from "react";
+import { LogBox } from "react-native";
 import { ApolloProvider } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistCache } from "apollo3-cache-persist";
-import { LogBox } from "react-native";
+import mobileAds from "react-native-google-mobile-ads";
 
 import "@styles";
 import { cache, client } from "@services/client";
@@ -23,6 +24,8 @@ export default function App() {
     if (!db.isInitialized) {
       await db.initialize();
     }
+
+    mobileAds().initialize();
 
     persistCache({
       cache,

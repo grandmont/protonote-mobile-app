@@ -3,7 +3,24 @@ import {
   TestIds,
   BannerAdSize,
 } from "react-native-google-mobile-ads";
+import { View } from "react-native-ui-lib";
+
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : "ca-app-pub-4452701921985328~5920127625";
+
+console.log(TestIds.BANNER);
 
 export default function AdBanner() {
-  return <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.BANNER} />;
+  return (
+    <View marginB-24 style={{ marginLeft: -18 }}>
+      <BannerAd
+        unitId={adUnitId}
+        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      />
+    </View>
+  );
 }

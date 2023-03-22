@@ -12,7 +12,7 @@ export default function NoMemoSection({ editData }) {
         autoPlay
         style={{
           width: "100%",
-          height: 300,
+          height: 250,
         }}
         source={require("../../../../assets/animations/Animation 07/drawkit-grape-animation-7-LOOP.json")}
       />
