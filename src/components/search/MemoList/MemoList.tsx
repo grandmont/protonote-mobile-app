@@ -1,19 +1,16 @@
-import { FlatList } from "react-native";
+import { FlashList } from "@shopify/flash-list";
 import { useNavigation } from "@react-navigation/native";
 import { Card, Text, View } from "react-native-ui-lib";
 
 import Divider from "@components/elements/Divider/Divider";
 import { Proto } from "@graphql/generated";
-
-type MemoDataType = {
-  spacing?: boolean;
-} & Partial<Proto>;
+import { ESTIMATED_LIST_SIZE } from "@config/constants";
 
 interface MemoListProps {
-  data?: MemoDataType[];
+  data?: ListItemType<Proto>[];
 }
 
-interface MemoListItemProps extends MemoDataType {}
+interface MemoListItemProps extends ListItemType<Proto> {}
 
 const MemoListItem = ({
   title,
@@ -48,7 +45,7 @@ const MemoListItem = ({
 };
 
 export default function MemoList({ data = [] }: MemoListProps) {
-  const renderItem = ({ item }: { item: MemoDataType }) => {
+  const renderItem = ({ item }: { item: ListItemType<Proto> }) => {
     if (item.spacing) {
       return <Divider size="huge" />;
     }
@@ -56,19 +53,16 @@ export default function MemoList({ data = [] }: MemoListProps) {
     return <MemoListItem {...item} />;
   };
 
-  const spacing: MemoDataType = { id: 0, spacing: true };
+  const spacing: ListItemType<Proto> = { id: 0, spacing: true };
 
   return (
-    <View width="100%">
-      <FlatList
+    <View flex width="100%">
+      <FlashList
         data={[...data, spacing]}
         renderItem={renderItem}
+        estimatedItemSize={ESTIMATED_LIST_SIZE}
         keyExtractor={(item) => String(item.id)}
         showsVerticalScrollIndicator={false}
-        style={{
-          height: "100%",
-          flexGrow: 0,
-        }}
       />
     </View>
   );

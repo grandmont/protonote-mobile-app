@@ -65,7 +65,7 @@ export default function SearchScreen() {
   );
 
   return (
-    <ScreenLayout>
+    <ScreenLayout divider={false}>
       <KeyboardAvoidingView>
         <View centerH marginB-48 height="100%">
           <SearchBar

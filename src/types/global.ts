@@ -1,3 +1,7 @@
+type ListItemType<T> = {
+  spacing?: boolean;
+} & Partial<T>;
+
 type MemoDateType = {
   date: {
     dateString: string;
@@ -38,4 +42,8 @@ declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {}
   }
+
+  type ListItemType<T> = {
+    spacing?: boolean;
+  } & Partial<T>;
 }

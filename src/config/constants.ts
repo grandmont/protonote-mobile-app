@@ -20,3 +20,5 @@ export const ANDROID_CLIENT_ID =
 
 export const EXPO_CLIENT_ID =
   "227660563070-bppokg502t6sphrb9go3omjpahdjp3du.apps.googleusercontent.com";
+
+export const ESTIMATED_LIST_SIZE = 1000;

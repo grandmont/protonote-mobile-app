@@ -3,13 +3,10 @@ import { FlashList } from "@shopify/flash-list";
 import SpotifyCard from "@components/integrations/spotify/SpotifyCard/SpotifyCard";
 import Divider from "@components/elements/Divider/Divider";
 import { IntegrationData, SpotifyItem } from "@graphql/generated";
-
-type ListItemType = {
-  spacing?: boolean;
-} & Partial<IntegrationData>;
+import { ESTIMATED_LIST_SIZE } from "@config/constants";
 
 interface SpotifyListProps {
-  data: ListItemType[];
+  data: ListItemType<IntegrationData>[];
 }
 
 export default function SpotifyList({ data }: SpotifyListProps) {
@@ -17,7 +14,7 @@ export default function SpotifyList({ data }: SpotifyListProps) {
     item,
     index,
   }: {
-    item: ListItemType;
+    item: ListItemType<IntegrationData>;
     index: number;
   }) => {
     if (item.spacing) {
@@ -36,13 +33,13 @@ export default function SpotifyList({ data }: SpotifyListProps) {
     );
   };
 
-  const spacing: ListItemType = { id: 0, spacing: true };
+  const spacing: ListItemType<IntegrationData> = { id: 0, spacing: true };
 
   return (
     <FlashList
       data={[...data, spacing]}
       renderItem={renderItem}
-      estimatedItemSize={data.length}
+      estimatedItemSize={ESTIMATED_LIST_SIZE}
       keyExtractor={(item) => String(item.id)}
       showsVerticalScrollIndicator={false}
     />
