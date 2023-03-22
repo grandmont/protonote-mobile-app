@@ -31,6 +31,12 @@
           <string>com.protonote.protonote</string>
         </array>
       </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>exp+protonote-mobile-app</string>
+        </array>
+      </dict>
     </array>
     <key>CFBundleVersion</key>
     <string>11</string>
