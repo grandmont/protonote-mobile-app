@@ -21,9 +21,7 @@ export default function App() {
 
   const init = async () => {
     if (!db.isInitialized) {
-      console.log("initializing database");
       await db.initialize();
-      // await db.synchronize(true);
     }
 
     persistCache({

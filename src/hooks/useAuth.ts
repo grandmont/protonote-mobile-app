@@ -148,7 +148,9 @@ export default function useAuth() {
 
           return reject();
         })
-        .catch(reject);
+        .catch(() => {
+          return reject();
+        });
     });
   };
 

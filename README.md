@@ -8,9 +8,10 @@
 
 > Add refresh token to the integration model (if the user logs in a different device, it's not gonna find the token)
 
-> Be sure to sync the API before the user logs out (we lose data)
 
 > Deal with the unknown types
+
+> Move useFocusEffect to a shared hook
 
 # In progress
 
@@ -31,3 +32,5 @@
 > Test what happens if you try to use the app with no internet connection
 
 > Save memo as you write, and make it offline (remove save button)
+
+> Be sure to sync the API before the user logs out (we lose data)

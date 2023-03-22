@@ -40,7 +40,7 @@ export default function DeleteAccountScreen() {
     setIsDeleting(true);
 
     try {
-      const { data } = await deleteAccount({
+      await deleteAccount({
         variables: {
           input: {
             confirm: true,

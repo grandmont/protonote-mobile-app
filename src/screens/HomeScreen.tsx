@@ -3,6 +3,7 @@ import { LoaderScreen } from "react-native-ui-lib";
 
 import useAuth from "@hooks/useAuth";
 import useIntegrations from "@hooks/useIntegrations";
+import useAPISync from "@hooks/useAPISync";
 import useLocalQuery from "@hooks/useLocalQuery";
 import useSpotify from "@hooks/useSpotify";
 import ScreenLayout from "@components/layout/ScreenLayout";
@@ -10,7 +11,6 @@ import Greetings from "@components/home/Greetings/Greetings";
 import MemoSection from "@components/home/MemoSection/MemoSection";
 import { getTodayDateString } from "@utils/parsers";
 import { useFocusEffect } from "@react-navigation/native";
-import useAPISync from "@hooks/useAPISync";
 
 export default function HomeScreen() {
   const todayDateString = getTodayDateString();
@@ -29,29 +29,27 @@ export default function HomeScreen() {
 
   const { saveSpotifyTracks } = useSpotify();
 
-  const syncData = async () => {
+  useEffect(() => {
+    if (!userInfo?.id) return;
+
     const { spotifyIntegration } = integrations;
 
     if (!!spotifyIntegration) {
-      await saveSpotifyTracks();
+      saveSpotifyTracks();
     }
-
-    await syncAPI({ id: userInfo?.id });
-  };
-
-  useEffect(() => {
-    syncData();
-  }, []);
+  }, [userInfo]);
 
   // Need to move this to reuse the logic
   useFocusEffect(
     useCallback(() => {
+      syncAPI({ id: userInfo?.id });
+
       refetch({
         where: {
           dateString: todayDateString,
         },
       });
-    }, [])
+    }, [userInfo?.id])
   );
 
   return (
