@@ -10,6 +10,8 @@
 
 > Be sure to sync the API before the user logs out (we lose data)
 
+> Deal with the unknown types
+
 # In progress
 
 > Add mood to the memo and remove required field for memo description (Partial)

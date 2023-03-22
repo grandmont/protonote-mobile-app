@@ -48,7 +48,6 @@ function TabNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        lazy: false,
       }}
     >
       {tabs.map(({ icon, ...props }) => (

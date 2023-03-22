@@ -1,20 +1,19 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Colors, LoaderScreen, Incubator, View } from "react-native-ui-lib";
 import { CalendarList } from "react-native-calendars";
-import type { MarkedDates, DateData } from "react-native-calendars/src/types";
-import { useQuery } from "@apollo/client";
+import { useFocusEffect } from "@react-navigation/native";
 const { Dialog } = Incubator;
+import type { MarkedDates, DateData } from "react-native-calendars/src/types";
 
-import useAuth from "@hooks/useAuth";
-import Fade from "@components/elements/Fade/Fade";
+import useLocalQuery from "@hooks/useLocalQuery";
 import CalendarDay from "@components/calendar/CalendarDay/CalendarDay";
 import DialogCard from "@components/elements/DialogCard/DialogCard";
-import { Proto, ProtosDocument } from "@graphql/generated";
+import Fade from "@components/elements/Fade/Fade";
 import { getTodayDateString } from "@utils/parsers";
+import type { Proto } from "@graphql/generated";
 
 export default function CalendarScreen({ navigation }) {
-  const { userInfo } = useAuth();
-
+  const [isCalendarVisible, setIsCalendarVisible] = useState(false);
   const [isDialogVisible, setIsDialogVisible] = useState(false);
   const [dialogData, setDialogData] = useState<Proto | null>(null);
 
@@ -31,19 +30,10 @@ export default function CalendarScreen({ navigation }) {
     },
   };
 
-  const { data, loading } = useQuery(ProtosDocument, {
-    variables: {
-      where: {
-        userId: {
-          equals: userInfo?.id,
-        },
-      },
-    },
-  });
+  const { data, loading, refetch } = useLocalQuery("proto");
 
-  const memos = data ? data.protos : [];
+  const memos = data ? data : [];
 
-  // Reduce array into an object with dates as key
   const markedDates = memos.reduce((acc, { dateString }) => {
     const calendarOptions = {
       hasMemo: true,
@@ -60,22 +50,43 @@ export default function CalendarScreen({ navigation }) {
   };
 
   const handleLongPress = async (date: DateData) => {
-    const memo = data.protos.find(
-      ({ dateString }) => dateString === date.dateString
-    );
+    const memo = data.find(({ dateString }) => dateString === date.dateString);
 
-    if (!memo) return;
+    if (!memo) {
+      navigation.navigate("Memo", { date });
+    }
 
     setIsDialogVisible(true);
-    setDialogData(memo as Proto);
+    setDialogData(memo as unknown as Proto);
   };
 
-  if (loading) return <LoaderScreen overlay />;
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsCalendarVisible(true);
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  // Need to move this to reuse the logic
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [])
+  );
 
   return (
     <>
       <View bg-white>
-        <View marginT-48 paddingB-48>
+        <View
+          marginT-48
+          paddingB-48
+          style={{
+            opacity: isCalendarVisible ? 1 : 0,
+          }}
+        >
           <CalendarList
             maxDate={todayDateString}
             pastScrollRange={12}
@@ -96,7 +107,10 @@ export default function CalendarScreen({ navigation }) {
           />
           <Fade bottom />
         </View>
+
+        {(loading || !isCalendarVisible) && <LoaderScreen overlay />}
       </View>
+
       <Dialog
         visible={isDialogVisible}
         onDismiss={() => setIsDialogVisible(false)}

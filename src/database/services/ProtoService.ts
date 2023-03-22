@@ -2,6 +2,16 @@ import { db } from "@services/database";
 import { ProtoModel } from "@database/models/ProtoModel";
 import { Raw } from "typeorm";
 
+export type LocalQueryWhereType = Partial<{
+  where: Partial<ProtoModel>;
+}>;
+
+export type LocalQuerySearchType = Partial<{
+  search: string;
+}>;
+
+export type LocalQueryParamsType = LocalQueryWhereType & LocalQuerySearchType;
+
 async function createLocalProto({
   title,
   description,
@@ -38,7 +48,7 @@ async function updateLocalProto({
 async function upsertLocalProto(params: Partial<ProtoModel>) {
   const { dateString } = params;
 
-  const [proto] = await findLocalProtos({ dateString });
+  const [proto] = await findLocalProtos({ where: { dateString } });
 
   if (!proto) {
     return await createLocalProto(params);
@@ -47,7 +57,7 @@ async function upsertLocalProto(params: Partial<ProtoModel>) {
   return await updateLocalProto(params);
 }
 
-async function filterLocalProtos(search: string) {
+async function filterLocalProtos({ search }: LocalQuerySearchType) {
   const parsedSearch = search.toLowerCase();
 
   const query = Raw((alias) => `LOWER(${alias}) Like LOWER(:value)`, {
@@ -71,8 +81,8 @@ async function filterLocalProtos(search: string) {
   return response;
 }
 
-async function findLocalProtos(where?: Partial<ProtoModel>) {
-  return await db.manager.find(ProtoModel, where && { where });
+async function findLocalProtos(params: LocalQueryWhereType) {
+  return await db.manager.find(ProtoModel, params && { where: params.where });
 }
 
 async function findAllPendingLocalProtos() {

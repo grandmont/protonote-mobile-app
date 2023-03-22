@@ -57,6 +57,7 @@ export default function CalendarDay(props: DayProps & CalendarDayProps) {
           link
           onPress={handleDayPress}
           onLongPress={handleDayLongPress}
+          hitSlop={4}
           style={{
             width: 30,
             height: 30,
