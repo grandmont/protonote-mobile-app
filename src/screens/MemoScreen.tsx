@@ -23,11 +23,7 @@ export default function MemoScreen({ route }) {
     data: localData,
     loading: localLoading,
     refetch,
-  } = useLocalQuery("proto", {
-    where: {
-      dateString,
-    },
-  });
+  } = useLocalQuery("proto");
 
   const { data } = useQuery(ProtosDocument, {
     variables: {
@@ -68,7 +64,11 @@ export default function MemoScreen({ route }) {
 
   useFocusEffect(
     useCallback(() => {
-      refetch();
+      refetch({
+        where: {
+          dateString,
+        },
+      });
     }, [])
   );
 

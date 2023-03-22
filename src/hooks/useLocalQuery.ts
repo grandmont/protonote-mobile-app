@@ -1,37 +1,53 @@
 import { useState } from "react";
 
-import { findLocalProtos } from "@database/services/ProtoService";
+import {
+  filterLocalProtos,
+  findLocalProtos,
+} from "@database/services/ProtoService";
 import { ProtoModel } from "@database/models/ProtoModel";
 
-type LocalDataType = "proto";
+type LocalDataType = "proto" | "filterProto";
 
-interface LocalQueryWhereInterface {
+type LocalQueryWhereType = {
   where: Partial<ProtoModel>;
-}
+};
 
-export default function useLocalQuery(
-  type: LocalDataType,
-  { where }: LocalQueryWhereInterface
-) {
+type LocalQuerySearchType = {
+  search: string;
+};
+
+type LocalQueryParamsType = LocalQueryWhereType | LocalQuerySearchType;
+
+export default function useLocalQuery(type: LocalDataType) {
   const [data, setData] = useState<ProtoModel[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Proto
-  const fetchProtos = async () => {
+  const fetchProtos = async ({ where }: LocalQueryWhereType) => {
     const response = await findLocalProtos(where);
 
     setData(response);
     setLoading(false);
   };
 
-  const fetchData = async () => {
+  const filterProtos = async ({ search }: LocalQuerySearchType) => {
+    const response = await filterLocalProtos(search);
+    setData(response);
+    setLoading(false);
+  };
+
+  const fetchData = async (params: LocalQueryParamsType) => {
     if (type === "proto") {
-      await fetchProtos();
+      await fetchProtos(params as LocalQueryWhereType);
+    }
+
+    if (type === "filterProto") {
+      await filterProtos(params as LocalQuerySearchType);
     }
   };
 
-  const refetch = async () => {
-    await fetchData();
+  const refetch = async (params: LocalQueryParamsType) => {
+    await fetchData(params);
   };
 
   return {

@@ -2314,6 +2314,11 @@
     prompts "^2.4.0"
     semver "^6.3.0"
 
+"@react-native-community/netinfo@^9.3.7":
+  version "9.3.7"
+  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-9.3.7.tgz#92407f679f00bae005c785a9284e61d63e292b34"
+  integrity sha512-+taWmE5WpBp0uS6kf+bouCx/sn89G9EpR4s2M/ReLvctVIFL2Qh8WnWfBxqK9qwgmFha/uqjSr2Gq03OOtiDcw==
+
 "@react-native/assets@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@react-native/assets/-/assets-1.0.0.tgz#c6f9bf63d274bafc8e970628de24986b30a55c8e"
@@ -5822,10 +5827,10 @@ expo-localization@~14.0.0:
   dependencies:
     rtl-detect "^1.0.2"
 
-expo-modules-autolinking@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/expo-modules-autolinking/-/expo-modules-autolinking-1.0.2.tgz#f072f342ab797e43b16ddcdef251fcd4db851e1a"
-  integrity sha512-skAUXERKw1gtSw8xsvft9DE0KVhBvw4dujAtgCZoG2l513fN7ds+B5+30ZVgZATMC+EjtlmjKXzhp5QS44DCFA==
+expo-modules-autolinking@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/expo-modules-autolinking/-/expo-modules-autolinking-1.0.1.tgz#a82eaef2decd1d518458d64cb542c64fc23eacde"
+  integrity sha512-Ch0K/Vb2W7zSPlPKKFr6dwgwge6sSCpl7XPW8jrc7hUy+M72dvcfsBsaphvGNlKIZM6TtpCt0xbUlL48wI2y1A==
   dependencies:
     chalk "^4.1.0"
     commander "^7.2.0"
@@ -5893,10 +5898,10 @@ expo-web-browser@~12.0.0:
   dependencies:
     compare-urls "^2.0.0"
 
-expo@~47.0.12:
-  version "47.0.13"
-  resolved "https://registry.yarnpkg.com/expo/-/expo-47.0.13.tgz#f53f82e7f9e209f8a8b25f2493f58439958368cb"
-  integrity sha512-9VjjGdViCJ9NfWbUE7brkwFBDvKuA35V345vMtHFYNKoGJjXib36yitmawreMDQFv0kMTqTnzc7T2191Pod7Ng==
+expo@47.0.12:
+  version "47.0.12"
+  resolved "https://registry.yarnpkg.com/expo/-/expo-47.0.12.tgz#2a8b41217e1cb630f84ea3723031d07354289ae7"
+  integrity sha512-LqECuBpV6arTncksQzOGGQmxOdeQmzm15VqwIJ/c3SWoxiVh5hKf+taUv2oaLmfx2z04TSm1oo56pRSrsL5iIA==
   dependencies:
     "@babel/runtime" "^7.14.0"
     "@expo/cli" "0.4.11"
@@ -5911,7 +5916,7 @@ expo@~47.0.12:
     expo-file-system "~15.1.1"
     expo-font "~11.0.1"
     expo-keep-awake "~11.0.1"
-    expo-modules-autolinking "1.0.2"
+    expo-modules-autolinking "1.0.1"
     expo-modules-core "1.1.1"
     fbemitter "^3.0.0"
     getenv "^1.0.0"

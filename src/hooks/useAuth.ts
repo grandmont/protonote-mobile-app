@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import * as AppleAuthentication from "expo-apple-authentication";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import NetInfo from "@react-native-community/netinfo";
 import { useMutation } from "@apollo/client";
 
 import useAPISync from "@hooks/useAPISync";
@@ -136,8 +137,19 @@ export default function useAuth() {
   };
 
   const logout = async () => {
-    clearStorage();
-    setIsLoading(false);
+    await new Promise((resolve, reject) => {
+      NetInfo.fetch()
+        .then((state) => {
+          if (state.isConnected) {
+            clearStorage();
+            setIsLoading(false);
+            return resolve(true);
+          }
+
+          return reject();
+        })
+        .catch(reject);
+    });
   };
 
   return {

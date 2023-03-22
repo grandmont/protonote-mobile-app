@@ -1,5 +1,6 @@
 import { db } from "@services/database";
 import { ProtoModel } from "@database/models/ProtoModel";
+import { Raw } from "typeorm";
 
 async function createLocalProto({
   title,
@@ -46,6 +47,30 @@ async function upsertLocalProto(params: Partial<ProtoModel>) {
   return await updateLocalProto(params);
 }
 
+async function filterLocalProtos(search: string) {
+  const parsedSearch = search.toLowerCase();
+
+  const query = Raw((alias) => `LOWER(${alias}) Like LOWER(:value)`, {
+    value: `%${parsedSearch}%`,
+  }) as any;
+
+  const response = await db.manager.find(ProtoModel, {
+    where: [
+      {
+        title: query,
+      },
+      {
+        description: query,
+      },
+    ],
+    order: {
+      dateString: "DESC",
+    },
+  });
+
+  return response;
+}
+
 async function findLocalProtos(where?: Partial<ProtoModel>) {
   return await db.manager.find(ProtoModel, where && { where });
 }
@@ -62,6 +87,7 @@ export {
   createLocalProto,
   updateLocalProto,
   upsertLocalProto,
+  filterLocalProtos,
   findLocalProtos,
   findAllPendingLocalProtos,
 };

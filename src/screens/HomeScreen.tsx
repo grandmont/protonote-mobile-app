@@ -25,11 +25,7 @@ export default function HomeScreen() {
     data: [today],
     loading,
     refetch,
-  } = useLocalQuery("proto", {
-    where: {
-      dateString: todayDateString,
-    },
-  });
+  } = useLocalQuery("proto");
 
   const { saveSpotifyTracks } = useSpotify();
 
@@ -50,7 +46,11 @@ export default function HomeScreen() {
   // Need to move this to reuse the logic
   useFocusEffect(
     useCallback(() => {
-      refetch();
+      refetch({
+        where: {
+          dateString: todayDateString,
+        },
+      });
     }, [])
   );
 

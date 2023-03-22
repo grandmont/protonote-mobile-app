@@ -59,33 +59,34 @@ export default function useAPISync() {
 
       const [memo] = data ? data?.protos : [];
 
-      const createMemoData = {
-        data: {
-          title,
-          dateString,
-          user: {
-            connect: {
-              id,
-            },
-          },
-        },
-      };
-
-      const updateMemoData = {
-        data: {
-          description: {
-            set: description,
-          },
-        },
-        where: {
-          id: memo.id,
-        },
-      };
-
       try {
         if (!memo) {
+          const createMemoData = {
+            data: {
+              title,
+              description,
+              dateString,
+              user: {
+                connect: {
+                  id,
+                },
+              },
+            },
+          };
+
           await createMemo({ variables: createMemoData });
         } else {
+          const updateMemoData = {
+            data: {
+              description: {
+                set: description,
+              },
+            },
+            where: {
+              id: memo.id,
+            },
+          };
+
           await updateMemo({ variables: updateMemoData });
         }
 
