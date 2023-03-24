@@ -7,9 +7,7 @@ import { View } from "react-native-ui-lib";
 
 const adUnitId = __DEV__
   ? TestIds.BANNER
-  : "ca-app-pub-4452701921985328~5920127625";
-
-console.log(TestIds.BANNER);
+  : "ca-app-pub-4452701921985328/8864292069";
 
 export default function AdBanner() {
   return (
