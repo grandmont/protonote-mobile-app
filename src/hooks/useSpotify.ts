@@ -5,11 +5,11 @@ import {
   RefreshSpotifyAccessTokenDocument,
   SaveRecentlyPlayedTracksDocument,
 } from "@graphql/generated";
-import { getTodayDateString } from "@utils/parsers";
+// import { getTodayDateString } from "@utils/parsers";
 
 interface SpotifyHookReturnInterface {
   refreshAccessToken: () => Promise<void>;
-  saveSpotifyTracks: () => Promise<void>;
+  // saveSpotifyTracks: () => Promise<void>;
 }
 
 export default function useSpotify(): SpotifyHookReturnInterface {
@@ -50,30 +50,30 @@ export default function useSpotify(): SpotifyHookReturnInterface {
     await AsyncStorage.setItem("spotify:accessToken", accessToken);
   };
 
-  const saveSpotifyTracks = async () => {
-    const dateString = getTodayDateString();
+  // const saveSpotifyTracks = async () => {
+  //   const dateString = getTodayDateString();
 
-    const accessToken = await AsyncStorage.getItem("spotify:accessToken");
-    const refreshToken = await AsyncStorage.getItem("spotify:refreshToken");
+  //   const accessToken = await AsyncStorage.getItem("spotify:accessToken");
+  //   const refreshToken = await AsyncStorage.getItem("spotify:refreshToken");
 
-    try {
-      await saveRecentlyPlayedTracks({
-        variables: {
-          input: {
-            accessToken,
-            refreshToken,
-            dateString,
-          },
-        },
-      });
-    } catch (error) {
-      console.log(error.message);
-      console.error(error);
-    }
-  };
+  //   try {
+  //     await saveRecentlyPlayedTracks({
+  //       variables: {
+  //         input: {
+  //           accessToken,
+  //           refreshToken,
+  //           dateString,
+  //         },
+  //       },
+  //     });
+  //   } catch (error) {
+  //     console.log(error.message);
+  //     console.error(error);
+  //   }
+  // };
 
   return {
     refreshAccessToken,
-    saveSpotifyTracks,
+    // saveSpotifyTracks,
   };
 }
