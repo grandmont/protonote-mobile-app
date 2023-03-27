@@ -266,10 +266,11 @@ export type Integration = {
   externalId: Scalars['String'];
   id: Scalars['Int'];
   provider?: Maybe<IntegrationProvider>;
+  refreshToken?: Maybe<Scalars['String']>;
   status?: Maybe<IntegrationStatus>;
   updatedAt: Scalars['DateTime'];
-  user: User;
-  userId: Scalars['Int'];
+  user?: Maybe<User>;
+  userId?: Maybe<Scalars['Int']>;
 };
 
 export type IntegrationAvgAggregate = {
@@ -290,6 +291,7 @@ export type IntegrationCountAggregate = {
   externalId: Scalars['Int'];
   id: Scalars['Int'];
   provider: Scalars['Int'];
+  refreshToken: Scalars['Int'];
   status: Scalars['Int'];
   updatedAt: Scalars['Int'];
   userId: Scalars['Int'];
@@ -300,6 +302,7 @@ export type IntegrationCountOrderByAggregateInput = {
   externalId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   provider?: InputMaybe<SortOrder>;
+  refreshToken?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
@@ -309,9 +312,10 @@ export type IntegrationCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   externalId: Scalars['String'];
   provider?: InputMaybe<IntegrationProvider>;
+  refreshToken?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<IntegrationStatus>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
-  user: UserCreateNestedOneWithoutIntegrationsInput;
+  user?: InputMaybe<UserCreateNestedOneWithoutIntegrationsInput>;
 };
 
 export type IntegrationCreateManyInput = {
@@ -319,9 +323,10 @@ export type IntegrationCreateManyInput = {
   externalId: Scalars['String'];
   id?: InputMaybe<Scalars['Int']>;
   provider?: InputMaybe<IntegrationProvider>;
+  refreshToken?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<IntegrationStatus>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
-  userId: Scalars['Int'];
+  userId?: InputMaybe<Scalars['Int']>;
 };
 
 export type IntegrationCreateManyUserInput = {
@@ -329,6 +334,7 @@ export type IntegrationCreateManyUserInput = {
   externalId: Scalars['String'];
   id?: InputMaybe<Scalars['Int']>;
   provider?: InputMaybe<IntegrationProvider>;
+  refreshToken?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<IntegrationStatus>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -354,6 +360,7 @@ export type IntegrationCreateWithoutUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   externalId: Scalars['String'];
   provider?: InputMaybe<IntegrationProvider>;
+  refreshToken?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<IntegrationStatus>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -931,9 +938,10 @@ export type IntegrationGroupBy = {
   externalId: Scalars['String'];
   id: Scalars['Int'];
   provider?: Maybe<IntegrationProvider>;
+  refreshToken?: Maybe<Scalars['String']>;
   status?: Maybe<IntegrationStatus>;
   updatedAt: Scalars['DateTime'];
-  userId: Scalars['Int'];
+  userId?: Maybe<Scalars['Int']>;
 };
 
 export type IntegrationListRelationFilter = {
@@ -948,6 +956,7 @@ export type IntegrationMaxAggregate = {
   externalId?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   provider?: Maybe<IntegrationProvider>;
+  refreshToken?: Maybe<Scalars['String']>;
   status?: Maybe<IntegrationStatus>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   userId?: Maybe<Scalars['Int']>;
@@ -958,6 +967,7 @@ export type IntegrationMaxOrderByAggregateInput = {
   externalId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   provider?: InputMaybe<SortOrder>;
+  refreshToken?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
@@ -969,6 +979,7 @@ export type IntegrationMinAggregate = {
   externalId?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   provider?: Maybe<IntegrationProvider>;
+  refreshToken?: Maybe<Scalars['String']>;
   status?: Maybe<IntegrationStatus>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   userId?: Maybe<Scalars['Int']>;
@@ -979,6 +990,7 @@ export type IntegrationMinOrderByAggregateInput = {
   externalId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   provider?: InputMaybe<SortOrder>;
+  refreshToken?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
@@ -998,6 +1010,7 @@ export type IntegrationOrderByWithAggregationInput = {
   externalId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   provider?: InputMaybe<SortOrder>;
+  refreshToken?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
@@ -1008,6 +1021,7 @@ export type IntegrationOrderByWithRelationInput = {
   externalId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   provider?: InputMaybe<SortOrder>;
+  refreshToken?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   user?: InputMaybe<UserOrderByWithRelationInput>;
@@ -1023,6 +1037,7 @@ export enum IntegrationScalarFieldEnum {
   ExternalId = 'externalId',
   Id = 'id',
   Provider = 'provider',
+  RefreshToken = 'refreshToken',
   Status = 'status',
   UpdatedAt = 'updatedAt',
   UserId = 'userId'
@@ -1036,9 +1051,10 @@ export type IntegrationScalarWhereInput = {
   externalId?: InputMaybe<StringFilter>;
   id?: InputMaybe<IntFilter>;
   provider?: InputMaybe<EnumIntegrationProviderNullableFilter>;
+  refreshToken?: InputMaybe<StringNullableFilter>;
   status?: InputMaybe<EnumIntegrationStatusNullableFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
-  userId?: InputMaybe<IntFilter>;
+  userId?: InputMaybe<IntNullableFilter>;
 };
 
 export type IntegrationScalarWhereWithAggregatesInput = {
@@ -1049,9 +1065,10 @@ export type IntegrationScalarWhereWithAggregatesInput = {
   externalId?: InputMaybe<StringWithAggregatesFilter>;
   id?: InputMaybe<IntWithAggregatesFilter>;
   provider?: InputMaybe<EnumIntegrationProviderNullableWithAggregatesFilter>;
+  refreshToken?: InputMaybe<StringNullableWithAggregatesFilter>;
   status?: InputMaybe<EnumIntegrationStatusNullableWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
-  userId?: InputMaybe<IntWithAggregatesFilter>;
+  userId?: InputMaybe<IntNullableWithAggregatesFilter>;
 };
 
 export enum IntegrationStatus {
@@ -1074,15 +1091,17 @@ export type IntegrationUpdateInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   externalId?: InputMaybe<StringFieldUpdateOperationsInput>;
   provider?: InputMaybe<NullableEnumIntegrationProviderFieldUpdateOperationsInput>;
+  refreshToken?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   status?: InputMaybe<NullableEnumIntegrationStatusFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutIntegrationsNestedInput>;
+  user?: InputMaybe<UserUpdateOneWithoutIntegrationsNestedInput>;
 };
 
 export type IntegrationUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   externalId?: InputMaybe<StringFieldUpdateOperationsInput>;
   provider?: InputMaybe<NullableEnumIntegrationProviderFieldUpdateOperationsInput>;
+  refreshToken?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   status?: InputMaybe<NullableEnumIntegrationStatusFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -1115,6 +1134,7 @@ export type IntegrationUpdateWithoutUserInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   externalId?: InputMaybe<StringFieldUpdateOperationsInput>;
   provider?: InputMaybe<NullableEnumIntegrationProviderFieldUpdateOperationsInput>;
+  refreshToken?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   status?: InputMaybe<NullableEnumIntegrationStatusFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -1133,10 +1153,11 @@ export type IntegrationWhereInput = {
   externalId?: InputMaybe<StringFilter>;
   id?: InputMaybe<IntFilter>;
   provider?: InputMaybe<EnumIntegrationProviderNullableFilter>;
+  refreshToken?: InputMaybe<StringNullableFilter>;
   status?: InputMaybe<EnumIntegrationStatusNullableFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   user?: InputMaybe<UserRelationFilter>;
-  userId?: InputMaybe<IntFilter>;
+  userId?: InputMaybe<IntNullableFilter>;
 };
 
 export type IntegrationWhereUniqueInput = {
@@ -1146,6 +1167,7 @@ export type IntegrationWhereUniqueInput = {
 export type IntegrationsInput = {
   accessToken: Scalars['String'];
   provider: IntegrationProvider;
+  refreshToken: Scalars['String'];
 };
 
 export type IntegrationsResponse = {
@@ -1183,6 +1205,7 @@ export type Mutation = {
   registerIntegration: IntegrationsResponse;
   saveRecentlyPlayedTracks?: Maybe<SpotifyResponse>;
   swapSpotifyCode: SpotifyResponse;
+  updateDevice: UpdateDeviceResponse;
   updateManyIntegration: AffectedRowsOutput;
   updateManyIntegrationData: AffectedRowsOutput;
   updateManyIntegrationDataOnProtos: AffectedRowsOutput;
@@ -1338,6 +1361,11 @@ export type MutationSaveRecentlyPlayedTracksArgs = {
 
 export type MutationSwapSpotifyCodeArgs = {
   input: SpotifyInput;
+};
+
+
+export type MutationUpdateDeviceArgs = {
+  input: UpdateDeviceInput;
 };
 
 
@@ -2485,6 +2513,15 @@ export type StringWithAggregatesFilter = {
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
+export type UpdateDeviceInput = {
+  timeZone: Scalars['String'];
+};
+
+export type UpdateDeviceResponse = {
+  __typename?: 'UpdateDeviceResponse';
+  status: Scalars['Boolean'];
+};
+
 export type User = {
   __typename?: 'User';
   _count?: Maybe<UserCount>;
@@ -2496,6 +2533,7 @@ export type User = {
   picture?: Maybe<Scalars['String']>;
   protos: Array<Proto>;
   provider: AuthProvider;
+  timeZone?: Maybe<Scalars['String']>;
 };
 
 
@@ -2542,6 +2580,7 @@ export type UserCountAggregate = {
   name: Scalars['Int'];
   picture: Scalars['Int'];
   provider: Scalars['Int'];
+  timeZone: Scalars['Int'];
 };
 
 export type UserCountOrderByAggregateInput = {
@@ -2551,6 +2590,7 @@ export type UserCountOrderByAggregateInput = {
   name?: InputMaybe<SortOrder>;
   picture?: InputMaybe<SortOrder>;
   provider?: InputMaybe<SortOrder>;
+  timeZone?: InputMaybe<SortOrder>;
 };
 
 export type UserCreateInput = {
@@ -2561,6 +2601,7 @@ export type UserCreateInput = {
   picture?: InputMaybe<Scalars['String']>;
   protos?: InputMaybe<ProtoCreateNestedManyWithoutUserInput>;
   provider: AuthProvider;
+  timeZone?: InputMaybe<Scalars['String']>;
 };
 
 export type UserCreateManyInput = {
@@ -2570,6 +2611,7 @@ export type UserCreateManyInput = {
   name?: InputMaybe<Scalars['String']>;
   picture?: InputMaybe<Scalars['String']>;
   provider: AuthProvider;
+  timeZone?: InputMaybe<Scalars['String']>;
 };
 
 export type UserCreateNestedOneWithoutIntegrationsInput = {
@@ -2601,6 +2643,7 @@ export type UserCreateWithoutIntegrationsInput = {
   picture?: InputMaybe<Scalars['String']>;
   protos?: InputMaybe<ProtoCreateNestedManyWithoutUserInput>;
   provider: AuthProvider;
+  timeZone?: InputMaybe<Scalars['String']>;
 };
 
 export type UserCreateWithoutProtosInput = {
@@ -2610,6 +2653,7 @@ export type UserCreateWithoutProtosInput = {
   name?: InputMaybe<Scalars['String']>;
   picture?: InputMaybe<Scalars['String']>;
   provider: AuthProvider;
+  timeZone?: InputMaybe<Scalars['String']>;
 };
 
 export type UserGroupBy = {
@@ -2625,6 +2669,7 @@ export type UserGroupBy = {
   name?: Maybe<Scalars['String']>;
   picture?: Maybe<Scalars['String']>;
   provider: AuthProvider;
+  timeZone?: Maybe<Scalars['String']>;
 };
 
 export type UserMaxAggregate = {
@@ -2635,6 +2680,7 @@ export type UserMaxAggregate = {
   name?: Maybe<Scalars['String']>;
   picture?: Maybe<Scalars['String']>;
   provider?: Maybe<AuthProvider>;
+  timeZone?: Maybe<Scalars['String']>;
 };
 
 export type UserMaxOrderByAggregateInput = {
@@ -2644,6 +2690,7 @@ export type UserMaxOrderByAggregateInput = {
   name?: InputMaybe<SortOrder>;
   picture?: InputMaybe<SortOrder>;
   provider?: InputMaybe<SortOrder>;
+  timeZone?: InputMaybe<SortOrder>;
 };
 
 export type UserMinAggregate = {
@@ -2654,6 +2701,7 @@ export type UserMinAggregate = {
   name?: Maybe<Scalars['String']>;
   picture?: Maybe<Scalars['String']>;
   provider?: Maybe<AuthProvider>;
+  timeZone?: Maybe<Scalars['String']>;
 };
 
 export type UserMinOrderByAggregateInput = {
@@ -2663,6 +2711,7 @@ export type UserMinOrderByAggregateInput = {
   name?: InputMaybe<SortOrder>;
   picture?: InputMaybe<SortOrder>;
   provider?: InputMaybe<SortOrder>;
+  timeZone?: InputMaybe<SortOrder>;
 };
 
 export type UserOrderByWithAggregationInput = {
@@ -2677,6 +2726,7 @@ export type UserOrderByWithAggregationInput = {
   name?: InputMaybe<SortOrder>;
   picture?: InputMaybe<SortOrder>;
   provider?: InputMaybe<SortOrder>;
+  timeZone?: InputMaybe<SortOrder>;
 };
 
 export type UserOrderByWithRelationInput = {
@@ -2688,6 +2738,7 @@ export type UserOrderByWithRelationInput = {
   picture?: InputMaybe<SortOrder>;
   protos?: InputMaybe<ProtoOrderByRelationAggregateInput>;
   provider?: InputMaybe<SortOrder>;
+  timeZone?: InputMaybe<SortOrder>;
 };
 
 export type UserRelationFilter = {
@@ -2701,7 +2752,8 @@ export enum UserScalarFieldEnum {
   Id = 'id',
   Name = 'name',
   Picture = 'picture',
-  Provider = 'provider'
+  Provider = 'provider',
+  TimeZone = 'timeZone'
 }
 
 export type UserScalarWhereWithAggregatesInput = {
@@ -2714,6 +2766,7 @@ export type UserScalarWhereWithAggregatesInput = {
   name?: InputMaybe<StringNullableWithAggregatesFilter>;
   picture?: InputMaybe<StringNullableWithAggregatesFilter>;
   provider?: InputMaybe<EnumAuthProviderWithAggregatesFilter>;
+  timeZone?: InputMaybe<StringNullableWithAggregatesFilter>;
 };
 
 export type UserSumAggregate = {
@@ -2733,6 +2786,7 @@ export type UserUpdateInput = {
   picture?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   protos?: InputMaybe<ProtoUpdateManyWithoutUserNestedInput>;
   provider?: InputMaybe<EnumAuthProviderFieldUpdateOperationsInput>;
+  timeZone?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
 };
 
 export type UserUpdateManyMutationInput = {
@@ -2741,12 +2795,15 @@ export type UserUpdateManyMutationInput = {
   name?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   picture?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   provider?: InputMaybe<EnumAuthProviderFieldUpdateOperationsInput>;
+  timeZone?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
 };
 
-export type UserUpdateOneRequiredWithoutIntegrationsNestedInput = {
+export type UserUpdateOneWithoutIntegrationsNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutIntegrationsInput>;
   create?: InputMaybe<UserCreateWithoutIntegrationsInput>;
+  delete?: InputMaybe<Scalars['Boolean']>;
+  disconnect?: InputMaybe<Scalars['Boolean']>;
   update?: InputMaybe<UserUpdateWithoutIntegrationsInput>;
   upsert?: InputMaybe<UserUpsertWithoutIntegrationsInput>;
 };
@@ -2768,6 +2825,7 @@ export type UserUpdateWithoutIntegrationsInput = {
   picture?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   protos?: InputMaybe<ProtoUpdateManyWithoutUserNestedInput>;
   provider?: InputMaybe<EnumAuthProviderFieldUpdateOperationsInput>;
+  timeZone?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
 };
 
 export type UserUpdateWithoutProtosInput = {
@@ -2777,6 +2835,7 @@ export type UserUpdateWithoutProtosInput = {
   name?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   picture?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   provider?: InputMaybe<EnumAuthProviderFieldUpdateOperationsInput>;
+  timeZone?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
 };
 
 export type UserUpsertWithoutIntegrationsInput = {
@@ -2801,6 +2860,7 @@ export type UserWhereInput = {
   picture?: InputMaybe<StringNullableFilter>;
   protos?: InputMaybe<ProtoListRelationFilter>;
   provider?: InputMaybe<EnumAuthProviderFilter>;
+  timeZone?: InputMaybe<StringNullableFilter>;
 };
 
 export type UserWhereUniqueInput = {
@@ -2842,6 +2902,13 @@ export type SaveRecentlyPlayedTracksMutationVariables = Exact<{
 
 
 export type SaveRecentlyPlayedTracksMutation = { __typename?: 'Mutation', saveRecentlyPlayedTracks?: { __typename?: 'SpotifyResponse', accessToken: string } | null };
+
+export type UpdateDeviceMutationVariables = Exact<{
+  input: UpdateDeviceInput;
+}>;
+
+
+export type UpdateDeviceMutation = { __typename?: 'Mutation', updateDevice: { __typename?: 'UpdateDeviceResponse', status: boolean } };
 
 export type UpdateProtoMutationMutationVariables = Exact<{
   data: ProtoUpdateInput;
@@ -2907,6 +2974,7 @@ export const CreateProtoMutationDocument = {"kind":"Document","definitions":[{"k
 export const DeleteAccountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteAccount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DeleteAccountInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteAccount"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleted"}}]}}]}}]} as unknown as DocumentNode<DeleteAccountMutation, DeleteAccountMutationVariables>;
 export const RegisterIntegrationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RegisterIntegration"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IntegrationsInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"registerIntegration"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"integration"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"externalId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<RegisterIntegrationMutation, RegisterIntegrationMutationVariables>;
 export const SaveRecentlyPlayedTracksDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SaveRecentlyPlayedTracks"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SpotifyInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"saveRecentlyPlayedTracks"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<SaveRecentlyPlayedTracksMutation, SaveRecentlyPlayedTracksMutationVariables>;
+export const UpdateDeviceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateDevice"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateDeviceInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateDevice"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<UpdateDeviceMutation, UpdateDeviceMutationVariables>;
 export const UpdateProtoMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateProtoMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoUpdateInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProtoWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOneProto"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"dateString"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}}]}}]} as unknown as DocumentNode<UpdateProtoMutationMutation, UpdateProtoMutationMutationVariables>;
 export const GetUserStatisticsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserStatistics"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserWhereUniqueInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"protos"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_count"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"integrations"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"_count"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"protos"}},{"kind":"Field","name":{"kind":"Name","value":"integrations"}}]}}]}}]}}]} as unknown as DocumentNode<GetUserStatisticsQuery, GetUserStatisticsQueryVariables>;
 export const GetMemoByDateStringDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMemoByDateString"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"dateString"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getMemoByDateString"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"dateString"},"value":{"kind":"Variable","name":{"kind":"Name","value":"dateString"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"dateString"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<GetMemoByDateStringQuery, GetMemoByDateStringQueryVariables>;

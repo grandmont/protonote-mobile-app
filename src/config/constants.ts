@@ -6,7 +6,7 @@ export const DATE_FORMAT = "YYYY-MM-DD";
 
 export const API_URL = "https://protonote-api-production.up.railway.app";
 // export const API_URL =
-//   "https://9f4d-2804-431-e7df-1101-de2e-573f-38d8-af96.sa.ngrok.io";
+//   "https://c6e8-2804-431-e7df-88d0-3e30-4979-6ef1-33ff.sa.ngrok.io";
 
 export const SPOTIFY_API_URL = "https://api.spotify.com/v1";
 
@@ -22,3 +22,7 @@ export const EXPO_CLIENT_ID =
   "227660563070-bppokg502t6sphrb9go3omjpahdjp3du.apps.googleusercontent.com";
 
 export const ESTIMATED_LIST_SIZE = 1000;
+
+export const IOS_BANNER_ID = "ca-app-pub-4452701921985328/8864292069";
+
+export const ANDROID_BANNER_ID = "ca-app-pub-4452701921985328/9068306193";

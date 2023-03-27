@@ -2,7 +2,7 @@
   "expo": {
     "name": "Beememo",
     "slug": "protonote-mobile-app",
-    "version": "1.1.5",
+    "version": "1.1.10",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -19,11 +19,11 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.protonote.protonote",
-      "buildNumber": "13"
+      "buildNumber": "15"
     },
     "android": {
       "package": "com.protonote.protonote",
-      "versionCode": 13,
+      "versionCode": 17,
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -38,7 +38,17 @@
         "projectId": "b539128c-58b8-4141-9f87-ce7730b08730"
       }
     },
-    "plugins": ["expo-apple-authentication"]
+    "plugins": [
+      "expo-apple-authentication",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 33
+          }
+        }
+      ]
+    ]
   },
   "react-native-google-mobile-ads": {
     "android_app_id": "ca-app-pub-4452701921985328~5222777567",

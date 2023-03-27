@@ -1,4 +1,5 @@
 import { useMutation } from "@apollo/client";
+import * as Localization from "expo-localization";
 
 import { client } from "@services/client";
 import {
@@ -10,11 +11,13 @@ import {
   CreateProtoMutationDocument,
   UpdateProtoMutationDocument,
   ProtosDocument,
+  UpdateDeviceDocument,
 } from "@graphql/generated";
 
 export default function useAPISync() {
   const [createMemo] = useMutation(CreateProtoMutationDocument);
   const [updateMemo] = useMutation(UpdateProtoMutationDocument);
+  const [updateDevice] = useMutation(UpdateDeviceDocument);
 
   const storeUserData = async ({ id }) => {
     const { data } = await client.query({
@@ -35,12 +38,24 @@ export default function useAPISync() {
     );
   };
 
-  const syncAPI = async ({ id }) => {
-    if (!id) return;
+  const syncDeviceData = async () => {
+    const [{ timeZone }] = Localization.getCalendars();
+
+    await updateDevice({
+      variables: {
+        input: {
+          timeZone,
+        },
+      },
+    });
+  };
+
+  const syncMemos = async ({ userId }) => {
+    if (!userId) return;
 
     const protos = await findAllPendingLocalProtos();
 
-    // console.log("syncAPI:", protos.length);
+    console.log("syncAPI:", protos.length);
 
     protos.forEach(async ({ title, description, dateString }) => {
       const { data } = await client.query({
@@ -48,7 +63,7 @@ export default function useAPISync() {
         variables: {
           where: {
             userId: {
-              equals: id,
+              equals: userId,
             },
             dateString: {
               equals: dateString,
@@ -68,7 +83,7 @@ export default function useAPISync() {
               dateString,
               user: {
                 connect: {
-                  id,
+                  id: userId,
                 },
               },
             },
@@ -96,6 +111,11 @@ export default function useAPISync() {
         console.error(error);
       }
     });
+  };
+
+  const syncAPI = async ({ userId }) => {
+    await syncDeviceData();
+    await syncMemos({ userId });
   };
 
   return {

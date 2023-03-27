@@ -57,6 +57,8 @@ export default function MemoDetailsSection({
           count={_count.integrations}
         />
       )}
+
+      <Divider size="huge" />
     </ScrollView>
   );
 }

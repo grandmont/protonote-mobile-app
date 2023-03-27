@@ -93,6 +93,7 @@ export default function SpotifyIntegration({
           variables: {
             input: {
               accessToken,
+              refreshToken,
               provider: IntegrationProvider.Spotify,
             },
           },

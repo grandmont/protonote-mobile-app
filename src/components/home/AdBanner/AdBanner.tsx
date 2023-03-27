@@ -5,11 +5,19 @@ import {
 } from "react-native-google-mobile-ads";
 import { View } from "react-native-ui-lib";
 
-const adUnitId = __DEV__
-  ? TestIds.BANNER
-  : "ca-app-pub-4452701921985328/8864292069";
+import usePlatform from "@hooks/usePlatform";
+
+import { IOS_BANNER_ID, ANDROID_BANNER_ID } from "@config/constants";
 
 export default function AdBanner() {
+  const { isIOS } = usePlatform();
+
+  const adUnitId = __DEV__
+    ? TestIds.BANNER
+    : isIOS
+    ? IOS_BANNER_ID
+    : ANDROID_BANNER_ID;
+
   return (
     <View marginB-24 style={{ marginLeft: -18 }}>
       <BannerAd

@@ -4,6 +4,7 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import ScreenLayout from "@components/layout/ScreenLayout";
 import useAuth from "@hooks/useAuth";
 import Header from "@components/elements/Header/Header";
+import AdBanner from "@components/home/AdBanner/AdBanner";
 import MemoDetailsSection from "@components/memo/MemoDetailsSection/MemoDetailsSection";
 import { ProtosDocument } from "@graphql/generated";
 import { getWrittenDateString } from "@utils/parsers";
@@ -75,6 +76,8 @@ export default function MemoScreen({ route }) {
   return (
     <ScreenLayout divider={false}>
       <Header title={title} canGoBack onEdit={handleEdit} />
+
+      <AdBanner />
 
       <MemoDetailsSection
         dateString={dateString}
