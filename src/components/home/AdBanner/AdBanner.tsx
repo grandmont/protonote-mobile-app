@@ -18,8 +18,10 @@ export default function AdBanner() {
     ? IOS_BANNER_ID
     : ANDROID_BANNER_ID;
 
+  const marginLeft = isIOS ? -18 : 0;
+
   return (
-    <View marginB-24 style={{ marginLeft: -18 }}>
+    <View marginB-24 style={{ marginLeft }}>
       <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}

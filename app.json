@@ -2,7 +2,7 @@
   "expo": {
     "name": "Beememo",
     "slug": "protonote-mobile-app",
-    "version": "1.1.12",
+    "version": "1.1.13",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -19,11 +19,11 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.protonote.protonote",
-      "buildNumber": "17"
+      "buildNumber": "18"
     },
     "android": {
       "package": "com.protonote.protonote",
-      "versionCode": 17,
+      "versionCode": 18,
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
