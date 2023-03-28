@@ -27,7 +27,7 @@ export default function HomeScreen() {
   // Need to move this to reuse the logic
   useFocusEffect(
     useCallback(() => {
-      syncAPI({ userId: userInfo?.id });
+      userInfo?.id && syncAPI({ userId: userInfo.id });
 
       refetch({
         where: {

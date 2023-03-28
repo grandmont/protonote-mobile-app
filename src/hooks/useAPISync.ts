@@ -13,6 +13,7 @@ import {
   ProtosDocument,
   UpdateDeviceDocument,
 } from "@graphql/generated";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function useAPISync() {
   const [createMemo] = useMutation(CreateProtoMutationDocument);
@@ -39,20 +40,28 @@ export default function useAPISync() {
   };
 
   const syncDeviceData = async () => {
+    const storedTimeZone = await AsyncStorage.getItem("timeZone");
+
     const [{ timeZone }] = Localization.getCalendars();
 
-    await updateDevice({
-      variables: {
-        input: {
-          timeZone,
+    if (storedTimeZone === timeZone) return;
+
+    try {
+      await updateDevice({
+        variables: {
+          input: {
+            timeZone,
+          },
         },
-      },
-    });
+      });
+
+      await AsyncStorage.setItem("timeZone", timeZone);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const syncMemos = async ({ userId }) => {
-    if (!userId) return;
-
     const protos = await findAllPendingLocalProtos();
 
     console.log("syncAPI:", protos.length);

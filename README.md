@@ -4,11 +4,6 @@
 
 > Create abstraction on AsyncStorage
 
-> Remove code from `<SpotifyIntegration />` component and move it to `useSpotify` hook
-
-> Add refresh token to the integration model (if the user logs in a different device, it's not gonna find the token)
-
-
 > Deal with the unknown types
 
 > Move useFocusEffect to a shared hook
@@ -16,8 +11,6 @@
 # In progress
 
 > Add mood to the memo and remove required field for memo description (Partial)
-
-> Check if there are integrations before requesting spotify data in the API `saveSpotifyTracks`
 
 # Done
 
@@ -34,3 +27,5 @@
 > Save memo as you write, and make it offline (remove save button)
 
 > Be sure to sync the API before the user logs out (we lose data)
+
+> Add refresh token to the integration model (if the user logs in a different device, it's not gonna find the token)
