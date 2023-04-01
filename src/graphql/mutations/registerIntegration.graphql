@@ -2,7 +2,6 @@ mutation RegisterIntegration($input: IntegrationsInput!) {
   registerIntegration(input: $input) {
     integration {
       id
-      externalId
       createdAt
       updatedAt
     }

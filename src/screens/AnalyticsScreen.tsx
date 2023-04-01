@@ -1,12 +1,11 @@
 import { View } from "react-native-ui-lib";
 
-import Divider from "../components/elements/Divider/Divider";
-import Fade from "../components/elements/Fade/Fade";
-import Header from "../components/elements/Header/Header";
-import ScreenLayout from "../components/layout/ScreenLayout";
-import UsageInformation from "../components/analytics/UsageInformation/UsageInformation";
-import ChartsSection from "../components/analytics/ChartsSection/ChartsSection";
-import WorkInProgress from "../components/elements/WorkInProgress/WorkInProgress";
+import Divider from "@components/elements/Divider/Divider";
+import Fade from "@components/elements/Fade/Fade";
+import Header from "@components/elements/Header/Header";
+import ScreenLayout from "@components/layout/ScreenLayout";
+import UsageInformation from "@components/analytics/UsageInformation/UsageInformation";
+import ChartsSection from "@components/analytics/ChartsSection/ChartsSection";
 
 export default function AnalyticsScreen() {
   return (
@@ -23,8 +22,6 @@ export default function AnalyticsScreen() {
 
       <ChartsSection />
       <Fade bottom />
-
-      <WorkInProgress />
     </ScreenLayout>
   );
 }

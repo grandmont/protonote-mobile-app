@@ -1,32 +1,19 @@
-import { useId, useState } from "react";
-import { useMutation } from "@apollo/client";
-import {
-  Button,
-  View,
-  LoaderScreen,
-  Incubator,
-  Text,
-} from "react-native-ui-lib";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { useEffect, useId, useState } from "react";
+import { View, Incubator } from "react-native-ui-lib";
 const { Toast } = Incubator;
 
-import {
-  CreateProtoMutationDocument,
-  CreateProtoMutationMutation,
-  GetMemoByDateStringDocument,
-  ProtosQueryDocument,
-  UpdateProtoMutationDocument,
-  UpdateProtoMutationMutation,
-} from "../graphql/generated";
-import MemoEditor from "../components/memo/MemoEditor/MemoEditor";
-import ScreenLayout from "../components/layout/ScreenLayout";
-import useAuth from "../hooks/useAuth";
-import { client } from "../services/client";
-import Header from "../components/elements/Header/Header";
-import KeyboardAccessoryView from "../components/layout/KeyboardAccessoryView";
-import KeyboardAvoidingView from "../components/layout/KeyboardAvoidingView";
-import { getTodayDateString, getWrittenDateString } from "../utils/parsers";
-import { BOTTOM_TAB_ICON_SIZE } from "../config/constants";
+import useDebounce from "@hooks/useDebounce";
+import MemoEditor from "@components/memo/MemoEditor/MemoEditor";
+import ScreenLayout from "@components/layout/ScreenLayout";
+import Header from "@components/elements/Header/Header";
+import SaveMemoAction from "@components/memo/SaveMemoAction/SaveMemoAction";
+import KeyboardAccessoryView from "@components/layout/KeyboardAccessoryView";
+import KeyboardAvoidingView from "@components/layout/KeyboardAvoidingView";
+import { getTodayDateString, getWrittenDateString } from "@utils/parsers";
+import { upsertLocalProto } from "@database/services/ProtoService";
+import { ProtoModel } from "@database/models/ProtoModel";
+
+const MEMO_DELAY = 200;
 
 export default function CreateMemoScreen({ navigation, route }) {
   const nativeId = useId();
@@ -39,54 +26,22 @@ export default function CreateMemoScreen({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const { userInfo } = useAuth();
-
-  const [createOrUpdateMemoMutation] = useMutation<
-    CreateProtoMutationMutation | UpdateProtoMutationMutation
-  >(!editData ? CreateProtoMutationDocument : UpdateProtoMutationDocument);
+  const debouncedMemo = useDebounce(memoData, MEMO_DELAY);
 
   const parsedDateString = dateString || getTodayDateString();
   const title = getWrittenDateString(parsedDateString);
 
-  const handleCreateMemo = async () => {
-    if (!memoData?.description) return;
-
+  const handleSaveLocalMemo = async () => {
     setIsLoading(true);
 
-    const createMemoData = {
-      data: {
-        ...memoData,
-        title,
-        dateString: parsedDateString,
-        user: {
-          connect: {
-            id: userInfo.id,
-          },
-        },
-      },
-    };
-
-    const updateMemoData = {
-      data: {
-        description: {
-          set: memoData.description,
-        },
-      },
-      where: {
-        id: editData?.id,
-      },
-    };
-
-    const variables = !editData ? createMemoData : updateMemoData;
+    const localProto = {
+      title,
+      description: memoData.description,
+      dateString: parsedDateString,
+    } as ProtoModel;
 
     try {
-      await createOrUpdateMemoMutation({ variables });
-
-      client.refetchQueries({
-        include: [GetMemoByDateStringDocument, ProtosQueryDocument],
-      });
-
-      navigation.goBack();
+      await upsertLocalProto(localProto);
     } catch (error) {
       console.error(error);
       setError(error);
@@ -95,27 +50,33 @@ export default function CreateMemoScreen({ navigation, route }) {
     }
   };
 
+  // Debounce
+  useEffect(() => {
+    if (!debouncedMemo?.description) return;
+
+    // handleSaveMemo();
+    handleSaveLocalMemo();
+  }, [debouncedMemo]);
+
   const handleChangeMemoEditor = (description: string) => {
+    setIsLoading(true);
     setMemoData((prevState) => ({ ...prevState, description }));
+  };
+
+  const handleClose = () => {
+    navigation.goBack();
   };
 
   return (
     <ScreenLayout dividerSize="invisible">
-      {/* <Header title={title} canGoBack /> */}
-
       <View row spread top>
         <Header canGoBack />
 
-        <View row top centerV>
-          <Button
-            label="Save"
-            onPress={handleCreateMemo}
-            disabled={isLoading}
-            hitSlop={5}
-            padding-4
-            link
-          />
-        </View>
+        <SaveMemoAction
+          onPress={handleClose}
+          disabled={isLoading}
+          loading={isLoading}
+        />
       </View>
 
       <KeyboardAvoidingView keyboardVerticalOffset={24}>
@@ -136,8 +97,6 @@ export default function CreateMemoScreen({ navigation, route }) {
         autoDismiss={5000}
         onDismiss={() => setError(null)}
       />
-
-      {isLoading && <LoaderScreen overlay />}
     </ScreenLayout>
   );
 }

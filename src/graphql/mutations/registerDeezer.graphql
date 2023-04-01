@@ -1,0 +1,5 @@
+mutation RegisterDeezer($input: RegisterIntegrationInput!) {
+  registerDeezer(input: $input) {
+    status
+  }
+}

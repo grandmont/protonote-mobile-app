@@ -1,8 +1,6 @@
 import { useEffect, useRef } from "react";
 import { TextInput } from "react-native";
 
-import ScreenSection from "../../layout/ScreenSection";
-
 export default function MemoEditor({
   defaultValue = "",
   onChange,
@@ -15,7 +13,6 @@ export default function MemoEditor({
   }, []);
 
   return (
-    // <ScreenSection title="Description" marginB-24>
     <TextInput
       ref={inputRef}
       placeholder="Start typing..."
@@ -26,7 +23,8 @@ export default function MemoEditor({
         height: "100%",
       }}
       multiline
+      // Android only
+      textAlignVertical="top"
     />
-    // </ScreenSection>
   );
 }

@@ -1,10 +1,10 @@
 import { View, Text, Button, Colors } from "react-native-ui-lib";
+import { useNavigation } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Feather from "@expo/vector-icons/Feather";
 
-import Divider from "../Divider/Divider";
-import { BOTTOM_TAB_ICON_SIZE } from "../../../config/constants";
-import { useNavigation } from "@react-navigation/native";
+import Divider from "@components/elements/Divider/Divider";
+import { BOTTOM_TAB_ICON_SIZE } from "@config/constants";
 
 interface HeaderProps {
   title?: string;
@@ -34,7 +34,7 @@ export default function Header({
           hitSlop={12}
           link
         >
-          <Ionicons name="md-chevron-back" color={Colors.primary} size={24} />
+          <Ionicons name="md-chevron-back" color={Colors.link} size={24} />
         </Button>
       )}
 

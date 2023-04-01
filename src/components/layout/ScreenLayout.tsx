@@ -1,5 +1,8 @@
+import Constants from "expo-constants";
 import { View, ViewProps } from "react-native-ui-lib";
-import Divider, { DividerSizeType } from "../elements/Divider/Divider";
+
+import Divider, { DividerSizeType } from "@components/elements/Divider/Divider";
+import usePlatform from "@hooks/usePlatform";
 
 interface ScreenLayoutProps extends ViewProps {
   children: React.ReactNode;
@@ -13,8 +16,15 @@ export default function ScreenLayout({
   dividerSize = "big",
   ...props
 }: ScreenLayoutProps) {
+  const { isIOS } = usePlatform();
+
+  const style = {
+    paddingTop: isIOS ? Constants.statusBarHeight + 18 : 48,
+    marginTop: isIOS ? 0 : Constants.statusBarHeight * -1,
+  };
+
   return (
-    <View flex paddingH-18 paddingT-72 bg-screenBG {...props}>
+    <View flex paddingH-18 bg-screenBG style={style} {...props}>
       {children}
       {divider && <Divider size={dividerSize} />}
     </View>

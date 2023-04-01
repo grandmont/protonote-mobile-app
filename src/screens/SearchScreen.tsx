@@ -1,58 +1,84 @@
-import { useState, useEffect, useDeferredValue, useId } from "react";
-import { useLazyQuery } from "@apollo/client";
+import { useState, useEffect, useId, useCallback, useRef } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { LoaderScreen, View } from "react-native-ui-lib";
 
-import ScreenLayout from "../components/layout/ScreenLayout";
-import SearchBar from "../components/search/SearchBar/SearchBar";
-import KeyboardAccessoryView from "../components/layout/KeyboardAccessoryView";
-import MemoList from "../components/search/MemoList/MemoList";
-import Fade from "../components/elements/Fade/Fade";
-import { ProtosQueryDocument, QueryMode } from "../graphql/generated";
-import KeyboardAvoidingView from "../components/layout/KeyboardAvoidingView";
+import useAuth from "@hooks/useAuth";
+import useLocalQuery from "@hooks/useLocalQuery";
+import useDebounce from "@hooks/useDebounce";
+import ScreenLayout from "@components/layout/ScreenLayout";
+import SearchBar from "@components/search/SearchBar/SearchBar";
+import KeyboardAccessoryView from "@components/layout/KeyboardAccessoryView";
+import MemoList from "@components/search/MemoList/MemoList";
+import Fade from "@components/elements/Fade/Fade";
+import KeyboardAvoidingView from "@components/layout/KeyboardAvoidingView";
+import EmptyMemoList from "@components/search/EmptyMemoList/EmptyMemoList";
+import { Proto } from "@graphql/generated";
+
+const SEARCH_DELAY = 200;
 
 export default function SearchScreen() {
   const nativeId = useId();
 
-  const [searchPhrase, setSearchPhrase] = useState("");
+  const { userInfo } = useAuth();
 
-  const deferredSearchPhrase = useDeferredValue(searchPhrase);
-  const [, { data, loading, refetch }] = useLazyQuery(ProtosQueryDocument);
+  const initialSearch = "";
+
+  const searchRef = useRef(initialSearch);
+
+  const [searchPhrase, setSearchPhrase] = useState(initialSearch);
+  const [isSearchLoading, setIsSearchLoading] = useState(false);
+
+  const debouncedValue = useDebounce(searchPhrase, SEARCH_DELAY);
+
+  const {
+    data,
+    loading: isDataLoading,
+    refetch,
+  } = useLocalQuery("filterProto");
 
   useEffect(() => {
-    const filterOptions = {
-      contains: deferredSearchPhrase,
-      mode: QueryMode.Insensitive,
-    };
+    if (!userInfo?.id) return;
+
+    setIsSearchLoading(false);
 
     refetch({
-      where: {
-        OR: [
-          {
-            title: filterOptions,
-          },
-          {
-            description: filterOptions,
-          },
-        ],
-      },
+      search: debouncedValue,
     });
-  }, [deferredSearchPhrase]);
+  }, [debouncedValue, userInfo]);
+
+  const handleSearchChange = (value: string) => {
+    setIsSearchLoading(true);
+    setSearchPhrase(value);
+    searchRef.current = value;
+  };
+
+  const protos = (data ? data : []) as unknown[] as Proto[];
+
+  const hasProtos = protos.length > 0;
+
+  useFocusEffect(
+    useCallback(() => {
+      refetch({
+        search: searchRef.current,
+      });
+    }, [])
+  );
 
   return (
-    <ScreenLayout>
+    <ScreenLayout divider={false}>
       <KeyboardAvoidingView>
-        <View centerH marginB-48>
+        <View centerH marginB-48 height="100%">
           <SearchBar
             searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            onChange={handleSearchChange}
             inputAccessoryViewID={nativeId}
           />
 
-          <MemoList data={data?.protos} />
+          {hasProtos ? <MemoList data={protos} /> : <EmptyMemoList />}
 
           <KeyboardAccessoryView nativeId={nativeId} />
 
-          {loading && <LoaderScreen overlay />}
+          {(isSearchLoading || isDataLoading) && <LoaderScreen overlay />}
         </View>
       </KeyboardAvoidingView>
       <Fade bottom />

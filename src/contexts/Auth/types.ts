@@ -1,6 +1,6 @@
 import type { ColorSchemeName } from "react-native";
 
-import type { User } from "../../graphql/generated";
+import type { User } from "@graphql/generated";
 
 export interface AuthProviderProps {
   children: React.ReactNode;

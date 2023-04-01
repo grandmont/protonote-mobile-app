@@ -1,8 +1,8 @@
 import { View, Card, Text } from "react-native-ui-lib";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import ScreenSection from "../../layout/ScreenSection";
-import { BOTTOM_TAB_ICON_SIZE } from "../../../config/constants";
+import ScreenSection from "@components/layout/ScreenSection";
+import { BOTTOM_TAB_ICON_SIZE } from "@config/constants";
 
 export default function UsageInformation() {
   return (

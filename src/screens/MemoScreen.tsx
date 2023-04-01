@@ -1,24 +1,32 @@
 import { useQuery } from "@apollo/client";
-import { LoaderScreen } from "react-native-ui-lib";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
-import ScreenLayout from "../components/layout/ScreenLayout";
-import { ProtosQueryDocument } from "../graphql/generated";
-import useAuth from "../hooks/useAuth";
-import { getWrittenDateString } from "../utils/parsers";
-import Header from "../components/elements/Header/Header";
-import MemoDetailsSection from "../components/memo/MemoDetailsSection/MemoDetailsSection";
-import NoMemoDetailsSection from "../components/memo/NoMemoDetailsSection/NoMemoDetailsSection";
+import ScreenLayout from "@components/layout/ScreenLayout";
+import useAuth from "@hooks/useAuth";
+import Header from "@components/elements/Header/Header";
+import AdBanner from "@components/home/AdBanner/AdBanner";
+import MemoDetailsSection from "@components/memo/MemoDetailsSection/MemoDetailsSection";
+import { ProtosDocument } from "@graphql/generated";
+import { getWrittenDateString } from "@utils/parsers";
+import { useCallback } from "react";
+import useLocalQuery from "@hooks/useLocalQuery";
 
 export default function MemoScreen({ route }) {
-  const navigation = useNavigation();
-  const { userInfo } = useAuth();
-
   const {
     date: { dateString },
   } = route.params;
 
-  const { data, loading } = useQuery(ProtosQueryDocument, {
+  const navigation = useNavigation();
+
+  const { userInfo } = useAuth();
+
+  const {
+    data: localData,
+    loading: localLoading,
+    refetch,
+  } = useLocalQuery("proto");
+
+  const { data } = useQuery(ProtosDocument, {
     variables: {
       where: {
         userId: {
@@ -28,6 +36,8 @@ export default function MemoScreen({ route }) {
           equals: dateString,
         },
       },
+      integrationsTake: 3,
+      deezerTake: 3,
     },
   });
 
@@ -35,28 +45,47 @@ export default function MemoScreen({ route }) {
 
   const [memo] = data ? data?.protos : [];
 
-  const handleEdit =
-    !!memo &&
-    (() => {
-      console.log(memo);
+  const [localMemo] = localData;
 
-      navigation.navigate("CreateMemo" as any, {
-        date: { dateString, editData: memo },
+  const finalMemo = {
+    ...localMemo,
+    ...(memo && {
+      protoId: memo.id,
+      integrations: memo.integrations,
+      deezer: memo.deezer,
+      _count: memo._count,
+    }),
+  };
+
+  const handleEdit =
+    !!localMemo?.description &&
+    (() => {
+      navigation.navigate("CreateMemo", {
+        date: { dateString, editData: localMemo },
       });
     });
 
+  useFocusEffect(
+    useCallback(() => {
+      refetch({
+        where: {
+          dateString,
+        },
+      });
+    }, [])
+  );
+
   return (
-    <ScreenLayout>
+    <ScreenLayout divider={false}>
       <Header title={title} canGoBack onEdit={handleEdit} />
 
-      {!loading &&
-        (memo ? (
-          <MemoDetailsSection {...memo} />
-        ) : (
-          <NoMemoDetailsSection dateString={dateString} />
-        ))}
+      <AdBanner />
 
-      {loading && <LoaderScreen overlay />}
+      <MemoDetailsSection
+        dateString={dateString}
+        localLoading={localLoading}
+        {...(finalMemo as any)}
+      />
     </ScreenLayout>
   );
 }

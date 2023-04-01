@@ -1,30 +1,19 @@
-import { useState } from "react";
-import {
-  Colors,
-  Text,
-  LoaderScreen,
-  Incubator,
-  View,
-  Card,
-} from "react-native-ui-lib";
+import { useCallback, useEffect, useState } from "react";
+import { Colors, LoaderScreen, Incubator, View } from "react-native-ui-lib";
 import { CalendarList } from "react-native-calendars";
-import type { MarkedDates, DateData } from "react-native-calendars/src/types";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useFocusEffect } from "@react-navigation/native";
 const { Dialog } = Incubator;
+import type { MarkedDates, DateData } from "react-native-calendars/src/types";
 
-import {
-  GetMemoByDateStringDocument,
-  Proto,
-  ProtosQueryDocument,
-} from "../graphql/generated";
-import useAuth from "../hooks/useAuth";
-import { getTodayDateString } from "../utils/parsers";
-import Fade from "../components/elements/Fade/Fade";
-import CalendarDay from "../components/calendar/CalendarDay/CalendarDay";
+import useLocalQuery from "@hooks/useLocalQuery";
+import CalendarDay from "@components/calendar/CalendarDay/CalendarDay";
+import DialogCard from "@components/elements/DialogCard/DialogCard";
+import Fade from "@components/elements/Fade/Fade";
+import { getTodayDateString } from "@utils/parsers";
+import type { Proto } from "@graphql/generated";
 
 export default function CalendarScreen({ navigation }) {
-  const { userInfo } = useAuth();
-
+  const [isCalendarVisible, setIsCalendarVisible] = useState(false);
   const [isDialogVisible, setIsDialogVisible] = useState(false);
   const [dialogData, setDialogData] = useState<Proto | null>(null);
 
@@ -41,20 +30,11 @@ export default function CalendarScreen({ navigation }) {
     },
   };
 
-  const [getMemoByDate] = useLazyQuery(GetMemoByDateStringDocument);
+  const { data, loading, refetch } = useLocalQuery("proto");
 
-  const { data, loading } = useQuery(ProtosQueryDocument, {
-    variables: {
-      where: {
-        userId: {
-          equals: userInfo?.id,
-        },
-      },
-    },
-  });
+  const memos = data ? data : [];
 
-  // Reduce array into an object with dates as key
-  const markedDates = data.protos.reduce((acc, { dateString }) => {
+  const markedDates = memos.reduce((acc, { dateString }) => {
     const calendarOptions = {
       hasMemo: true,
     };
@@ -69,27 +49,45 @@ export default function CalendarScreen({ navigation }) {
     navigation.navigate("Memo", { date });
   };
 
-  const handleLongPress = async ({ dateString }: DateData) => {
+  const handleLongPress = async (date: DateData) => {
+    const memo = data.find(({ dateString }) => dateString === date.dateString);
+
+    if (!memo) {
+      navigation.navigate("Memo", { date });
+    }
+
     setIsDialogVisible(true);
-
-    const data = await getMemoByDate({
-      variables: {
-        dateString,
-      },
-    });
-
-    setDialogData(data.data.getMemoByDateString as Proto);
+    setDialogData(memo as unknown as Proto);
   };
 
-  if (loading) return <LoaderScreen overlay />;
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsCalendarVisible(true);
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  // Need to move this to reuse the logic
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [])
+  );
 
   return (
     <>
       <View bg-white>
-        <View marginT-48 paddingB-48>
+        <View
+          marginT-48
+          paddingB-48
+          style={{
+            opacity: isCalendarVisible ? 1 : 0,
+          }}
+        >
           <CalendarList
-            onDayPress={handleDayPress}
-            onDayLongPress={handleLongPress}
             maxDate={todayDateString}
             pastScrollRange={12}
             futureScrollRange={0}
@@ -109,27 +107,24 @@ export default function CalendarScreen({ navigation }) {
           />
           <Fade bottom />
         </View>
+
+        {(loading || !isCalendarVisible) && <LoaderScreen overlay />}
       </View>
+
       <Dialog
         visible={isDialogVisible}
         onDismiss={() => setIsDialogVisible(false)}
         containerStyle={{
           top: "40%",
-          width: "70%",
+          width: "80%",
         }}
       >
-        <Card padding-16 center>
-          {dialogData ? (
-            <>
-              <Text title>{dialogData.title}</Text>
-              <Text marginV-12 numberOfLines={7}>
-                {dialogData.description}
-              </Text>
-            </>
-          ) : (
-            <LoaderScreen />
-          )}
-        </Card>
+        {dialogData && (
+          <DialogCard
+            title={dialogData.title}
+            description={dialogData.description}
+          />
+        )}
       </Dialog>
     </>
   );

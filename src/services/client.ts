@@ -7,7 +7,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { API_URL } from "../config/constants";
+import { API_URL } from "@config/constants";
 
 const uri = `${API_URL}/graphql`;
 

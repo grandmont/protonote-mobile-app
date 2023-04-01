@@ -7,7 +7,7 @@ import type {
   AuthType,
   ThemeType,
 } from ".";
-import type { User } from "../../graphql/generated";
+import type { User } from "@graphql/generated";
 
 export const initialState: AuthContextStateType = {
   auth: null,

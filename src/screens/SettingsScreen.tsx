@@ -1,31 +1,17 @@
 import { useNavigation } from "@react-navigation/native";
-import { View, Button, Card, Text } from "react-native-ui-lib";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { View, Button } from "react-native-ui-lib";
 
-import ScreenLayout from "../components/layout/ScreenLayout";
-import Header from "../components/elements/Header/Header";
-import ScreenSection from "../components/layout/ScreenSection";
-// import Divider from "../components/elements/Divider/Divider";
-import useAuth from "../hooks/useAuth";
-import { BOTTOM_TAB_ICON_SIZE } from "../config/constants";
-
-const SettingsItem = ({ title, ...props }) => (
-  <Card padding-16 paddingV-20 {...props}>
-    <View row centerV spread>
-      <Text>{title}</Text>
-      <Ionicons
-        name="md-chevron-forward"
-        size={BOTTOM_TAB_ICON_SIZE}
-        style={{ marginRight: -6 }}
-      />
-    </View>
-  </Card>
-);
+import ScreenLayout from "@components/layout/ScreenLayout";
+import Header from "@components/elements/Header/Header";
+import ScreenSection from "@components/layout/ScreenSection";
+import useAuth from "@hooks/useAuth";
+import SettingsItem from "@components/elements/SettingsItem/SettingsItem";
 
 export default function SettingsScreen() {
   const title = "Settings";
 
   const navigation = useNavigation();
+
   const { logout } = useAuth();
 
   const navigateTo = (screen: string) => () => {
@@ -36,7 +22,7 @@ export default function SettingsScreen() {
     <ScreenLayout dividerSize="regular">
       <Header title={title} canGoBack />
 
-      {/* <ScreenSection title="Personal">
+      {/* <ScreenSection title="Account">
         <SettingsItem title="Notifications" />
         <SettingsItem title="Appearance" marginT-12 />
         <SettingsItem title="Language" marginT-12 />
@@ -45,9 +31,11 @@ export default function SettingsScreen() {
       <Divider size="small" /> */}
 
       <ScreenSection title="General">
+        <SettingsItem title="Account" onPress={navigateTo("Account")} />
         <SettingsItem
           title="Connected apps"
           onPress={navigateTo("Integrations")}
+          marginT-12
         />
         <SettingsItem
           title="About us"

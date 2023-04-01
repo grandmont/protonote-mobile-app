@@ -1,21 +1,21 @@
 import { Linking } from "react-native";
-import { Card, View, Colors, Image, Text } from "react-native-ui-lib";
-import Entypo from "@expo/vector-icons/Entypo";
+import { View, Colors, Image, Text, Button } from "react-native-ui-lib";
 
-import { PlaybackStateType } from "../../../../hooks/useSpotify";
-import { BOTTOM_TAB_ICON_SIZE } from "../../../../config/constants";
+import { SpotifyItem } from "@graphql/generated";
 
-export default function SpotifyCard(data: PlaybackStateType) {
+interface SpotifyCardProps extends SpotifyItem {
+  mode?: "default" | "light";
+}
+
+export default function SpotifyCard(props: SpotifyCardProps) {
   const {
-    item: {
-      name,
-      album: {
-        artists,
-        images,
-        external_urls: { spotify },
-      },
-    },
-  } = data;
+    name,
+    album: { artists, images },
+    external_urls: { spotify },
+    mode = "default",
+  } = props;
+
+  const isDefault = mode === "default";
 
   const [{ name: artistName }] = artists;
   const [, albumCover] = images;
@@ -28,38 +28,47 @@ export default function SpotifyCard(data: PlaybackStateType) {
     }
   };
 
-  return (
-    <Card
-      height={64}
-      style={{
-        backgroundColor: Colors.spotify,
-      }}
-      onPress={handleGoToSpotify}
-    >
-      <View row spread top>
-        <View row width="70%">
-          <Image
-            source={albumCover}
-            style={{
-              width: 64,
-              height: 64,
-              borderTopLeftRadius: 12,
-              borderBottomLeftRadius: 12,
-            }}
-          />
+  const backgroundColor = isDefault ? Colors.spotify : "white";
 
-          <View marginL-12 paddingT-6>
-            <Text color="white" title numberOfLines={1}>
-              {name}
-            </Text>
-            <Text color="white">{artistName}</Text>
+  const textColor = isDefault ? "white" : "black";
+
+  const cardBorderRadius = isDefault ? 12 : 0;
+
+  const borderRadius = isDefault && {
+    borderTopLeftRadius: 12,
+    borderBottomLeftRadius: 12,
+  };
+
+  return (
+    <Button onPress={handleGoToSpotify} link>
+      <View
+        height={64}
+        flex
+        style={{
+          backgroundColor,
+          borderRadius: cardBorderRadius,
+        }}
+      >
+        <View row spread top>
+          <View row width="70%">
+            <Image
+              source={{ uri: albumCover.url }}
+              style={{
+                width: 64,
+                height: 64,
+                ...borderRadius,
+              }}
+            />
+
+            <View marginL-12 paddingT-6>
+              <Text color={textColor} title numberOfLines={1}>
+                {name}
+              </Text>
+              <Text color={textColor}>{artistName}</Text>
+            </View>
           </View>
         </View>
-
-        <View padding-12>
-          <Entypo name="spotify" color="white" size={BOTTOM_TAB_ICON_SIZE} />
-        </View>
       </View>
-    </Card>
+    </Button>
   );
 }

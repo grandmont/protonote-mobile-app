@@ -2,9 +2,9 @@ import { View } from "react-native-ui-lib";
 import { TextInput } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import { BOTTOM_TAB_ICON_SIZE } from "../../../config/constants";
+import { BOTTOM_TAB_ICON_SIZE } from "@config/constants";
 
-const SearchBar = ({ searchPhrase, setSearchPhrase, inputAccessoryViewID }) => {
+const SearchBar = ({ searchPhrase, onChange, inputAccessoryViewID }) => {
   return (
     <View row centerV br100 marginB-12 width="100%" backgroundColor="#ededed">
       <View padding-12 paddingR-0>
@@ -13,7 +13,7 @@ const SearchBar = ({ searchPhrase, setSearchPhrase, inputAccessoryViewID }) => {
       <TextInput
         placeholder="Search"
         value={searchPhrase}
-        onChangeText={setSearchPhrase}
+        onChangeText={onChange}
         inputAccessoryViewID={inputAccessoryViewID}
         style={{
           // backgroundColor: "grey",

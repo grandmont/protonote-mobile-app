@@ -1,15 +1,47 @@
-import { Button } from "react-native";
-import { LoaderScreen } from "react-native-ui-lib";
+import { LoaderScreen, Text, View } from "react-native-ui-lib";
+import LottieView from "lottie-react-native";
 
-import ScreenLayout from "../components/layout/ScreenLayout";
-import useAuth from "../hooks/useAuth";
+import useAuth from "@hooks/useAuth";
+import usePlatform from "@hooks/usePlatform";
+import ScreenLayout from "@components/layout/ScreenLayout";
+import GoogleSignInButton from "@components/integrations/google/GoogleSignInButton/GoogleSignInButton";
+import AppleSignInButton from "@components/integrations/apple/AppleSignInButton/AppleSignInButton";
+import { AuthProvider } from "@graphql/generated";
 
 export default function AuthScreen() {
   const { login, isLoading } = useAuth();
 
+  const { isIOS } = usePlatform();
+
   return (
-    <ScreenLayout center>
-      <Button disabled={isLoading} title="Login" onPress={login} />
+    <ScreenLayout>
+      <View flex center>
+        <View center>
+          <Text text30M>Welcome</Text>
+          <Text sub>Please sign in to continue</Text>
+        </View>
+
+        <LottieView
+          autoPlay
+          style={{
+            width: "100%",
+          }}
+          source={require("../../assets/animations/Animation 10/drawkit-grape-animation-10-LOOP.json")}
+        />
+
+        <View marginT-48>
+          <GoogleSignInButton
+            disabled={isLoading}
+            onPress={() => login(AuthProvider.Google)}
+          />
+        </View>
+
+        {isIOS && (
+          <View marginT-12>
+            <AppleSignInButton onPress={() => login(AuthProvider.Apple)} />
+          </View>
+        )}
+      </View>
 
       {isLoading && <LoaderScreen overlay />}
     </ScreenLayout>

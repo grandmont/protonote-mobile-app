@@ -1,7 +1,8 @@
 import { useEffect } from "react";
+import Constants from "expo-constants";
+import { Platform } from "react-native";
 import * as WebBrowser from "expo-web-browser";
-import { useAuthRequest } from "expo-auth-session";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
 import { useMutation } from "@apollo/client";
 import { View, Text } from "react-native-ui-lib";
 import Entypo from "@expo/vector-icons/Entypo";
@@ -11,32 +12,37 @@ import {
   IntegrationsDocument,
   RegisterIntegrationDocument,
   SwapSpotifyCodeDocument,
-} from "../../../../graphql/generated";
-import { client } from "../../../../services/client";
-import SwitchItem from "../../../elements/SwitchItem/SwitchItem";
+} from "@graphql/generated";
+import { client } from "@services/client";
+import SwitchItem from "@components/elements/SwitchItem/SwitchItem";
+
+const SCHEME = Constants.manifest.scheme;
+const useProxy = Constants.appOwnership === "expo" && Platform.OS !== "web";
 
 WebBrowser.maybeCompleteAuthSession();
 
 const CLIENT_ID = "d685a786a97e467a937d302d52a3867f";
 
-// Endpoint
 const discovery = {
   authorizationEndpoint: "https://accounts.spotify.com/authorize",
   tokenEndpoint: "https://accounts.spotify.com/api/token",
 };
 
-interface SpotifyIntegrationProps {
-  hasSpotify: boolean;
-  onSuccess?: () => void;
-}
-
 export default function SpotifyIntegration({
-  hasSpotify,
+  hasIntegration,
+  onStart,
   onSuccess,
-}: SpotifyIntegrationProps) {
+  onCancel,
+}: IntegrationPropsType) {
   const [swapSpotifyCode] = useMutation(SwapSpotifyCodeDocument);
-
   const [registerIntegration] = useMutation(RegisterIntegrationDocument);
+
+  const redirectUri = useProxy
+    ? "exp://localhost:19000/--/"
+    : makeRedirectUri({
+        // For usage in bare and standalone
+        native: `${SCHEME}://redirect`,
+      });
 
   const [request, response, promptAsync] = useAuthRequest(
     {
@@ -44,26 +50,30 @@ export default function SpotifyIntegration({
       scopes: [
         "user-read-private",
         "user-read-email",
-        "playlist-modify-public",
         "user-read-playback-state",
+        "user-read-recently-played",
       ],
       usePKCE: false,
-      redirectUri: "exp://localhost:19000/--/",
+      redirectUri,
     },
     discovery
   );
 
   useEffect(() => {
+    if (["cancel", "dismiss", "error"].includes(response?.type)) {
+      return onCancel();
+    }
+
     if (response?.type === "success") {
       const persistAccessToken = async () => {
         const { code } = response.params;
 
         const swapResponse = await swapSpotifyCode({
-          variables: { input: { code } },
+          variables: { input: { code, redirectUri } },
         });
 
         if (!swapResponse || swapResponse.errors) {
-          console.log("swapResponse error");
+          console.log("swapResponse error:", swapResponse);
           // Deal with API error
           return;
         }
@@ -78,6 +88,7 @@ export default function SpotifyIntegration({
           variables: {
             input: {
               accessToken,
+              refreshToken,
               provider: IntegrationProvider.Spotify,
             },
           },
@@ -88,9 +99,6 @@ export default function SpotifyIntegration({
           // Deal with API error
           return;
         }
-
-        await AsyncStorage.setItem("spotify:accessToken", accessToken);
-        await AsyncStorage.setItem("spotify:refreshToken", refreshToken);
 
         client.refetchQueries({
           include: [IntegrationsDocument],
@@ -104,19 +112,19 @@ export default function SpotifyIntegration({
   }, [response]);
 
   const registerSpotifyIntegration = async () => {
-    if (hasSpotify) return;
-
+    if (hasIntegration) return;
+    onStart();
     await promptAsync();
   };
 
   return (
     <SwitchItem
       disabled={!request}
-      value={hasSpotify}
+      value={hasIntegration}
       onValueChange={registerSpotifyIntegration}
     >
       <View row centerV>
-        <Entypo name="spotify" size={36} />
+        <Entypo name="spotify" size={24} />
         <Text marginL-12 title>
           Spotify
         </Text>

@@ -1,13 +1,15 @@
 import { useQuery } from "@apollo/client";
+
 import {
   Integration,
   IntegrationProvider,
   IntegrationsDocument,
-} from "../graphql/generated";
-import useAuth from "./useAuth";
+} from "@graphql/generated";
+import useAuth from "@hooks/useAuth";
 
 type IntegrationsMap = {
   spotifyIntegration?: Integration;
+  deezerIntegration?: Integration;
 };
 
 export default function useIntegrations() {
@@ -17,7 +19,7 @@ export default function useIntegrations() {
     variables: {
       where: {
         userId: {
-          equals: userInfo.id,
+          equals: userInfo?.id,
         },
       },
     },
@@ -31,6 +33,12 @@ export default function useIntegrations() {
         return {
           ...acc,
           spotifyIntegration: cur,
+        };
+
+      if (cur.provider === IntegrationProvider.Deezer)
+        return {
+          ...acc,
+          deezerIntegration: cur,
         };
 
       return {

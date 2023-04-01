@@ -1,7 +1,6 @@
-import { useLazyQuery } from "@apollo/client";
 import { DateData } from "react-native-calendars";
 import { DayProps } from "react-native-calendars/src/calendar/day";
-import { View, Button, Text, Colors, Dialog } from "react-native-ui-lib";
+import { View, Button, Text, Colors } from "react-native-ui-lib";
 
 interface CalendarDayProps {
   date?: DateData;
@@ -22,18 +21,19 @@ export default function CalendarDay(props: DayProps & CalendarDayProps) {
   const todayStyle = isToday && {
     container: {},
     text: {
-      color: Colors.primary,
+      color: Colors.link,
       fontWeight: "bold",
     },
   };
 
-  const markedStyle = isMarked && {
-    container: {
-      borderBottomWidth: 4,
-      borderColor: Colors.primary,
-    },
-    text: {},
-  };
+  const markedStyle = !isToday &&
+    isMarked && {
+      container: {
+        borderBottomWidth: 4,
+        borderColor: Colors.link,
+      },
+      text: {},
+    };
 
   const disabledStyle = isDisabled && {
     container: {},
@@ -57,6 +57,7 @@ export default function CalendarDay(props: DayProps & CalendarDayProps) {
           link
           onPress={handleDayPress}
           onLongPress={handleDayLongPress}
+          hitSlop={4}
           style={{
             width: 30,
             height: 30,
@@ -76,7 +77,6 @@ export default function CalendarDay(props: DayProps & CalendarDayProps) {
           >
             {date.day}
           </Text>
-          {/* <Text>{state}</Text> */}
         </Button>
       </View>
     </>

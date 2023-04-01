@@ -1,0 +1,6 @@
+query FindManyIntegrationData($where: IntegrationDataWhereInput) {
+  findManyIntegrationData(where: $where) {
+    id
+    data
+  }
+}

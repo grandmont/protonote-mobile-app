@@ -1,7 +1,13 @@
 import { InputAccessoryView, Keyboard } from "react-native";
 import { Button, View } from "react-native-ui-lib";
 
+import usePlatform from "@hooks/usePlatform";
+
 export default function KeyboardAccessoryView({ nativeId }) {
+  const { isAndroid } = usePlatform();
+
+  if (isAndroid) return null;
+
   return (
     <InputAccessoryView nativeID={nativeId}>
       <View

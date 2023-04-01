@@ -2,19 +2,22 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import TabBar from "../components/layout/TabBar";
+import TabBar from "@components/layout/TabBar";
 
 // Screens
-import HomeScreen from "../screens/HomeScreen";
-import SearchScreen from "../screens/SearchScreen";
-import CalendarScreen from "../screens/CalendarScreen";
-import AnalyticsScreen from "../screens/AnalyticsScreen";
-import CreateMemoScreen from "../screens/CreateMemoScreen";
-import MemoScreen from "../screens/MemoScreen";
-import NotificationsScreen from "../screens/NotificationsScreen";
-import SettingsScreen from "../screens/SettingsScreen";
-import IntegrationsScreen from "../screens/IntegrationsScreen";
-import AboutUsScreen from "../screens/AboutUsScreen";
+import HomeScreen from "@screens/HomeScreen";
+import SearchScreen from "@screens/SearchScreen";
+import CalendarScreen from "@screens/CalendarScreen";
+import AnalyticsScreen from "@screens/AnalyticsScreen";
+import CreateMemoScreen from "@screens/CreateMemoScreen";
+import MemoScreen from "@screens/MemoScreen";
+import NotificationsScreen from "@screens/NotificationsScreen";
+import SettingsScreen from "@screens/SettingsScreen";
+import IntegrationsScreen from "@screens/IntegrationsScreen";
+import AboutUsScreen from "@screens/AboutUsScreen";
+import IntegrationDataScreen from "@screens/IntegrationDataScreen";
+import AccountScreen from "@screens/AccountScreen";
+import DeleteAccountScreen from "@screens/DeleteAccountScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -45,7 +48,6 @@ function TabNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        lazy: false,
       }}
     >
       {tabs.map(({ icon, ...props }) => (
@@ -83,8 +85,11 @@ export default function AppNavigator() {
       <Stack.Screen name="Memo" component={MemoScreen} />
       <Stack.Screen name="Notifications" component={NotificationsScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="IntegrationData" component={IntegrationDataScreen} />
+      <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
 
       {/* Settings */}
+      <Stack.Screen name="Account" component={AccountScreen} />
       <Stack.Screen name="Integrations" component={IntegrationsScreen} />
       <Stack.Screen name="AboutUs" component={AboutUsScreen} />
     </Stack.Navigator>
