@@ -73,7 +73,7 @@ export default function DeezerIntegration({
     registerIntegration();
   }, [response]);
 
-  const registerDeezerIntegration = async () => {
+  const prompt = async () => {
     if (hasIntegration) return;
     onStart();
     await promptAsync();
@@ -83,10 +83,10 @@ export default function DeezerIntegration({
     <SwitchItem
       disabled={!request}
       value={hasIntegration}
-      onValueChange={registerDeezerIntegration}
+      onValueChange={prompt}
     >
       <View row centerV>
-        <FontAwesome5 name="deezer" size={24} color="black" />
+        <FontAwesome5 name="deezer" size={24} />
         <Text marginL-12 title>
           Deezer
         </Text>

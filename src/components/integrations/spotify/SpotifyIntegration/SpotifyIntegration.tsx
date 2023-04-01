@@ -111,7 +111,7 @@ export default function SpotifyIntegration({
     }
   }, [response]);
 
-  const registerSpotifyIntegration = async () => {
+  const prompt = async () => {
     if (hasIntegration) return;
     onStart();
     await promptAsync();
@@ -121,7 +121,7 @@ export default function SpotifyIntegration({
     <SwitchItem
       disabled={!request}
       value={hasIntegration}
-      onValueChange={registerSpotifyIntegration}
+      onValueChange={prompt}
     >
       <View row centerV>
         <Entypo name="spotify" size={24} />

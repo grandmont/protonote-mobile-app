@@ -8,6 +8,7 @@ import Header from "@components/elements/Header/Header";
 import SpotifyIntegration from "@components/integrations/spotify/SpotifyIntegration/SpotifyIntegration";
 import DeezerIntegration from "@components/integrations/deezer/DeezerIntegration/DeezerIntegration";
 import { IntegrationProvider } from "@graphql/generated";
+import YouTubeIntegration from "@components/integrations/youtube/YouTubeIntegration/YouTubeIntegration";
 
 export default function IntegrationsScreen() {
   const title = "Integrations";
@@ -45,15 +46,22 @@ export default function IntegrationsScreen() {
 
       <SpotifyIntegration
         hasIntegration={!!spotifyIntegration}
-        onStart={handleStart}
         onSuccess={() => handleSuccess(IntegrationProvider.Spotify)}
+        onStart={handleStart}
         onCancel={handleCancel}
       />
 
       <DeezerIntegration
         hasIntegration={!!deezerIntegration}
-        onStart={handleStart}
         onSuccess={() => handleSuccess(IntegrationProvider.Deezer)}
+        onStart={handleStart}
+        onCancel={handleCancel}
+      />
+
+      <YouTubeIntegration
+        hasIntegration={false}
+        onSuccess={() => null}
+        onStart={handleStart}
         onCancel={handleCancel}
       />
 
