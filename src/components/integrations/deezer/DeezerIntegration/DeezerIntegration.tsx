@@ -19,7 +19,7 @@ const DEEZER_REDIRECT_URL =
   "https://protonote-api-production.up.railway.app/deezer";
 
 const discovery = {
-  authorizationEndpoint: `https://connect.deezer.com/oauth/auth.php?app_id=${DEEZER_APP_ID}&redirect_uri=${DEEZER_REDIRECT_URL}&perms=basic_access,email,listening_history,offline_access`,
+  authorizationEndpoint: `https://connect.deezer.com/oauth/auth.php?app_id=${DEEZER_APP_ID}&redirect_uri=${DEEZER_REDIRECT_URL}&perms=basic_access,listening_history,offline_access,email`,
 };
 
 export default function DeezerIntegration({
@@ -46,7 +46,7 @@ export default function DeezerIntegration({
 
     const deezerResponse = response as any;
 
-    if (deezerResponse?.error && !deezerResponse?.params) {
+    if (deezerResponse?.error && !deezerResponse?.params?.accessToken) {
       return onCancel();
     }
 

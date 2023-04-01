@@ -1,6 +1,6 @@
 {
   "name": "protonote-mobile-app",
-  "version": "1.2",
+  "version": "1.2.1",
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",

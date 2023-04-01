@@ -1,7 +1,11 @@
 query Protos($where: ProtoWhereInput, $integrationsTake: Int, $deezerTake: Int) {
   protos(where: $where) {
     id
+    title
+    description
     dateString
+    createdAt
+    updatedAt
     integrations(take: $integrationsTake) {
       integrationData {
         id
