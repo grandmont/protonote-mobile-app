@@ -9,6 +9,7 @@ query Protos($where: ProtoWhereInput, $integrationsTake: Int, $deezerTake: Int) 
     integrations(take: $integrationsTake) {
       integrationData {
         id
+        data
       }
     }
     deezer(take: $deezerTake) {
