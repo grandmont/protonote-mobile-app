@@ -9,6 +9,7 @@ import useAuth from "@hooks/useAuth";
 
 type IntegrationsMap = {
   spotifyIntegration?: Integration;
+  deezerIntegration?: Integration;
 };
 
 export default function useIntegrations() {
@@ -32,6 +33,12 @@ export default function useIntegrations() {
         return {
           ...acc,
           spotifyIntegration: cur,
+        };
+
+      if (cur.provider === IntegrationProvider.Deezer)
+        return {
+          ...acc,
+          deezerIntegration: cur,
         };
 
       return {

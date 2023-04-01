@@ -7,6 +7,7 @@ import SpotifyCard from "@components/integrations/spotify/SpotifyCard/SpotifyCar
 import {
   IntegrationData,
   IntegrationDataOnProtos,
+  IntegrationProvider,
   SpotifyItem,
 } from "@graphql/generated";
 
@@ -31,6 +32,7 @@ export default function SpotifyMemo({
     navigation.navigate("IntegrationData", {
       title: "Spotify",
       protoId,
+      provider: IntegrationProvider.Spotify,
     });
   };
 

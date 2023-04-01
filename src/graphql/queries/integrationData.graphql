@@ -1,4 +1,4 @@
-query GetIntegrationData($where: IntegrationDataWhereInput) {
+query FindManyIntegrationData($where: IntegrationDataWhereInput) {
   findManyIntegrationData(where: $where) {
     id
     data

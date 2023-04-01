@@ -1,6 +1,5 @@
-type ListItemType<T> = {
-  spacing?: boolean;
-} & Partial<T>;
+import type { IntegrationProvider } from "@graphql/generated";
+import type { DeezerItemInterface, IntegrationProps } from "./integrations";
 
 type MemoDateType = {
   date: {
@@ -15,6 +14,7 @@ type MemoDateType = {
 type IntegrationDataType = {
   title: string;
   protoId: number;
+  provider: IntegrationProvider;
 };
 
 export type RootStackParamList = {
@@ -46,4 +46,8 @@ declare global {
   type ListItemType<T> = {
     spacing?: boolean;
   } & Partial<T>;
+
+  type IntegrationPropsType = IntegrationProps;
+
+  type DeezerItemType = DeezerItemInterface;
 }

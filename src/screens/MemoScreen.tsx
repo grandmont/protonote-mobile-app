@@ -37,6 +37,7 @@ export default function MemoScreen({ route }) {
         },
       },
       integrationsTake: 3,
+      deezerTake: 3,
     },
   });
 
@@ -51,6 +52,7 @@ export default function MemoScreen({ route }) {
     ...(memo && {
       protoId: memo.id,
       integrations: memo.integrations,
+      deezer: memo.deezer,
       _count: memo._count,
     }),
   };

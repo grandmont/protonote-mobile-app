@@ -3,7 +3,6 @@ import Constants from "expo-constants";
 import { Platform } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation } from "@apollo/client";
 import { View, Text } from "react-native-ui-lib";
 import Entypo from "@expo/vector-icons/Entypo";
@@ -24,23 +23,18 @@ WebBrowser.maybeCompleteAuthSession();
 
 const CLIENT_ID = "d685a786a97e467a937d302d52a3867f";
 
-// Endpoint
 const discovery = {
   authorizationEndpoint: "https://accounts.spotify.com/authorize",
   tokenEndpoint: "https://accounts.spotify.com/api/token",
 };
 
-interface SpotifyIntegrationProps {
-  hasSpotify: boolean;
-  onSuccess?: () => void;
-}
-
 export default function SpotifyIntegration({
-  hasSpotify,
+  hasIntegration,
+  onStart,
   onSuccess,
-}: SpotifyIntegrationProps) {
+  onCancel,
+}: IntegrationPropsType) {
   const [swapSpotifyCode] = useMutation(SwapSpotifyCodeDocument);
-
   const [registerIntegration] = useMutation(RegisterIntegrationDocument);
 
   const redirectUri = useProxy
@@ -56,7 +50,6 @@ export default function SpotifyIntegration({
       scopes: [
         "user-read-private",
         "user-read-email",
-        "playlist-modify-public",
         "user-read-playback-state",
         "user-read-recently-played",
       ],
@@ -67,6 +60,10 @@ export default function SpotifyIntegration({
   );
 
   useEffect(() => {
+    if (["cancel", "dismiss", "error"].includes(response?.type)) {
+      return onCancel();
+    }
+
     if (response?.type === "success") {
       const persistAccessToken = async () => {
         const { code } = response.params;
@@ -75,10 +72,8 @@ export default function SpotifyIntegration({
           variables: { input: { code, redirectUri } },
         });
 
-        console.log("swapResponse", swapResponse);
-
         if (!swapResponse || swapResponse.errors) {
-          console.log("swapResponse error");
+          console.log("swapResponse error:", swapResponse);
           // Deal with API error
           return;
         }
@@ -105,9 +100,6 @@ export default function SpotifyIntegration({
           return;
         }
 
-        await AsyncStorage.setItem("spotify:accessToken", accessToken);
-        await AsyncStorage.setItem("spotify:refreshToken", refreshToken);
-
         client.refetchQueries({
           include: [IntegrationsDocument],
         });
@@ -120,15 +112,15 @@ export default function SpotifyIntegration({
   }, [response]);
 
   const registerSpotifyIntegration = async () => {
-    if (hasSpotify) return;
-
+    if (hasIntegration) return;
+    onStart();
     await promptAsync();
   };
 
   return (
     <SwitchItem
       disabled={!request}
-      value={hasSpotify}
+      value={hasIntegration}
       onValueChange={registerSpotifyIntegration}
     >
       <View row centerV>

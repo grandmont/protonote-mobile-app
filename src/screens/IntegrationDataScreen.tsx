@@ -5,12 +5,22 @@ import ScreenLayout from "@components/layout/ScreenLayout";
 import Header from "@components/elements/Header/Header";
 import SpotifyList from "@components/integrations/spotify/SpotifyList/SpotifyList";
 import Fade from "@components/elements/Fade/Fade";
-import { GetIntegrationDataDocument } from "@graphql/generated";
+import {
+  FindManyDeezerDataDocument,
+  FindManyIntegrationDataDocument,
+  IntegrationProvider,
+} from "@graphql/generated";
+import DeezerList from "@components/integrations/deezer/DeezerList/DeezerList";
 
 export default function IntegrationDataScreen({ route }) {
-  const { title, protoId } = route.params;
+  const { title, protoId, provider } = route.params;
 
-  const { data, loading } = useQuery(GetIntegrationDataDocument, {
+  const integrationQuery = {
+    [IntegrationProvider.Spotify]: FindManyIntegrationDataDocument,
+    [IntegrationProvider.Deezer]: FindManyDeezerDataDocument,
+  }[provider];
+
+  const { data, loading } = useQuery(integrationQuery, {
     variables: {
       where: {
         protos: {
@@ -24,18 +34,24 @@ export default function IntegrationDataScreen({ route }) {
     },
   });
 
-  const integrationData = data ? data?.findManyIntegrationData : [];
+  const listData = data
+    ? {
+        [IntegrationProvider.Spotify]: data?.findManyIntegrationData,
+        [IntegrationProvider.Deezer]: data?.findManyDeezerData,
+      }[provider]
+    : [];
+
+  const ListComponent = {
+    [IntegrationProvider.Spotify]: SpotifyList,
+    [IntegrationProvider.Deezer]: DeezerList,
+  }[provider];
 
   return (
     <ScreenLayout divider={false}>
       <Header title={title} canGoBack />
 
       {/* Skeleton would be nice here */}
-      {loading ? (
-        <LoaderScreen overlay />
-      ) : (
-        <SpotifyList data={integrationData} />
-      )}
+      {loading ? <LoaderScreen overlay /> : <ListComponent data={listData} />}
 
       <Fade bottom />
     </ScreenLayout>

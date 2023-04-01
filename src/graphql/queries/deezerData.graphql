@@ -1,0 +1,6 @@
+query FindManyDeezerData($where: DeezerDataWhereInput) {
+  findManyDeezerData(where: $where) {
+    id
+    data
+  }
+}

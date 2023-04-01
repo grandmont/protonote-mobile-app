@@ -1,20 +1,21 @@
-query Protos($where: ProtoWhereInput, $integrationsTake: Int = 0) {
+query Protos($where: ProtoWhereInput, $integrationsTake: Int, $deezerTake: Int) {
   protos(where: $where) {
     id
-    title
-    description
     dateString
-    createdAt
-    updatedAt
-
     integrations(take: $integrationsTake) {
       integrationData {
+        id
+      }
+    }
+    deezer(take: $deezerTake) {
+      deezerData {
         id
         data
       }
     }
     _count {
       integrations
+      deezer
     }
   }
 }

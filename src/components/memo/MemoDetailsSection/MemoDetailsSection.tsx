@@ -6,6 +6,7 @@ import ScreenSection from "@components/layout/ScreenSection";
 import SpotifyMemo from "@components/integrations/spotify/SpotifyMemo/SpotifyMemo";
 import CreateMemoButton from "@components/elements/CreateMemoButton/CreateMemoButton";
 import { Proto } from "@graphql/generated";
+import DeezerMemo from "@components/integrations/deezer/DeezerMemo/DeezerMemo";
 
 interface MemoDetailsSectionProps extends Partial<Proto> {
   protoId: number;
@@ -17,8 +18,8 @@ export default function MemoDetailsSection({
   description,
   dateString,
   integrations = [],
+  deezer = [],
   _count,
-
   protoId,
   localLoading,
 }: MemoDetailsSectionProps) {
@@ -56,6 +57,10 @@ export default function MemoDetailsSection({
           integrations={integrations}
           count={_count.integrations}
         />
+      )}
+
+      {deezer.length > 0 && (
+        <DeezerMemo protoId={protoId} deezer={deezer} count={_count.deezer} />
       )}
 
       <Divider size="huge" />

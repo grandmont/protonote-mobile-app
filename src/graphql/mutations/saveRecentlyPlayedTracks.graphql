@@ -1,5 +1,0 @@
-mutation SaveRecentlyPlayedTracks($input: SpotifyInput!) {
-  saveRecentlyPlayedTracks(input: $input) {
-     accessToken
-  }
-}

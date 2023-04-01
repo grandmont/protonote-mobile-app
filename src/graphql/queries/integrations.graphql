@@ -1,7 +1,6 @@
 query Integrations($where: IntegrationWhereInput) {
   integrations(where: $where) {
     id
-    externalId
     provider
     status
   }
