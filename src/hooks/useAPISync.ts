@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import * as Localization from "expo-localization";
 
 import { client } from "@services/client";
@@ -12,6 +12,7 @@ import {
   UpdateProtoMutationDocument,
   ProtosDocument,
   UpdateDeviceDocument,
+  LogDocument,
 } from "@graphql/generated";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -19,6 +20,8 @@ export default function useAPISync() {
   const [createMemo] = useMutation(CreateProtoMutationDocument);
   const [updateMemo] = useMutation(UpdateProtoMutationDocument);
   const [updateDevice] = useMutation(UpdateDeviceDocument);
+
+  const [log] = useLazyQuery(LogDocument);
 
   const storeUserData = async ({ id }) => {
     const { data } = await client.query({
@@ -130,5 +133,6 @@ export default function useAPISync() {
   return {
     storeUserData,
     syncAPI,
+    log,
   };
 }

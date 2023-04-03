@@ -6,11 +6,13 @@ import {
 import { View } from "react-native-ui-lib";
 
 import usePlatform from "@hooks/usePlatform";
-
+import useAPISync from "@hooks/useAPISync";
 import { IOS_BANNER_ID, ANDROID_BANNER_ID } from "@config/constants";
 
 export default function AdBanner() {
   const { isIOS } = usePlatform();
+
+  const { log } = useAPISync();
 
   const adUnitId = __DEV__
     ? TestIds.BANNER
@@ -27,6 +29,13 @@ export default function AdBanner() {
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
+        }}
+        onAdFailedToLoad={async (error) => {
+          await log({
+            variables: {
+              message: error.message,
+            },
+          });
         }}
       />
     </View>

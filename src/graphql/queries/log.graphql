@@ -1,0 +1,8 @@
+query Log($message: String!) {
+  log(message: $message) {
+    message
+    user {
+      id
+    }
+  }
+}
