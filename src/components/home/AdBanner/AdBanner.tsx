@@ -1,4 +1,3 @@
-import { Dimensions } from "react-native";
 import { View } from "react-native-ui-lib";
 import {
   BannerAd,
@@ -21,19 +20,17 @@ export default function AdBanner() {
     ? IOS_BANNER_ID
     : ANDROID_BANNER_ID;
 
-  const marginLeft = isIOS ? -18 : 0;
-
-  const containerStyle = {
-    marginLeft,
-    width: Dimensions.get("screen").width,
-    height: 50,
-  };
-
   return (
-    <View marginB-24 style={containerStyle}>
+    <View
+      marginB-24
+      style={{
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
       <BannerAd
         unitId={adUnitId}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+        size={BannerAdSize.BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
