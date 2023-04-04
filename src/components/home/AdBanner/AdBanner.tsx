@@ -1,9 +1,10 @@
+import { Dimensions } from "react-native";
+import { View } from "react-native-ui-lib";
 import {
   BannerAd,
   TestIds,
   BannerAdSize,
 } from "react-native-google-mobile-ads";
-import { View } from "react-native-ui-lib";
 
 import usePlatform from "@hooks/usePlatform";
 import useAPISync from "@hooks/useAPISync";
@@ -22,8 +23,14 @@ export default function AdBanner() {
 
   const marginLeft = isIOS ? -18 : 0;
 
+  const containerStyle = {
+    marginLeft,
+    width: Dimensions.get("screen").width,
+    height: 50,
+  };
+
   return (
-    <View marginB-24 style={{ marginLeft }}>
+    <View marginB-24 style={containerStyle}>
       <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}

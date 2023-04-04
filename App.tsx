@@ -25,7 +25,7 @@ export default function App() {
       await db.initialize();
     }
 
-    mobileAds().initialize();
+    await mobileAds().initialize();
 
     persistCache({
       cache,
