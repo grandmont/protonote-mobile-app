@@ -6,9 +6,10 @@ import Header from "@components/elements/Header/Header";
 import ScreenSection from "@components/layout/ScreenSection";
 import useAuth from "@hooks/useAuth";
 import SettingsItem from "@components/elements/SettingsItem/SettingsItem";
+import i18n from "@i18n";
 
 export default function SettingsScreen() {
-  const title = "Settings";
+  const title = i18n.t("settings.title");
 
   const navigation = useNavigation();
 
@@ -30,15 +31,18 @@ export default function SettingsScreen() {
 
       <Divider size="small" /> */}
 
-      <ScreenSection title="General">
-        <SettingsItem title="Account" onPress={navigateTo("Account")} />
+      <ScreenSection title={i18n.t("settings.general.sectionTitle")}>
         <SettingsItem
-          title="Connected apps"
+          title={i18n.t("settings.general.account")}
+          onPress={navigateTo("Account")}
+        />
+        <SettingsItem
+          title={i18n.t("settings.general.connectedApps")}
           onPress={navigateTo("Integrations")}
           marginT-12
         />
         <SettingsItem
-          title="About us"
+          title={i18n.t("settings.general.aboutUs")}
           onPress={navigateTo("AboutUs")}
           marginT-12
         />

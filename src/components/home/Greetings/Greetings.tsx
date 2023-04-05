@@ -6,6 +6,7 @@ import useAuth from "@hooks/useAuth";
 import Header from "@components/elements/Header/Header";
 import { getTimeRangeGreetings } from "@utils/parsers";
 import { BOTTOM_TAB_ICON_SIZE } from "@config/constants";
+import i18n from "@i18n";
 
 export default function Greetings() {
   const navigation = useNavigation();
@@ -19,8 +20,10 @@ export default function Greetings() {
     navigation.navigate("Settings");
   };
 
-  const title = userInfo?.name ? `Hey, ${userInfo?.name}!` : "Hello!";
-  const description = `Good ${getTimeRangeGreetings()}`;
+  const title = userInfo?.name
+    ? `${i18n.t("home.greetings.hi")}, ${userInfo?.name}!`
+    : `${i18n.t("home.greetings.hello")}!`;
+  const description = getTimeRangeGreetings();
   const avatar = userInfo?.picture;
 
   return (

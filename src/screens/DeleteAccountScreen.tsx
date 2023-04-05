@@ -17,9 +17,10 @@ import {
   DeleteAccountDocument,
   GetUserStatisticsDocument,
 } from "@graphql/generated";
+import i18n from "@i18n";
 
 export default function DeleteAccountScreen() {
-  const title = "Delete account";
+  const title = i18n.t("deleteAccount.title");
 
   const [error, setError] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -57,12 +58,19 @@ export default function DeleteAccountScreen() {
     }
   };
 
+  // Perhaps we can create a hook?
+  const isPortuguese = ["pt-BR", "pt"].includes(i18n.locale);
+
   const memos = data?.user._count.protos;
-  const memosString = `${memos} memo${memos > 1 ? "s" : ""} will be deleted.`;
+  const memosString = `${memos} memo${memos > 1 ? "s" : ""} ${i18n.t(
+    "deleteAccount.info.willBeDeleted"
+  )}`;
   const integrations = data?.user._count.integrations;
-  const integrationsString = `${integrations} third-party integration${
-    integrations > 1 ? "s" : ""
-  } will be removed.`;
+  const integrationsString = `${integrations} ${i18n.t(
+    "deleteAccount.info.integrations"
+  )}${integrations > 1 ? "s" : ""} ${i18n.t(
+    "deleteAccount.info.willBeRemoved"
+  )}`;
 
   return (
     <ScreenLayout>
@@ -70,10 +78,14 @@ export default function DeleteAccountScreen() {
 
       <View flex center>
         <View center>
-          {!!memos && <Text title>{memosString}</Text>}
-          {!!integrations && <Text title>{integrationsString}</Text>}
+          {!isPortuguese && (
+            <>
+              {!!memos && <Text title>{memosString}</Text>}
+              {!!integrations && <Text title>{integrationsString}</Text>}
+            </>
+          )}
           <Text h2 marginT-24>
-            Are you sure?
+            {i18n.t("deleteAccount.areYouSure")}
           </Text>
         </View>
 
@@ -87,7 +99,7 @@ export default function DeleteAccountScreen() {
         />
 
         <Button
-          label="I want to delete my account!"
+          label={i18n.t("deleteAccount.iWantToDelete")}
           backgroundColor="red"
           disabled={isDeleting}
           onPress={handleDeleteAccount}
@@ -98,7 +110,8 @@ export default function DeleteAccountScreen() {
       <Toast
         visible={!!error}
         position="top"
-        message={`Something went wrong!\n Please try again later.`}
+        preset="failure"
+        message={i18n.t("common.info.somethingWentWrong")}
         centerMessage
         autoDismiss={5000}
         onDismiss={() => setError(null)}

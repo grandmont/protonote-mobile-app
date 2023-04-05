@@ -7,9 +7,10 @@ import ScreenLayout from "@components/layout/ScreenLayout";
 import Header from "@components/elements/Header/Header";
 import SettingsItem from "@components/elements/SettingsItem/SettingsItem";
 import DialogCard from "@components/elements/DialogCard/DialogCard";
+import i18n from "@i18n";
 
 export default function AccountScreen() {
-  const title = "Account";
+  const title = i18n.t("settings.general.account");
 
   const [isDialogVisible, setIsDialogVisible] = useState(false);
 
@@ -33,7 +34,7 @@ export default function AccountScreen() {
       <Header title={title} canGoBack />
 
       <SettingsItem
-        title="Delete account"
+        title={i18n.t("account.deleteAccount")}
         onPress={handleShowDialog}
         mode="danger"
         hasNext={false}
@@ -48,17 +49,17 @@ export default function AccountScreen() {
         }}
       >
         <DialogCard
-          title="Delete account"
+          title={i18n.t("account.deleteAccount")}
           description={
             <View marginT-12>
               <Text center marginB-12>
-                Are you sure you want to delete{`\n`}your account?
+                {i18n.t("account.dialog.title")}
               </Text>
               <Text marginB-12 center>
-                You are going to lose all your memos!
+                {i18n.t("account.dialog.warning")}
               </Text>
               <Text text80BO marginB-12 center>
-                This action is irreversible!
+                {i18n.t("account.dialog.warning2")}
               </Text>
 
               <ActionBar
@@ -66,13 +67,13 @@ export default function AccountScreen() {
                 keepRelative
                 actions={[
                   {
-                    label: "Cancel",
+                    label: i18n.t("common.actions.cancel"),
                     onPress: handleCancel,
                     color: "white",
                     link: false,
                   },
                   {
-                    label: "Delete",
+                    label: i18n.t("common.actions.delete"),
                     onPress: handleGoToDeleteAccount,
                     color: "red",
                   },

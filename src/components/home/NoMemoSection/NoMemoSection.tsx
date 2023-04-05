@@ -2,11 +2,12 @@ import { View, Text } from "react-native-ui-lib";
 import LottieView from "lottie-react-native";
 
 import CreateMemoButton from "@components/elements/CreateMemoButton/CreateMemoButton";
+import i18n from "@i18n";
 
 export default function NoMemoSection({ editData }) {
   return (
     <View flex center bottom paddingB-24>
-      <Text h2>How was your day?</Text>
+      <Text h2>{i18n.t("home.memo.howWasYourDay")}</Text>
 
       <LottieView
         autoPlay
@@ -18,10 +19,13 @@ export default function NoMemoSection({ editData }) {
       />
 
       <Text p marginB-24 center>
-        Add today's memo and keep{"\n"}tracking your progress!
+        {i18n.t("home.memo.addTodaysMemo")}
       </Text>
 
-      <CreateMemoButton label="Let's do it" editData={editData} />
+      <CreateMemoButton
+        label={i18n.t("home.memo.letsDoIt")}
+        editData={editData}
+      />
     </View>
   );
 }

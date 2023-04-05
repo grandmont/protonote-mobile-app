@@ -3,9 +3,10 @@ import LottieView from "lottie-react-native";
 
 import ScreenLayout from "@components/layout/ScreenLayout";
 import Header from "@components/elements/Header/Header";
+import i18n from "@i18n";
 
 export default function NotificationsScreen() {
-  const title = "Notifications";
+  const title = i18n.t("notifications.title");
 
   return (
     <ScreenLayout>
@@ -13,7 +14,7 @@ export default function NotificationsScreen() {
 
       <View flex center>
         <Text title marginB-12>
-          No notifications yet
+          {i18n.t("notifications.noNotificationsYet")}
         </Text>
 
         <LottieView
@@ -25,10 +26,9 @@ export default function NotificationsScreen() {
           source={require("../../assets/animations/Animation 06/drawkit-grape-animation-6-LOOP.json")}
         />
 
-        <Text
-          center
-          marginT-12
-        >{`When you get notifications,\nthey'll show up here`}</Text>
+        <Text p center marginT-12>
+          {i18n.t("notifications.description")}
+        </Text>
       </View>
     </ScreenLayout>
   );

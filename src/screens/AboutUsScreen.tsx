@@ -5,9 +5,10 @@ import Constants from "expo-constants";
 
 import ScreenLayout from "@components/layout/ScreenLayout";
 import Header from "@components/elements/Header/Header";
+import i18n from "@i18n";
 
 export default function AboutUsScreen() {
-  const title = "About us";
+  const title = i18n.t("settings.general.aboutUs");
 
   return (
     <ScreenLayout>
@@ -26,7 +27,9 @@ export default function AboutUsScreen() {
           Beememo
         </Text>
 
-        <Text marginB-12>version {Constants.manifest.version}</Text>
+        <Text marginB-12>
+          {i18n.t("aboutUs.version")} {Constants.manifest.version}
+        </Text>
 
         <Text center marginB-12>
           © 2023 Grandmont. All rights reserved

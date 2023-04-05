@@ -1,19 +1,20 @@
 import moment from "moment";
 
 import { DATE_FORMAT } from "@config/constants";
+import i18n from "@i18n";
 
 export const getTimeRangeGreetings = () => {
   const hour = moment().hour();
 
   if (hour > 18) {
-    return "evening";
+    return i18n.t("home.greetings.evening");
   }
 
   if (hour > 12) {
-    return "afternoon";
+    return i18n.t("home.greetings.afternoon");
   }
 
-  return "morning";
+  return i18n.t("home.greetings.morning");
 };
 
 export const formatDateToDateString = (date: Date | string | number) => {

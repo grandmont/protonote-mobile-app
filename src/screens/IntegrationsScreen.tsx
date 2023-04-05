@@ -9,9 +9,10 @@ import SpotifyIntegration from "@components/integrations/spotify/SpotifyIntegrat
 import DeezerIntegration from "@components/integrations/deezer/DeezerIntegration/DeezerIntegration";
 import { IntegrationProvider } from "@graphql/generated";
 import YouTubeIntegration from "@components/integrations/youtube/YouTubeIntegration/YouTubeIntegration";
+import i18n from "@i18n";
 
 export default function IntegrationsScreen() {
-  const title = "Integrations";
+  const title = i18n.t("settings.general.connectedApps");
 
   const [isLoading, setIsLoading] = useState(false);
   const [isToastVisible, setIsToastVisible] = useState(false);
@@ -33,7 +34,7 @@ export default function IntegrationsScreen() {
       [IntegrationProvider.Deezer]: "Deezer",
     }[provider];
 
-    setToastMessage(`${message} successfully connected!`);
+    setToastMessage(`${message} ${i18n.t("connectedApps.integrationSuccess")}`);
     setIsToastVisible(true);
     setIsLoading(false);
   };

@@ -40,15 +40,7 @@ export default function DeezerIntegration({
   );
 
   useEffect(() => {
-    if (["cancel", "dismiss"].includes(response?.type)) {
-      return onCancel();
-    }
-
     const deezerResponse = response as any;
-
-    if (deezerResponse?.error && !deezerResponse?.params?.accessToken) {
-      return onCancel();
-    }
 
     const registerIntegration = async () => {
       if (deezerResponse?.params?.accessToken) {
@@ -68,6 +60,8 @@ export default function DeezerIntegration({
 
         return onSuccess && onSuccess();
       }
+
+      return onCancel();
     };
 
     registerIntegration();
