@@ -4,7 +4,6 @@ import * as WebBrowser from "expo-web-browser";
 import { useAuthRequest } from "expo-auth-session";
 import { useMutation } from "@apollo/client";
 import { View } from "react-native-ui-lib";
-import Constants from "expo-constants";
 
 import { client } from "@services/client";
 import useAPISync from "@hooks/useAPISync";
@@ -13,8 +12,6 @@ import {
   IntegrationsDocument,
   RegisterYouTubeDocument,
 } from "@graphql/generated";
-
-const SCHEME = Constants.manifest.scheme;
 
 WebBrowser.maybeCompleteAuthSession();
 
