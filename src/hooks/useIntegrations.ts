@@ -10,6 +10,7 @@ import useAuth from "@hooks/useAuth";
 type IntegrationsMap = {
   spotifyIntegration?: Integration;
   deezerIntegration?: Integration;
+  youtubeIntegration?: Integration;
 };
 
 export default function useIntegrations() {
@@ -39,6 +40,12 @@ export default function useIntegrations() {
         return {
           ...acc,
           deezerIntegration: cur,
+        };
+
+      if (cur.provider === IntegrationProvider.Youtube)
+        return {
+          ...acc,
+          youtubeIntegration: cur,
         };
 
       return {

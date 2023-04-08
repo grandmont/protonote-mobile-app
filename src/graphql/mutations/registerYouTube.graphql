@@ -1,0 +1,5 @@
+mutation RegisterYouTube($input: RegisterIntegrationInput!) {
+  registerYouTube(input: $input) {
+    status
+  }
+}

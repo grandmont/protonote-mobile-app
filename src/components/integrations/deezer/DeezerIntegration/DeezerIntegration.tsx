@@ -16,11 +16,10 @@ import { Image } from "react-native";
 WebBrowser.maybeCompleteAuthSession();
 
 const DEEZER_APP_ID = "593224";
-const DEEZER_REDIRECT_URL =
-  "https://protonote-api-production.up.railway.app/deezer";
+const redirectUri = "https://protonote-api-production.up.railway.app/deezer";
 
 const discovery = {
-  authorizationEndpoint: `https://connect.deezer.com/oauth/auth.php?app_id=${DEEZER_APP_ID}&redirect_uri=${DEEZER_REDIRECT_URL}&perms=basic_access,listening_history,offline_access,email`,
+  authorizationEndpoint: `https://connect.deezer.com/oauth/auth.php?app_id=${DEEZER_APP_ID}&redirect_uri=${redirectUri}&perms=basic_access,listening_history,offline_access,email`,
 };
 
 export default function DeezerIntegration({
@@ -37,23 +36,21 @@ export default function DeezerIntegration({
     {
       clientId: DEEZER_APP_ID,
       usePKCE: false,
-      redirectUri: DEEZER_REDIRECT_URL,
+      redirectUri,
     },
     discovery
   );
 
   useEffect(() => {
-    const deezerResponse = response as any;
-
     const registerIntegration = async () => {
       await log({
         variables: {
-          message: JSON.stringify(deezerResponse),
+          message: JSON.stringify(response),
         },
       });
 
-      if (deezerResponse?.params?.accessToken) {
-        const { accessToken } = deezerResponse.params;
+      if (response?.type === "success" && response?.params?.accessToken) {
+        const { accessToken } = response.params;
 
         await registerDeezer({
           variables: {
@@ -90,7 +87,7 @@ export default function DeezerIntegration({
     >
       <View row centerV>
         <Image
-          source={require("assets/deezer-logo.png")}
+          source={require("assets/deezer-logo-colored.png")}
           style={{
             width: 76,
             height: 15,

@@ -32,6 +32,7 @@ export default function IntegrationsScreen() {
     const message = {
       [IntegrationProvider.Spotify]: "Spotify",
       [IntegrationProvider.Deezer]: "Deezer",
+      [IntegrationProvider.Youtube]: "YouTube",
     }[provider];
 
     setToastMessage(`${message} ${i18n.t("connectedApps.integrationSuccess")}`);
@@ -39,7 +40,8 @@ export default function IntegrationsScreen() {
     setIsLoading(false);
   };
 
-  const { spotifyIntegration, deezerIntegration } = integrations;
+  const { spotifyIntegration, deezerIntegration, youtubeIntegration } =
+    integrations;
 
   return (
     <ScreenLayout>
@@ -60,8 +62,8 @@ export default function IntegrationsScreen() {
       />
 
       <YouTubeIntegration
-        hasIntegration={false}
-        onSuccess={() => null}
+        hasIntegration={!!youtubeIntegration}
+        onSuccess={() => handleSuccess(IntegrationProvider.Youtube)}
         onStart={handleStart}
         onCancel={handleCancel}
       />
