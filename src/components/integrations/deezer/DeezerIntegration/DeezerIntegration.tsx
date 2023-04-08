@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import * as WebBrowser from "expo-web-browser";
 import { useAuthRequest } from "expo-auth-session";
 import { useMutation } from "@apollo/client";
-import { View, Text } from "react-native-ui-lib";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { View } from "react-native-ui-lib";
 
 import SwitchItem from "@components/elements/SwitchItem/SwitchItem";
 import { client } from "@services/client";
@@ -11,6 +10,8 @@ import {
   IntegrationsDocument,
   RegisterDeezerDocument,
 } from "@graphql/generated";
+import useAPISync from "@hooks/useAPISync";
+import { Image } from "react-native";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -30,6 +31,8 @@ export default function DeezerIntegration({
 }: IntegrationPropsType) {
   const [registerDeezer] = useMutation(RegisterDeezerDocument);
 
+  const { log } = useAPISync();
+
   const [request, response, promptAsync] = useAuthRequest(
     {
       clientId: DEEZER_APP_ID,
@@ -43,6 +46,12 @@ export default function DeezerIntegration({
     const deezerResponse = response as any;
 
     const registerIntegration = async () => {
+      await log({
+        variables: {
+          message: JSON.stringify(deezerResponse),
+        },
+      });
+
       if (deezerResponse?.params?.accessToken) {
         const { accessToken } = deezerResponse.params;
 
@@ -58,7 +67,7 @@ export default function DeezerIntegration({
           include: [IntegrationsDocument],
         });
 
-        return onSuccess && onSuccess();
+        return onSuccess();
       }
 
       return onCancel();
@@ -80,10 +89,13 @@ export default function DeezerIntegration({
       onValueChange={prompt}
     >
       <View row centerV>
-        <FontAwesome5 name="deezer" size={24} />
-        <Text marginL-12 title>
-          Deezer
-        </Text>
+        <Image
+          source={require("assets/deezer-logo.png")}
+          style={{
+            width: 76,
+            height: 15,
+          }}
+        />
       </View>
     </SwitchItem>
   );

@@ -12,7 +12,7 @@ type MemoDateType = {
 };
 
 type IntegrationDataType = {
-  title: string;
+  title: string | React.ReactNode;
   protoId: number;
   provider: IntegrationProvider;
 };

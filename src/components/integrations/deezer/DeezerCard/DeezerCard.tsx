@@ -7,11 +7,10 @@ interface DeezerCardProps extends DeezerItemType {
 
 export default function DeezerCard(props: DeezerCardProps) {
   const {
-    id,
     title,
     link,
     artist: { name: artistName },
-    album: { cover },
+    album: { title: albumTitle, cover },
     mode = "default",
   } = props;
 
@@ -29,21 +28,13 @@ export default function DeezerCard(props: DeezerCardProps) {
 
   const textColor = isDefault ? "white" : "black";
 
-  const cardBorderRadius = isDefault ? 12 : 0;
-
-  const borderRadius = isDefault && {
-    borderTopLeftRadius: 12,
-    borderBottomLeftRadius: 12,
-  };
-
   return (
     <Button onPress={handleOpenExternalUrl} link>
       <View
-        height={64}
+        height={70}
         flex
         style={{
           backgroundColor,
-          borderRadius: cardBorderRadius,
         }}
       >
         <View row spread top>
@@ -51,17 +42,34 @@ export default function DeezerCard(props: DeezerCardProps) {
             <Image
               source={{ uri: cover }}
               style={{
-                width: 64,
-                height: 64,
-                ...borderRadius,
+                width: 70,
+                height: 70,
               }}
             />
 
-            <View marginL-12 paddingT-6>
-              <Text color={textColor} title numberOfLines={1}>
+            <View marginL-12 paddingT-4>
+              <Text
+                color={textColor}
+                title
+                style={{ lineHeight: 24 }}
+                numberOfLines={1}
+              >
                 {title}
               </Text>
-              <Text color={textColor}>{artistName}</Text>
+              <Text
+                color={textColor}
+                style={{ fontSize: 12, lineHeight: 16 }}
+                numberOfLines={1}
+              >
+                {artistName}
+              </Text>
+              <Text
+                color={textColor}
+                style={{ fontSize: 12, lineHeight: 16 }}
+                numberOfLines={1}
+              >
+                {albumTitle}
+              </Text>
             </View>
           </View>
         </View>

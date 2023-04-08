@@ -1,7 +1,9 @@
 import { Linking } from "react-native";
-import { View, Colors, Image, Text, Button } from "react-native-ui-lib";
+import { View, Image, Text, Button } from "react-native-ui-lib";
+import ImageColors from "react-native-image-colors";
 
 import { SpotifyItem } from "@graphql/generated";
+import { useEffect, useState } from "react";
 
 interface SpotifyCardProps extends SpotifyItem {
   mode?: "default" | "light";
@@ -9,16 +11,23 @@ interface SpotifyCardProps extends SpotifyItem {
 
 export default function SpotifyCard(props: SpotifyCardProps) {
   const {
+    id,
     name,
-    album: { artists, images },
+    album: { name: albumName, artists, images },
     external_urls: { spotify },
     mode = "default",
-  } = props;
+  } = props as any;
+
+  const [backgroundColor, setBackgroundColor] = useState("white");
 
   const isDefault = mode === "default";
 
   const [{ name: artistName }] = artists;
   const [, albumCover] = images;
+
+  const uri = albumCover.url;
+
+  const textColor = isDefault ? "white" : "black";
 
   const handleGoToSpotify = async () => {
     const supported = await Linking.canOpenURL(spotify);
@@ -28,43 +37,70 @@ export default function SpotifyCard(props: SpotifyCardProps) {
     }
   };
 
-  const backgroundColor = isDefault ? Colors.spotify : "white";
+  const getBackgroundColor = async () => {
+    if (!isDefault) return;
 
-  const textColor = isDefault ? "white" : "black";
+    const result = await ImageColors.getColors(uri, {
+      fallback: "#191414",
+      cache: true,
+      key: id,
+    });
 
-  const cardBorderRadius = isDefault ? 12 : 0;
+    if (result.platform === "android") {
+      return setBackgroundColor(result.vibrant);
+    }
 
-  const borderRadius = isDefault && {
-    borderTopLeftRadius: 12,
-    borderBottomLeftRadius: 12,
+    if (result.platform === "ios") {
+      return setBackgroundColor(result.primary);
+    }
   };
+
+  useEffect(() => {
+    getBackgroundColor();
+  }, []);
 
   return (
     <Button onPress={handleGoToSpotify} link>
       <View
-        height={64}
+        height={70}
         flex
         style={{
           backgroundColor,
-          borderRadius: cardBorderRadius,
         }}
       >
         <View row spread top>
           <View row width="70%">
             <Image
-              source={{ uri: albumCover.url }}
+              source={{ uri }}
               style={{
-                width: 64,
-                height: 64,
-                ...borderRadius,
+                width: 70,
+                height: 70,
               }}
             />
 
-            <View marginL-12 paddingT-6>
-              <Text color={textColor} title numberOfLines={1}>
+            <View marginL-12 paddingT-4>
+              <Text
+                color={textColor}
+                title
+                style={{ lineHeight: 24 }}
+                numberOfLines={1}
+              >
                 {name}
               </Text>
-              <Text color={textColor}>{artistName}</Text>
+              <Text
+                color={textColor}
+                style={{ fontSize: 12, lineHeight: 16 }}
+                numberOfLines={1}
+              >
+                {artistName}
+              </Text>
+              <Text
+                color={textColor}
+                style={{ fontSize: 12, lineHeight: 16 }}
+                numberOfLines={1}
+              >
+                {albumName}
+              </Text>
             </View>
           </View>
         </View>

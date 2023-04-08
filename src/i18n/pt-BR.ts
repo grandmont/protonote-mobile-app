@@ -68,5 +68,10 @@ export default {
       somethingWentWrong:
         "Ocorreu um erro!\n Por favor, tente novamente mais tarde.",
     },
+    integrations: {
+      google: {
+        signIn: "Iniciar sessão com o Google",
+      },
+    },
   },
 };

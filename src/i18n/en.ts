@@ -67,5 +67,10 @@ export default {
     info: {
       somethingWentWrong: "Something went wrong!\n Please try again later.",
     },
+    integrations: {
+      google: {
+        signIn: "Sign in with Google",
+      },
+    },
   },
 };

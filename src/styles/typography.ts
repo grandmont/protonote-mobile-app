@@ -20,7 +20,7 @@ Typography.loadTypographies({
     lineHeight: 22,
   },
   google: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: "600",
     lineHeight: 16,
   },

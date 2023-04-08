@@ -13,6 +13,7 @@ export interface DeezerItemInterface {
     name: string;
   };
   album: {
+    title: string;
     cover: string;
   };
 }

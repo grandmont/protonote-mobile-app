@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Constants from "expo-constants";
-import { Platform } from "react-native";
+import { Platform, Image } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
 import { useMutation } from "@apollo/client";
@@ -124,10 +124,13 @@ export default function SpotifyIntegration({
       onValueChange={prompt}
     >
       <View row centerV>
-        <Entypo name="spotify" size={24} />
-        <Text marginL-12 title>
-          Spotify
-        </Text>
+        <Image
+          source={require("assets/Spotify_Logo_RGB_Black.png")}
+          style={{
+            width: 76,
+            height: 23,
+          }}
+        />
       </View>
     </SwitchItem>
   );

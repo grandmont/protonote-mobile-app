@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, Button } from "react-native-ui-lib";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { Image } from "react-native";
+import { View, Button } from "react-native-ui-lib";
 
 import ScreenSection from "@components/layout/ScreenSection";
 import {
@@ -29,7 +29,17 @@ export default function DeezerMemo({
 
   const handleViewData = () => {
     navigation.navigate("IntegrationData", {
-      title: "Deezer",
+      title: (
+        <View row centerH marginT-6>
+          <Image
+            source={require("assets/deezer-logo.png")}
+            style={{
+              width: 76,
+              height: 15,
+            }}
+          />
+        </View>
+      ),
       protoId,
       provider: IntegrationProvider.Deezer,
     });
@@ -38,11 +48,14 @@ export default function DeezerMemo({
   return (
     <ScreenSection
       title={
-        <View row centerV marginB-8>
-          <FontAwesome5 name="deezer" size={16} color="black" />
-          <Text title marginL-6>
-            deezer
-          </Text>
+        <View row centerV marginB-12>
+          <Image
+            source={require("assets/deezer-logo.png")}
+            style={{
+              width: 76,
+              height: 15,
+            }}
+          />
         </View>
       }
     >

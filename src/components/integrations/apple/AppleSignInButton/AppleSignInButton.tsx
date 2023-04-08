@@ -6,7 +6,7 @@ export default function AppleSignInButton({ onPress }) {
       buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
       buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
       cornerRadius={5}
-      style={{ width: 200, height: 36 }}
+      style={{ width: 250, height: 36 }}
       onPress={onPress}
     />
   );

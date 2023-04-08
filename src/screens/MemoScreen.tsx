@@ -35,8 +35,8 @@ export default function MemoScreen({ route }) {
           equals: dateString,
         },
       },
-      integrationsTake: 3,
-      deezerTake: 3,
+      integrationsTake: 1,
+      deezerTake: 1,
     },
   });
 

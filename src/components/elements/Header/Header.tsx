@@ -25,6 +25,8 @@ export default function Header({
     navigation.goBack();
   };
 
+  const isTitleString = typeof title === "string";
+
   return (
     <View>
       {canGoBack && (
@@ -50,10 +52,16 @@ export default function Header({
       )}
 
       <View height={28}>
-        {title && (
-          <Text h2 center={canGoBack}>
-            {title}
-          </Text>
+        {isTitleString ? (
+          <>
+            {title && (
+              <Text h2 center={canGoBack}>
+                {title}
+              </Text>
+            )}
+          </>
+        ) : (
+          title
         )}
       </View>
 

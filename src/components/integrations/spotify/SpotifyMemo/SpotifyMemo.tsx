@@ -1,6 +1,6 @@
+import { Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Button, Text, View } from "react-native-ui-lib";
-import Entypo from "@expo/vector-icons/Entypo";
+import { Button, View } from "react-native-ui-lib";
 
 import ScreenSection from "@components/layout/ScreenSection";
 import SpotifyCard from "@components/integrations/spotify/SpotifyCard/SpotifyCard";
@@ -30,7 +30,17 @@ export default function SpotifyMemo({
 
   const handleViewIntegrationData = () => {
     navigation.navigate("IntegrationData", {
-      title: "Spotify",
+      title: (
+        <View row centerH marginT-4>
+          <Image
+            source={require("assets/Spotify_Logo_RGB_Black.png")}
+            style={{
+              width: 76,
+              height: 23,
+            }}
+          />
+        </View>
+      ),
       protoId,
       provider: IntegrationProvider.Spotify,
     });
@@ -39,11 +49,14 @@ export default function SpotifyMemo({
   return (
     <ScreenSection
       title={
-        <View row centerV marginB-8>
-          <Entypo name="spotify" size={16} />
-          <Text title marginL-6>
-            Spotify
-          </Text>
+        <View row centerV marginB-12>
+          <Image
+            source={require("assets/Spotify_Logo_RGB_Black.png")}
+            style={{
+              width: 76,
+              height: 23,
+            }}
+          />
         </View>
       }
     >

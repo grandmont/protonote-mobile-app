@@ -59,6 +59,8 @@ export default function MemoDetailsSection({
         />
       )}
 
+      <Divider size="small" />
+
       {deezer.length > 0 && (
         <DeezerMemo protoId={protoId} deezer={deezer} count={_count.deezer} />
       )}
