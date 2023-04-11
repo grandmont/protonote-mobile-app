@@ -8,8 +8,8 @@ import useLocalQuery from "@hooks/useLocalQuery";
 import ScreenLayout from "@components/layout/ScreenLayout";
 import Greetings from "@components/home/Greetings/Greetings";
 import MemoSection from "@components/home/MemoSection/MemoSection";
+import AdBanner from "@components/home/AdBanner/AdBanner";
 import { getTodayDateString } from "@utils/parsers";
-// import AdBanner from "@components/home/AdBanner/AdBanner";
 
 export default function HomeScreen() {
   const todayDateString = getTodayDateString();
@@ -41,7 +41,7 @@ export default function HomeScreen() {
     <ScreenLayout>
       <Greetings />
 
-      {/* <AdBanner /> */}
+      <AdBanner />
 
       {!loading && <MemoSection {...today} />}
 

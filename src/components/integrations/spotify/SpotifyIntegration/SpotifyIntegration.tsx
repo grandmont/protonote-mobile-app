@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import Constants from "expo-constants";
-import { Platform, Image } from "react-native";
+import { Platform } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
 import { useMutation } from "@apollo/client";
-import { View, Text } from "react-native-ui-lib";
-import Entypo from "@expo/vector-icons/Entypo";
+import { View, Image } from "react-native-ui-lib";
 
 import {
   IntegrationProvider,
@@ -51,7 +50,10 @@ export default function SpotifyIntegration({
         "user-read-private",
         "user-read-email",
         "user-read-playback-state",
+        "user-read-currently-playing",
         "user-read-recently-played",
+        "playlist-modify-private",
+        "playlist-modify-public",
       ],
       usePKCE: false,
       redirectUri,

@@ -1,9 +1,8 @@
 import { useEffect } from "react";
-import { Image } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { useAuthRequest } from "expo-auth-session";
 import { useMutation } from "@apollo/client";
-import { View } from "react-native-ui-lib";
+import { View, Image } from "react-native-ui-lib";
 
 import { client } from "@services/client";
 import useAPISync from "@hooks/useAPISync";

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import * as WebBrowser from "expo-web-browser";
 import { useAuthRequest } from "expo-auth-session";
 import { useMutation } from "@apollo/client";
-import { View } from "react-native-ui-lib";
+import { View, Image } from "react-native-ui-lib";
 
 import SwitchItem from "@components/elements/SwitchItem/SwitchItem";
 import { client } from "@services/client";
@@ -11,7 +11,6 @@ import {
   RegisterDeezerDocument,
 } from "@graphql/generated";
 import useAPISync from "@hooks/useAPISync";
-import { Image } from "react-native";
 
 WebBrowser.maybeCompleteAuthSession();
 
