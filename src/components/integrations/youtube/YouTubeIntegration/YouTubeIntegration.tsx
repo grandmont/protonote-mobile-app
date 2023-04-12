@@ -83,7 +83,7 @@ export default function YouTubeIntegration({
   const prompt = async () => {
     if (hasIntegration) return;
     onStart();
-    await promptAsync();
+    await promptAsync({ showInRecents: true });
   };
 
   return (

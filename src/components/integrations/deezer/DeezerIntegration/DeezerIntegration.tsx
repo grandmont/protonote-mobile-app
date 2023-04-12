@@ -75,7 +75,7 @@ export default function DeezerIntegration({
   const prompt = async () => {
     if (hasIntegration) return;
     onStart();
-    await promptAsync();
+    await promptAsync({ showInRecents: true });
   };
 
   return (
